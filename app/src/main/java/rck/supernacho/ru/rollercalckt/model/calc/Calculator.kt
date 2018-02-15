@@ -1,4 +1,4 @@
-package rck.supernacho.ru.rollercalckt.model
+package rck.supernacho.ru.rollercalckt.model.calc
 
 class Calculator: Calculatable {
     override fun getLength(dMax: Int, dMin: Int, thick: Double): Double{

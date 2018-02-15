@@ -1,4 +1,4 @@
-package rck.supernacho.ru.rollercalckt.model
+package rck.supernacho.ru.rollercalckt.model.calc
 
 /**
  * Created by SuperNacho on 15.02.2018.

@@ -3,8 +3,8 @@ package rck.supernacho.ru.rollercalckt
 import org.junit.Test
 
 import org.junit.Assert.*
-import rck.supernacho.ru.rollercalckt.model.Calculator
-import rck.supernacho.ru.rollercalckt.model.Thickness
+import rck.supernacho.ru.rollercalckt.model.calc.Calculator
+import rck.supernacho.ru.rollercalckt.model.calc.Thickness
 
 /**
  * Example local unit test, which will execute on the development machine (host).
