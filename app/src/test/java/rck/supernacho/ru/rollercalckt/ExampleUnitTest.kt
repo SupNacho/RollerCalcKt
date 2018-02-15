@@ -4,6 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import rck.supernacho.ru.rollercalckt.model.Calculator
+import rck.supernacho.ru.rollercalckt.model.Thickness
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,8 +21,8 @@ class ExampleUnitTest {
 
     @Test
     fun calc_thickness_isCorrect(){
-        assertEquals(0.2, calc.getThickness(5, 1), 0.09)
-        assertEquals(0.5, calc.getThickness(20, 10), 0.09)
+        assertEquals(0.2, calc.getThickness(5, Thickness.ONE_MM), 0.09)
+        assertEquals(0.5, calc.getThickness(20, Thickness.TEN_MM), 0.09)
     }
 
 
