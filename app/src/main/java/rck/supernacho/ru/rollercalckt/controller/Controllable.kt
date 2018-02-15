@@ -1,7 +1,9 @@
 package rck.supernacho.ru.rollercalckt.controller
 
-/**
- * Created by SuperNacho on 15.02.2018.
- */
+
 interface Controllable {
+    fun setOuterD(outD: Int)
+    fun setInnerD(innD: Int)
+    fun setThick(thick: Double)
+    fun getLength()
 }
