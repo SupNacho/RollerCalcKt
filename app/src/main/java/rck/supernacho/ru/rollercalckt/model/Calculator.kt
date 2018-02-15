@@ -8,12 +8,12 @@ class Calculator {
         return (middleLayer * Math.PI * nLayers) / 1000
     }
 
-    fun getThickness(nLayers: Int, rule: Int): Double{
+    fun getThickness(nLayers: Int, rule: Thickness): Double{
         when (rule){
-            10 ->{
+            Thickness.TEN_MM ->{
                 return 10.0 / nLayers
             }
-            1 -> return 1.0 / nLayers
+            Thickness.ONE_MM -> return 1.0 / nLayers
         }
         return 0.0
     }
