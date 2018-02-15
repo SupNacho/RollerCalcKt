@@ -4,11 +4,18 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.SeekBar
+import android.widget.Spinner
+import android.widget.TextView
 
 import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.controller.CalcController
 
 /**
  * A simple [Fragment] subclass.
@@ -18,11 +25,19 @@ import rck.supernacho.ru.rollercalckt.R
  * Use the [CalcFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CalcFragment : Fragment() {
+class CalcFragment : Fragment(), View.OnKeyListener {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
+    private var cont: Context? = null
+    private lateinit var resultTextView: TextView
+    private lateinit var inputOuterD: EditText
+    private lateinit var inputInnD: EditText
+    public lateinit var seekIn: SeekBar
+    public lateinit var seekOut: SeekBar
+    public lateinit var spinner: Spinner
+    private lateinit var controller: CalcController
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -37,7 +52,26 @@ class CalcFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_calc, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_calc, container, false)
+        init(view)
+        return view
+    }
+
+    private fun init(view: View) {
+        resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
+        spinner = view.findViewById(R.id.calc_fragment_spinner_material)
+        seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
+        seekIn.max = 300
+        seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
+        seekOut.max = 1000
+        inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
+        inputOuterD.text = Editable.Factory.getInstance().newEditable("678")
+        inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
+        inputInnD.text = Editable.Factory.getInstance().newEditable("123")
+        inputInnD.setOnKeyListener(this)
+        inputOuterD.setOnKeyListener(this)
+        controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -51,6 +85,7 @@ class CalcFragment : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             mListener = context
+            cont = context
         } else {
             throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
         }
@@ -99,4 +134,26 @@ class CalcFragment : Fragment() {
             return fragment
         }
     }
-}// Required empty public constructor
+
+    override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+        when(p0){
+            inputInnD -> {
+                if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
+                        && !inputInnD.text.isEmpty()){
+                    seekIn.progress = inputInnD.text.toString().toInt()
+                    controller.getLength()
+                    return true
+                }
+            }
+            inputOuterD -> {
+                if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
+                        && !inputInnD.text.isEmpty()){
+                    seekOut.progress = inputInnD.text.toString().toInt()
+                    controller.getLength()
+                    return true
+                }
+            }
+        }
+        return false
+    }
+}
