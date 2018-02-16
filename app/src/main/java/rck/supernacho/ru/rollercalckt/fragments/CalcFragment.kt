@@ -5,17 +5,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
+import rck.supernacho.ru.rollercalckt.controller.Controllable
 
 /**
  * A simple [Fragment] subclass.
@@ -25,7 +24,7 @@ import rck.supernacho.ru.rollercalckt.controller.CalcController
  * Use the [CalcFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CalcFragment : Fragment(), View.OnKeyListener {
+class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -34,10 +33,13 @@ class CalcFragment : Fragment(), View.OnKeyListener {
     private lateinit var resultTextView: TextView
     private lateinit var inputOuterD: EditText
     private lateinit var inputInnD: EditText
-    public lateinit var seekIn: SeekBar
-    public lateinit var seekOut: SeekBar
-    public lateinit var spinner: Spinner
-    private lateinit var controller: CalcController
+    private lateinit var seekIn: SeekBar
+    private lateinit var seekOut: SeekBar
+    private lateinit var spinner: Spinner
+    private lateinit var controller: Controllable
+
+    private var tempInnD: String = ""
+    private var tempOutD: String = ""
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -69,7 +71,9 @@ class CalcFragment : Fragment(), View.OnKeyListener {
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
         inputInnD.text = Editable.Factory.getInstance().newEditable("123")
         inputInnD.setOnKeyListener(this)
+        inputInnD.setOnFocusChangeListener(this)
         inputOuterD.setOnKeyListener(this)
+        inputOuterD.setOnFocusChangeListener(this)
         controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
 
     }
@@ -139,21 +143,55 @@ class CalcFragment : Fragment(), View.OnKeyListener {
         when(p0){
             inputInnD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
-                        && !inputInnD.text.isEmpty()){
+                        && inputInnD.text.isNotBlank()){
+                    Log.d("--", "Inner "+inputInnD.text.length)
                     seekIn.progress = inputInnD.text.toString().toInt()
+                    tempInnD = inputInnD.text.toString()
                     controller.getLength()
                     return true
                 }
             }
             inputOuterD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
-                        && !inputInnD.text.isEmpty()){
-                    seekOut.progress = inputInnD.text.toString().toInt()
+                        && inputOuterD.text.isNotBlank()){
+                    Log.d("--", "Outer "+inputOuterD.text.length)
+                    seekOut.progress = inputOuterD.text.toString().toInt()
+                    tempOutD = inputOuterD.text.toString()
                     controller.getLength()
                     return true
                 }
             }
+            else -> {
+                Toast.makeText(context, "No such element in listener", Toast.LENGTH_SHORT).show()
+            }
         }
         return false
+    }
+
+    override fun onClick(p0: View?) {
+
+    }
+
+    override fun onFocusChange(p0: View?, p1: Boolean) {
+        when(p0){
+            inputInnD -> {
+                if (p1) {
+                    Log.d("--", "OnClick innreD")
+                    tempInnD = inputInnD.text.toString()
+                    inputInnD.text = Editable.Factory.getInstance().newEditable("")
+                } else {
+                    inputInnD.text = Editable.Factory.getInstance().newEditable(tempInnD)
+                }
+            }
+            inputOuterD -> {
+                if (p1) {
+                    Log.d("--", "OnClick outerD")
+                    tempOutD = inputOuterD.text.toString()
+                    inputOuterD.text = Editable.Factory.getInstance().newEditable("")
+                } else {
+                    inputOuterD.text = Editable.Factory.getInstance().newEditable(tempOutD)
+                }
+            }
+        }
     }
 }
