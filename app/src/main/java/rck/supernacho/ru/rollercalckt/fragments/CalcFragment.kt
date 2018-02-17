@@ -1,7 +1,6 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -30,6 +29,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private var mParam1: String? = null
     private var mParam2: String? = null
     private var cont: Context? = null
+    private lateinit var addButton: Button
     private lateinit var resultTextView: TextView
     private lateinit var inputOuterD: EditText
     private lateinit var inputInnD: EditText
@@ -60,12 +60,15 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun init(view: View) {
+        addButton = view.findViewById(R.id.calc_fragment_button_add_material)
+        addButton.requestFocus()
+        addButton.setOnClickListener(this)
         resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
         spinner = view.findViewById(R.id.calc_fragment_spinner_material)
         seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
-        seekIn.max = 300
+        seekIn.max = 150
         seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
-        seekOut.max = 1000
+        seekOut.max = 300
         inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
         inputOuterD.text = Editable.Factory.getInstance().newEditable("678")
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
@@ -79,9 +82,9 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    fun onButtonPressed(command: String) {
         if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
+            mListener!!.onFragmentInteraction(command)
         }
     }
 
@@ -111,7 +114,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
      */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(view: String)
     }
 
     companion object {
@@ -169,7 +172,11 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     override fun onClick(p0: View?) {
-
+        when(p0){
+            addButton -> {
+                onButtonPressed("add_fragment")
+            }
+        }
     }
 
     override fun onFocusChange(p0: View?, p1: Boolean) {
