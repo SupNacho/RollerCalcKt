@@ -1,7 +1,4 @@
 package rck.supernacho.ru.rollercalckt.model
 
-/**
- * Created by SuperNacho on 17.02.2018.
- */
-class Material {
+class Material(val id: Long, val brand: String, val thickness: Double) {
 }
