@@ -4,10 +4,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import rck.supernacho.ru.rollercalckt.fragments.AddMaterialFragment
 import rck.supernacho.ru.rollercalckt.fragments.CalcFragment
 
-class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
+        AddMaterialFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -41,7 +45,19 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
                 .commit()
     }
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onFragmentInteraction(command: String) {
+        when(command){
+            "add_fragment" -> {
+                Toast.makeText(this,"Button Add", Toast.LENGTH_SHORT).show()
+                val addMaterialFragment = AddMaterialFragment.newInstance("tt","tt")
+                supportFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .add(R.id.fragment_container, addMaterialFragment)
+                        .commit()
+            }
+            else -> {
+                Toast.makeText(this,"Passed command: " + command , Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
