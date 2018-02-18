@@ -3,7 +3,6 @@ package rck.supernacho.ru.rollercalckt.controller
 import android.content.Context
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.fragment_calc.view.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.calc.Calculator
 
