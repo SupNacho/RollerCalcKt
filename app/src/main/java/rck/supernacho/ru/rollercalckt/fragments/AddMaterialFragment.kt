@@ -1,19 +1,32 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ListView
+import android.widget.Toast
 
 import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
+import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 
 
-class AddMaterialFragment : Fragment() {
+class AddMaterialFragment : Fragment(), View.OnClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
+
+    private lateinit var editTextBrandName: EditText
+    private lateinit var editTextBrandThick: EditText
+    private lateinit var listViewMaterials: ListView
+    private lateinit var buttonAdd: Button
+    private lateinit var buttonUpd: Button
+    private lateinit var buttonDel: Button
+    private lateinit var matController: ManageableMaterials
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -27,8 +40,23 @@ class AddMaterialFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_add_material, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_add_material, container, false)
+        init(view)
+        return view
+    }
+
+    fun init(view: View){
+        editTextBrandName = view.findViewById(R.id.add_frag_edit_text_material_name)
+        editTextBrandThick = view.findViewById(R.id.add_frag_edit_text_material_thick)
+        listViewMaterials = view.findViewById(R.id.add_frag_list_view_materials)
+        buttonAdd = view.findViewById(R.id.add_frag_button_new_material)
+        buttonUpd = view.findViewById(R.id.add_frag_button_update)
+        buttonDel = view.findViewById(R.id.add_frag_button_delete)
+        buttonAdd.setOnClickListener(this)
+        buttonUpd.setOnClickListener(this)
+        buttonDel.setOnClickListener(this)
+        matController = CrudMaterialController(context, editTextBrandThick, editTextBrandName,
+                listViewMaterials, buttonDel, buttonUpd, buttonAdd)
     }
 
     fun onButtonPressed(command: String) {
@@ -49,6 +77,23 @@ class AddMaterialFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         mListener = null
+    }
+
+    override fun onClick(view: View?) {
+        when(view){
+            buttonAdd -> {
+                matController.add()
+            }
+            buttonUpd -> {
+                matController.edit()
+            }
+            buttonDel -> {
+                matController.remove()
+            }
+            else -> {
+                Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     interface OnFragmentInteractionListener {
