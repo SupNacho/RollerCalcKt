@@ -1,6 +1,8 @@
 package rck.supernacho.ru.rollercalckt.controller
 
 
-interface Manageable {
-
+interface ManageableMaterials {
+    fun add()
+    fun remove()
+    fun edit()
 }
