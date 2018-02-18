@@ -20,13 +20,14 @@ class MaterialMapper(private val context: Context) {
     }
 
     fun insert(brand: String, thickness: Double) {
-        var conValues = ContentValues()
-        conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
-        conValues.put(DataBaseFields.COLUMN_THICK.field, thickness)
+        val conValues = ContentValues()
         dataBase.beginTransaction()
         try {
-            var idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
-            var idThick = dataBase.insert(DataBaseFields.TABLE_THICKS.field, null, conValues)
+            conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
+            val idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
+            conValues.clear()
+            conValues.put(DataBaseFields.COLUMN_THICK.field, thickness)
+            val idThick = dataBase.insert(DataBaseFields.TABLE_THICKS.field, null, conValues)
             conValues.clear()
             conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
             conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
