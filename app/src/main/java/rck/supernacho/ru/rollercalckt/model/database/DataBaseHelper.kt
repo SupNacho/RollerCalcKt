@@ -14,7 +14,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(
 
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL("CREATE TABLE" + DataBaseFields.TABLE_MATERIALS.field + "(\n" +
+        db?.execSQL("CREATE TABLE " + DataBaseFields.TABLE_MATERIALS.field + "(\n" +
                 DataBaseFields.COLUMN_ID.field + " INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                 NOT NULL,\n" +
                 DataBaseFields.COLUMN_NAME.field + " TEXT\n" +
