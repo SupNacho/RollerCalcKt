@@ -1,10 +1,8 @@
 package rck.supernacho.ru.rollercalckt
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import rck.supernacho.ru.rollercalckt.fragments.AddMaterialFragment
