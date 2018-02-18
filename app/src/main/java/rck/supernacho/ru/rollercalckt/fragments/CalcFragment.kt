@@ -15,17 +15,8 @@ import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [CalcFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [CalcFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener {
 
-    // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
     private var cont: Context? = null
@@ -74,14 +65,13 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
         inputInnD.text = Editable.Factory.getInstance().newEditable("123")
         inputInnD.setOnKeyListener(this)
-        inputInnD.setOnFocusChangeListener(this)
+        inputInnD.onFocusChangeListener = this
         inputOuterD.setOnKeyListener(this)
-        inputOuterD.setOnFocusChangeListener(this)
+        inputOuterD.onFocusChangeListener = this
         controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(command: String) {
         if (mListener != null) {
             mListener!!.onFragmentInteraction(command)
@@ -113,25 +103,13 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
      * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(view: String)
     }
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private val ARG_PARAM1 = "param1"
         private val ARG_PARAM2 = "param2"
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalcFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         fun newInstance(param1: String, param2: String): CalcFragment {
             val fragment = CalcFragment()
             val args = Bundle()
