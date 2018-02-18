@@ -3,7 +3,7 @@ package rck.supernacho.ru.rollercalckt.model.database
 enum class DataBaseFields(val field: String) {
 
     DATABASE_NAME("rc_materials.db"),
-    DATABASE_VERSION("0"),
+    DATABASE_VERSION("1"),
     TABLE_MATERIALS("brands"),
     TABLE_THICKS("thicks"),
     TABLE_RESULTS("results"),
