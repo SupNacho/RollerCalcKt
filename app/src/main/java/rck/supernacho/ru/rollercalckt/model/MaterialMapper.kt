@@ -7,7 +7,7 @@ import rck.supernacho.ru.rollercalckt.model.database.DataBaseFields
 import rck.supernacho.ru.rollercalckt.model.database.DataBaseHelper
 
 
-class MaterialMapper(private val context: Context) {
+class MaterialMapper(context: Context) {
     private val dbHelper = DataBaseHelper(context)
     private lateinit var dataBase: SQLiteDatabase
 
@@ -22,7 +22,7 @@ class MaterialMapper(private val context: Context) {
     fun insert(brand: String, thickness: Double): Long {
         val conValues = ContentValues()
         dataBase.beginTransaction()
-        var id: Long
+        val id: Long
         try {
             conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
             val idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
@@ -69,17 +69,17 @@ class MaterialMapper(private val context: Context) {
         dataBase.beginTransaction()
         try {
 
-            if (newName != null) {
+            if (newName != null && newName != material.brand) {
                 contentValues.put(DataBaseFields.COLUMN_NAME.field, newName)
                 dataBase.update(DataBaseFields.TABLE_MATERIALS.field, contentValues,
                         DataBaseFields.COLUMN_ID.field +
-                        " = " + ids[0] + ";", null)
+                        " = " + ids[1] + ";", null)
             }
-            if (newThickness != null) {
+            if (newThickness != null && newThickness != material.thickness) {
                 contentValues.clear()
                 contentValues.put(DataBaseFields.COLUMN_THICK.field, newThickness)
                 dataBase.update(DataBaseFields.TABLE_THICKS.field, contentValues,
-                        DataBaseFields.COLUMN_ID.field + " = " + ids[1] + ";", null)
+                        DataBaseFields.COLUMN_ID.field + " = " + ids[2] + ";", null)
             }
             dataBase.setTransactionSuccessful()
         } finally {
@@ -92,78 +92,25 @@ class MaterialMapper(private val context: Context) {
                 + material.id, null)
     }
 
-    // Returns array of ids in tables 0 - Material, 1 - Thicks, 2 - Result
-    fun findByMaterial(material: Material): ArrayList<Long> {
-        var cursor = dataBase.rawQuery(
-                "select " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field + ", "
-                        + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK + " from " +
-                        DataBaseFields.TABLE_RESULTS + " join " + DataBaseFields.TABLE_MATERIALS.field + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field + " = " +
-                        DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID + " join " +
-                        DataBaseFields.TABLE_THICKS + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_THICK.field + " = " +
-                        DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID +
-                        " where " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID +
-                        " = " + material.id + " and " + DataBaseFields.TABLE_MATERIALS + "." + DataBaseFields.COLUMN_NAME +
-                        " and " + DataBaseFields.TABLE_THICKS + "." + DataBaseFields.COLUMN_THICK + " = " + material.thickness + ";",
+    // Returns array of ids in tables 0 - Result, 1 - Material, 2 - Thicks
+    private fun findByMaterial(material: Material): ArrayList<Long> {
+        val cursor = dataBase.rawQuery(
+                "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field
+                        + ", " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field
+                        + ", " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_THICK.field
+                        + " from " +
+                        DataBaseFields.TABLE_RESULTS.field +
+                        " where " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field +
+                        " = " + material.id + ";",
                 null
         )
 
         val ids: ArrayList<Long> = ArrayList()
+        cursor.moveToFirst()
         ids.add(cursor.getLong(0))
         ids.add(cursor.getLong(1))
         ids.add(cursor.getLong(2))
         cursor.close()
         return ids
     }
-
-    // Returns id in thickness table
-    fun findByThickness(thickness: Double): Long {
-        var cursor = dataBase.rawQuery(
-                "select " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID
-                        + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field + ", "
-                        + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK + " from " +
-                        DataBaseFields.TABLE_RESULTS + " join " + DataBaseFields.TABLE_MATERIALS.field + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field + " = " +
-                        DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID + " join " +
-                        DataBaseFields.TABLE_THICKS + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_THICK.field + " = " +
-                        DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID +
-                        " where " + DataBaseFields.TABLE_THICKS + "." + DataBaseFields.COLUMN_THICK +
-                        " = " + thickness + ";",
-                null
-        )
-        val idThickness = cursor.getLong(1)
-        return idThickness
-    }
-
-    //Return id in materials table
-    fun findByName(brandName: String): Long {
-        var cursor = dataBase.rawQuery(
-                "select " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID
-                        + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID
-                        + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field + ", "
-                        + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK + " from " +
-                        DataBaseFields.TABLE_RESULTS + " join " + DataBaseFields.TABLE_MATERIALS.field + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field + " = " +
-                        DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID + " join " +
-                        DataBaseFields.TABLE_THICKS + " on " +
-                        DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_THICK.field + " = " +
-                        DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID +
-                        " where " + DataBaseFields.TABLE_MATERIALS + "." + DataBaseFields.COLUMN_NAME + " = " +
-                        brandName + ";",
-                null
-        )
-        val idMaterials = cursor.getLong(0)
-        cursor.close()
-        return idMaterials
-    }
-
-
 }
