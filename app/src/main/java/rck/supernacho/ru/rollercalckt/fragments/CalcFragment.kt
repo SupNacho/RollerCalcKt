@@ -15,8 +15,10 @@ import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
 import rck.supernacho.ru.rollercalckt.controller.MainData
+import rck.supernacho.ru.rollercalckt.model.Material
 
-class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener {
+class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
+                        AdapterView.OnItemSelectedListener{
 
     private var mParam1: String? = null
     private var mParam2: String? = null
@@ -57,6 +59,10 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         addButton.setOnClickListener(this)
         resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
         spinner = view.findViewById(R.id.calc_fragment_spinner_material)
+        val materials = MainData.getMaterialList()
+        val spinnerAdapter = ArrayAdapter<Material>(context, android.R.layout.simple_list_item_1, materials)
+        spinner.adapter = spinnerAdapter
+        spinner.onItemSelectedListener = this
         seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
         seekIn.max = 150
         seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
@@ -148,6 +154,15 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             }
         }
         return false
+    }
+
+    override fun onNothingSelected(adapter: AdapterView<*>?) {
+        adapter?.setSelection(0)
+    }
+
+    override fun onItemSelected(adapter: AdapterView<*>?, view: View?, pos: Int, l: Long) {
+        val material = adapter?.getItemAtPosition(pos) as Material
+        controller.setThick(material.thickness)
     }
 
     override fun onClick(p0: View?) {
