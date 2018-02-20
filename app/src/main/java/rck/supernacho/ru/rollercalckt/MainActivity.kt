@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
         MainData.setMaterialMapper(matMapper)
+        MainData.onCreate()
         init()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -61,11 +62,6 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
                 Toast.makeText(this,"Passed command: " + command , Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        MainData.onResume()
     }
 
     override fun onPause() {
