@@ -14,7 +14,7 @@ import android.widget.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
-import rck.supernacho.ru.rollercalckt.controller.MainData
+import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.model.Material
 
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
@@ -59,7 +59,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         addButton.setOnClickListener(this)
         resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
         spinner = view.findViewById(R.id.calc_fragment_spinner_material)
-        val materials = MainData.getMaterialList()
+        val materials = MainController.getMaterialList()
         val spinnerAdapter = ArrayAdapter<Material>(context, android.R.layout.simple_list_item_1, materials)
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = this
@@ -76,7 +76,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         inputOuterD.setOnKeyListener(this)
         inputOuterD.onFocusChangeListener = this
         controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
-        MainData.setCalcController(controller)
+        MainController.setAdapterCalcFragment(spinnerAdapter)
+        MainController.setCalcController(controller)
     }
 
     fun onButtonPressed(command: String) {

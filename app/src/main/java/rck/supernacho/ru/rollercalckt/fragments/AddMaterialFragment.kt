@@ -12,7 +12,7 @@ import android.widget.*
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
-import rck.supernacho.ru.rollercalckt.controller.MainData
+import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 import rck.supernacho.ru.rollercalckt.model.Material
 
@@ -61,9 +61,10 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         buttonDel.setOnClickListener(this)
         matController = CrudMaterialController(context, editTextBrandThick, editTextBrandName,
                 listViewMaterials, buttonDel, buttonUpd, buttonAdd)
-        MainData.setMaterialController(matController)
-        materials = MainData.getMaterialList()
+        MainController.setMaterialController(matController)
+        materials = MainController.getMaterialList()
         adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, materials)
+        MainController.setAdapterAddFragment(adapter)
         listViewMaterials.adapter = adapter
         listViewMaterials.onItemClickListener = this
     }
@@ -99,15 +100,12 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         when(view){
             buttonAdd -> {
                 matController.add()
-                adapter.notifyDataSetChanged()
             }
             buttonUpd -> {
                 matController.edit(selectedItem)
-                adapter.notifyDataSetChanged()
             }
             buttonDel -> {
                 matController.remove(selectedItem)
-                adapter.notifyDataSetChanged()
             }
             else -> {
                 Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
