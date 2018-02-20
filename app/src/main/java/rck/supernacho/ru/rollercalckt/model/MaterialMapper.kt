@@ -19,9 +19,10 @@ class MaterialMapper(private val context: Context) {
         dataBase.close()
     }
 
-    fun insert(brand: String, thickness: Double) {
+    fun insert(brand: String, thickness: Double): Long {
         val conValues = ContentValues()
         dataBase.beginTransaction()
+        var id: Long
         try {
             conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
             val idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
@@ -31,25 +32,26 @@ class MaterialMapper(private val context: Context) {
             conValues.clear()
             conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
             conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
-            dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
+            id = dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
             dataBase.setTransactionSuccessful()
         } finally {
             dataBase.endTransaction()
         }
+        return id
     }
 
     fun getMaterials(): ArrayList<Material>{
         val materials: ArrayList<Material> = ArrayList()
         val cursor = dataBase.rawQuery(
-                "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID
+                "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field
                         + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field + ", "
-                        + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK + " from " +
-                        DataBaseFields.TABLE_RESULTS + " join " + DataBaseFields.TABLE_MATERIALS.field + " on " +
+                        + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK.field + " from " +
+                        DataBaseFields.TABLE_RESULTS.field + " join " + DataBaseFields.TABLE_MATERIALS.field + " on " +
                         DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field + " = " +
-                        DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID + " join " +
-                        DataBaseFields.TABLE_THICKS + " on " +
+                        DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID.field + " join " +
+                        DataBaseFields.TABLE_THICKS.field + " on " +
                         DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_THICK.field + " = " +
-                        DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID + ";", null
+                        DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID.field + ";", null
         )
         cursor.moveToFirst()
         while (!cursor.isAfterLast){
