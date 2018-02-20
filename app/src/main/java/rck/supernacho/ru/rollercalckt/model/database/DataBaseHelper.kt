@@ -37,6 +37,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if (oldVersion < newVersion) {
             db?.execSQL("DROP TABLE IF EXISTS " +  DataBaseFields.TABLE_MATERIALS.field)
+            db?.execSQL("DROP TABLE IF EXISTS " +  DataBaseFields.TABLE_THICKS.field)
+            db?.execSQL("DROP TABLE IF EXISTS " +  DataBaseFields.TABLE_RESULTS.field)
             onCreate(db)
         }
     }
