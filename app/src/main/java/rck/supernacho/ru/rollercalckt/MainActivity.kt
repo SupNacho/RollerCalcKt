@@ -5,8 +5,10 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import rck.supernacho.ru.rollercalckt.controller.MainData
 import rck.supernacho.ru.rollercalckt.fragments.AddMaterialFragment
 import rck.supernacho.ru.rollercalckt.fragments.CalcFragment
+import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
         AddMaterialFragment.OnFragmentInteractionListener {
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val matMapper = MaterialMapper(this)
+        MainData.setMaterialMapper(matMapper)
         init()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -57,5 +61,15 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
                 Toast.makeText(this,"Passed command: " + command , Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MainData.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MainData.onDestroy()
     }
 }
