@@ -3,20 +3,21 @@ package rck.supernacho.ru.rollercalckt.fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
+import rck.supernacho.ru.rollercalckt.controller.MainData
 import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
+import rck.supernacho.ru.rollercalckt.model.Material
 
 
-class AddMaterialFragment : Fragment(), View.OnClickListener {
+class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
 
@@ -27,6 +28,8 @@ class AddMaterialFragment : Fragment(), View.OnClickListener {
     private lateinit var buttonUpd: Button
     private lateinit var buttonDel: Button
     private lateinit var matController: ManageableMaterials
+    private lateinit var adapter : ArrayAdapter<Material>
+    private lateinit var materials : ArrayList<Material>
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -57,6 +60,11 @@ class AddMaterialFragment : Fragment(), View.OnClickListener {
         buttonDel.setOnClickListener(this)
         matController = CrudMaterialController(context, editTextBrandThick, editTextBrandName,
                 listViewMaterials, buttonDel, buttonUpd, buttonAdd)
+        MainData.setMaterialController(matController)
+        materials = MainData.getMaterialList()
+        adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, materials)
+        listViewMaterials.adapter = adapter
+        listViewMaterials.onItemClickListener = this
     }
 
     fun onButtonPressed(command: String) {
@@ -79,16 +87,27 @@ class AddMaterialFragment : Fragment(), View.OnClickListener {
         mListener = null
     }
 
+    override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {
+        val mat = adapter.getItem(pos)
+        Log.d("++", mat.toString() + " OnClick")
+        editTextBrandName.text = Editable.Factory.getInstance().newEditable(mat.brand)
+        editTextBrandThick.text = Editable.Factory.getInstance().newEditable(mat.thickness.toString())
+    }
+
     override fun onClick(view: View?) {
         when(view){
             buttonAdd -> {
                 matController.add()
+                adapter.notifyDataSetChanged()
+                Log.d("++", "AddFrag" + materials.hashCode())
             }
             buttonUpd -> {
                 matController.edit()
+                adapter.notifyDataSetChanged()
             }
             buttonDel -> {
                 matController.remove()
+                adapter.notifyDataSetChanged()
             }
             else -> {
                 Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
