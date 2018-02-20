@@ -18,8 +18,8 @@ class CrudMaterialController : ManageableMaterials{
 
     constructor(context: Context, vararg views: View){
         viewsArr = views
-        materialMapper = MainData.getMaterialMapper()
-        materials = MainData.getMaterialList()
+        materialMapper = MainController.getMaterialMapper()
+        materials = MainController.getMaterialList()
         for (view in views){
             if (view is EditText && view.id == R.id.add_frag_edit_text_material_name) editTextName = view
             if (view is EditText && view.id == R.id.add_frag_edit_text_material_thick) editTextThick = view
@@ -31,18 +31,21 @@ class CrudMaterialController : ManageableMaterials{
         if (!editTextName.text.isNullOrEmpty() && !editTextThick.text.isNullOrEmpty()) {
             val id = materialMapper.insert(editTextName.text.toString(), editTextThick.text.toString().toDouble())
             materials.add(Material(id, editTextName.text.toString(), editTextThick.text.toString().toDouble()))
+            MainController.updateLists()
         }
     }
 
     override fun remove(item: Material) {
         materialMapper.delete(item)
         materials.remove(item)
+        MainController.updateLists()
     }
 
     override fun edit(item: Material) {
         materialMapper.update(item, editTextName.text.toString(),
                 editTextThick.text.toString().toDouble())
         materials.clear()
-        MainData.getMaterialList()
+        MainController.getMaterialList()
+        MainController.updateLists()
     }
 }
