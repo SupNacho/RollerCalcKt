@@ -28,8 +28,9 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
     private lateinit var buttonUpd: Button
     private lateinit var buttonDel: Button
     private lateinit var matController: ManageableMaterials
-    private lateinit var adapter : ArrayAdapter<Material>
-    private lateinit var materials : ArrayList<Material>
+    private lateinit var adapter: ArrayAdapter<Material>
+    private lateinit var materials: ArrayList<Material>
+    private lateinit var selectedItem: Material
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -88,10 +89,10 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
     }
 
     override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {
-        val mat = adapter.getItem(pos)
-        Log.d("++", mat.toString() + " OnClick")
-        editTextBrandName.text = Editable.Factory.getInstance().newEditable(mat.brand)
-        editTextBrandThick.text = Editable.Factory.getInstance().newEditable(mat.thickness.toString())
+        selectedItem = adapter.getItem(pos)
+        Log.d("++", selectedItem.toString() + " OnClick")
+        editTextBrandName.text = Editable.Factory.getInstance().newEditable(selectedItem.brand)
+        editTextBrandThick.text = Editable.Factory.getInstance().newEditable(selectedItem.thickness.toString())
     }
 
     override fun onClick(view: View?) {
@@ -99,14 +100,13 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             buttonAdd -> {
                 matController.add()
                 adapter.notifyDataSetChanged()
-                Log.d("++", "AddFrag" + materials.hashCode())
             }
             buttonUpd -> {
-                matController.edit()
+                matController.edit(selectedItem)
                 adapter.notifyDataSetChanged()
             }
             buttonDel -> {
-                matController.remove()
+                matController.remove(selectedItem)
                 adapter.notifyDataSetChanged()
             }
             else -> {
