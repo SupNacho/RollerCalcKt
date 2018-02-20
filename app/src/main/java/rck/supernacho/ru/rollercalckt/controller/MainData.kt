@@ -24,7 +24,7 @@ object MainData {
         return materials
     }
 
-    fun onResume(){
+    fun onCreate(){
         materialMaper.open()
     }
 
