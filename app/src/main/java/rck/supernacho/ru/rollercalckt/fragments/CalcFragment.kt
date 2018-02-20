@@ -14,6 +14,7 @@ import android.widget.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
+import rck.supernacho.ru.rollercalckt.controller.MainData
 
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener {
 
@@ -69,7 +70,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         inputOuterD.setOnKeyListener(this)
         inputOuterD.onFocusChangeListener = this
         controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
-
+        MainData.setCalcController(controller)
     }
 
     fun onButtonPressed(command: String) {
