@@ -18,7 +18,7 @@ import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.model.Material
 
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
-                        AdapterView.OnItemSelectedListener{
+                        AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener{
 
     private var mParam1: String? = null
     private var mParam2: String? = null
@@ -67,6 +67,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         seekIn.max = 150
         seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
         seekOut.max = 300
+        seekIn.setOnSeekBarChangeListener(this)
+        seekOut.setOnSeekBarChangeListener(this)
         inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
         inputOuterD.text = Editable.Factory.getInstance().newEditable("678")
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
@@ -164,6 +166,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     override fun onItemSelected(adapter: AdapterView<*>?, view: View?, pos: Int, l: Long) {
         val material = adapter?.getItemAtPosition(pos) as Material
         controller.setThick(material.thickness)
+        controller.getLength()
     }
 
     override fun onClick(p0: View?) {
@@ -172,6 +175,27 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
                 onButtonPressed("add_fragment")
             }
         }
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, bool: Boolean) {
+        when(seekBar){
+            seekIn -> {
+                inputInnD.text = Editable.Factory.getInstance().newEditable(seekIn.progress.toString())
+            }
+            seekOut -> {
+                inputOuterD.text = Editable.Factory.getInstance().newEditable(seekOut.progress.toString())
+            }
+            else -> {
+                Toast.makeText(context, "No such SeekBar", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onStartTrackingTouch(p0: SeekBar?) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        controller.getLength()
     }
 
     override fun onFocusChange(p0: View?, p1: Boolean) {
