@@ -112,7 +112,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
      * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
      */
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(view: String)
+        fun onFragmentInteraction(command: String)
     }
 
     companion object {
