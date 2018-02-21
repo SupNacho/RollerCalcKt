@@ -23,13 +23,26 @@ class MaterialMapper(context: Context) {
         val conValues = ContentValues()
         dataBase.beginTransaction()
         val id: Long
+        var dublicateName = false
+        var dublicateThickness = false
         try {
-            conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
-            val idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
+            var idBrand = findByBrand(brand)
+            if ( idBrand <= 0){
+                conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
+                idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
+            } else {
+                dublicateName = true
+            }
             conValues.clear()
-            conValues.put(DataBaseFields.COLUMN_THICK.field, thickness)
-            val idThick = dataBase.insert(DataBaseFields.TABLE_THICKS.field, null, conValues)
+            var idThick = findByThickness(thickness)
+            if (idThick <= 0) {
+                conValues.put(DataBaseFields.COLUMN_THICK.field, thickness)
+                idThick = dataBase.insert(DataBaseFields.TABLE_THICKS.field, null, conValues)
+            } else {
+                dublicateThickness = true
+            }
             conValues.clear()
+            if (!dublicateName || !dublicateThickness)
             conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
             conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
             id = dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
@@ -112,5 +125,47 @@ class MaterialMapper(context: Context) {
         ids.add(cursor.getLong(2))
         cursor.close()
         return ids
+    }
+    // Returns id if brand already in base
+    private fun findByBrand(brand: String): Long {
+        val cursor = dataBase.rawQuery(
+                "select " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_ID.field
+                        + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field
+                        + " from " + DataBaseFields.TABLE_MATERIALS.field +
+                        " where " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field +
+                        " = " + "'" + brand + "'" + ";",
+                null
+        )
+
+        cursor.moveToFirst()
+        var id: Long
+        if( cursor.count > 0) {
+            id = cursor.getLong(0)
+        } else {
+            id = 0
+        }
+        cursor.close()
+        return id
+    }
+    // Returns id if thickness already in base
+    private fun findByThickness(thickness: Double): Long {
+        val cursor = dataBase.rawQuery(
+                "select " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_ID.field
+                        + ", " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK.field
+                        + " from " + DataBaseFields.TABLE_THICKS.field +
+                        " where " + DataBaseFields.TABLE_THICKS.field + "." + DataBaseFields.COLUMN_THICK.field +
+                        " = " + thickness + ";",
+                null
+        )
+
+        cursor.moveToFirst()
+        var id: Long
+        if( cursor.count > 0) {
+            id = cursor.getLong(0)
+        } else {
+            id = 0
+        }
+        cursor.close()
+        return id
     }
 }
