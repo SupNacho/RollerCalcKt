@@ -47,7 +47,6 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_calc, container, false)
         init(view)
         return view
@@ -70,9 +69,9 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         seekIn.setOnSeekBarChangeListener(this)
         seekOut.setOnSeekBarChangeListener(this)
         inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
-        inputOuterD.text = Editable.Factory.getInstance().newEditable("678")
+        setInputOutD("144")
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
-        inputInnD.text = Editable.Factory.getInstance().newEditable("123")
+        setInputInnD("83")
         inputInnD.setOnKeyListener(this)
         inputInnD.onFocusChangeListener = this
         inputOuterD.setOnKeyListener(this)
@@ -180,10 +179,10 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, bool: Boolean) {
         when(seekBar){
             seekIn -> {
-                inputInnD.text = Editable.Factory.getInstance().newEditable(seekIn.progress.toString())
+                setInputInnD(seekIn.progress.toString())
             }
             seekOut -> {
-                inputOuterD.text = Editable.Factory.getInstance().newEditable(seekOut.progress.toString())
+               setInputOutD(seekOut.progress.toString())
             }
             else -> {
                 Toast.makeText(context, "No such SeekBar", Toast.LENGTH_SHORT).show()
@@ -202,22 +201,27 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         when(p0){
             inputInnD -> {
                 if (p1) {
-                    Log.d("--", "OnClick innreD")
                     tempInnD = inputInnD.text.toString()
-                    inputInnD.text = Editable.Factory.getInstance().newEditable("")
+                    setInputInnD("")
                 } else {
-                    inputInnD.text = Editable.Factory.getInstance().newEditable(tempInnD)
+                    setInputInnD(tempInnD)
                 }
             }
             inputOuterD -> {
                 if (p1) {
-                    Log.d("--", "OnClick outerD")
                     tempOutD = inputOuterD.text.toString()
-                    inputOuterD.text = Editable.Factory.getInstance().newEditable("")
+                   setInputOutD("")
                 } else {
-                    inputOuterD.text = Editable.Factory.getInstance().newEditable(tempOutD)
+                    setInputOutD(tempOutD)
                 }
             }
         }
+    }
+
+    private fun setInputInnD(string: String) {
+        inputInnD.text = Editable.Factory.getInstance().newEditable(string)
+    }
+    private fun setInputOutD(string: String) {
+        inputOuterD.text = Editable.Factory.getInstance().newEditable(string)
     }
 }
