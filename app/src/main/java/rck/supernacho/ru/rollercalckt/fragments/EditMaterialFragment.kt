@@ -17,7 +17,7 @@ import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 import rck.supernacho.ru.rollercalckt.model.Material
 
 
-class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener {
+class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
 
@@ -121,8 +121,8 @@ class AddMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         private val ARG_PARAM1 = "param1"
         private val ARG_PARAM2 = "param2"
 
-        fun newInstance(param1: String, param2: String): AddMaterialFragment {
-            val fragment = AddMaterialFragment()
+        fun newInstance(param1: String, param2: String): EditMaterialFragment {
+            val fragment = EditMaterialFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
