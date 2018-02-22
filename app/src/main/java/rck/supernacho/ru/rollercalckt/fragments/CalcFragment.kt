@@ -1,10 +1,10 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +15,7 @@ import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
 import rck.supernacho.ru.rollercalckt.controller.MainController
+import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.model.Material
 
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
@@ -31,6 +32,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private lateinit var seekOut: SeekBar
     private lateinit var spinner: Spinner
     private lateinit var controller: Controllable
+    private lateinit var prefs: PrefsController
 
     private var tempInnD: String = ""
     private var tempOutD: String = ""
@@ -53,6 +55,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun init(view: View) {
+        prefs = MainController.getPrefController()
         addButton = view.findViewById(R.id.calc_fragment_button_add_material)
         addButton.requestFocus()
         addButton.setOnClickListener(this)
@@ -63,15 +66,14 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = this
         seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
-        seekIn.max = 150
         seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
-        seekOut.max = 300
         seekIn.setOnSeekBarChangeListener(this)
         seekOut.setOnSeekBarChangeListener(this)
         inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
-        setInputOutD("144")
         inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
-        setInputInnD("83")
+        setInputOutD(prefs.getOuterLast())
+        setInputInnD(prefs.getInnerLast())
+        restoreSeekProgress()
         inputInnD.setOnKeyListener(this)
         inputInnD.onFocusChangeListener = this
         inputOuterD.setOnKeyListener(this)
@@ -81,7 +83,15 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         MainController.setCalcController(controller)
     }
 
-    fun onButtonPressed(command: String) {
+    private fun restoreSeekProgress() {
+        seekIn.max = prefs.getInnerMax().toInt()
+        seekOut.max = prefs.getOuterMax().toInt()
+        if (Build.VERSION.SDK_INT >= 26) seekOut.min = seekIn.max
+        seekOut.progress = prefs.getOuterLast().toInt()
+        seekIn.progress = prefs.getInnerLast().toInt()
+    }
+
+    private fun onButtonPressed(command: String) {
         if (mListener != null) {
             mListener!!.onFragmentInteraction(command)
         }
@@ -102,22 +112,13 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         mListener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(view: String)
+        fun onFragmentInteraction(command: String)
     }
 
     companion object {
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
 
         fun newInstance(param1: String, param2: String): CalcFragment {
             val fragment = CalcFragment()
@@ -134,9 +135,9 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             inputInnD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
                         && inputInnD.text.isNotBlank()){
-                    Log.d("--", "Inner "+inputInnD.text.length)
                     seekIn.progress = inputInnD.text.toString().toInt()
                     tempInnD = inputInnD.text.toString()
+                    prefs.setLastInner(inputInnD.text.toString())
                     controller.getLength()
                     return true
                 }
@@ -144,9 +145,9 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             inputOuterD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
                         && inputOuterD.text.isNotBlank()){
-                    Log.d("--", "Outer "+inputOuterD.text.length)
                     seekOut.progress = inputOuterD.text.toString().toInt()
                     tempOutD = inputOuterD.text.toString()
+                    prefs.setLastOuter(inputOuterD.text.toString())
                     controller.getLength()
                     return true
                 }
@@ -194,6 +195,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        prefs.setLastOuter(inputOuterD.text.toString())
+        prefs.setLastInner(inputInnD.text.toString())
         controller.getLength()
     }
 

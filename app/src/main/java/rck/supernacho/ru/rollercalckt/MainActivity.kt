@@ -1,65 +1,104 @@
 package rck.supernacho.ru.rollercalckt
 
+import android.app.FragmentManager
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import rck.supernacho.ru.rollercalckt.controller.MainController
-import rck.supernacho.ru.rollercalckt.fragments.AddMaterialFragment
+import rck.supernacho.ru.rollercalckt.controller.PrefsController
+import rck.supernacho.ru.rollercalckt.fragments.EditMaterialFragment
 import rck.supernacho.ru.rollercalckt.fragments.CalcFragment
+import rck.supernacho.ru.rollercalckt.fragments.FragmentsTags
+import rck.supernacho.ru.rollercalckt.fragments.SettingsFragment
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
-        AddMaterialFragment.OnFragmentInteractionListener {
+        EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-//                message.setText(R.string.title_home)
+                Log.d("++", "BackStack: ${supportFragmentManager.backStackEntryCount}")
+                    removeFragments()
+                Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_help -> {
-//                message.setText(R.string.title_help)
+            R.id.navigation_about -> {
+                removeFragments()
+                Log.d("++", "Main calc BackStack: ${supportFragmentManager.backStackEntryCount}")
+//                supportFragmentManager.beginTransaction()
+//                        .addToBackStack(FragmentsTags.ABOUT.tag)
+//                        .add(R.id.fragment_container, EditMaterialFragment.newInstance("tt", "tt"),
+//                                FragmentsTags.SETTINGS.tag)
+//                        .commit()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
-//                message.setText(R.string.title_settings)
+            R.id.navigation_settings -> {
+                removeFragments()
+                Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
+                supportFragmentManager.beginTransaction()
+                        .addToBackStack(FragmentsTags.SETTINGS.tag)
+                        .replace(R.id.fragment_container, SettingsFragment.newInstance("tt", "tt"),
+                                FragmentsTags.SETTINGS.tag)
+                        .commit()
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
+    private fun removeFragments() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            val tag = supportFragmentManager.getBackStackEntryAt(0).name
+            if (tag == FragmentsTags.EDIT_MATERIALS.tag || tag == FragmentsTags.SETTINGS.tag ||
+                    tag == FragmentsTags.ABOUT.tag) {
+                Log.d("++", "BackStack in func: $tag")
+                val fragment = supportFragmentManager.findFragmentByTag(tag)
+                supportFragmentManager.beginTransaction()
+                        .remove(fragment)
+                        .commit()
+                supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            } else {
+                Toast.makeText(this, "No such fragment", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
+        val prefController = PrefsController(this)
+        MainController.setPrefController(prefController)
         MainController.setMaterialMapper(matMapper)
         MainController.onCreate()
         init()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.selectedItemId = R.id.navigation_home
     }
 
-    fun init(){
-        val calcFragment = CalcFragment.newInstance("tt","tt")
+    private fun init() {
+        val calcFragment = CalcFragment.newInstance("tt", "tt")
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, calcFragment)
+                .add(R.id.fragment_container, calcFragment, FragmentsTags.CALCULATE.tag)
                 .commit()
     }
 
     override fun onFragmentInteraction(command: String) {
-        when(command){
+        when (command) {
             "add_fragment" -> {
-                Toast.makeText(this,"Button Add", Toast.LENGTH_SHORT).show()
-                val addMaterialFragment = AddMaterialFragment.newInstance("tt","tt")
+                Toast.makeText(this, "Button Add", Toast.LENGTH_SHORT).show()
+                val editMaterialFragment = EditMaterialFragment.newInstance("tt", "tt")
                 supportFragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .add(R.id.fragment_container, addMaterialFragment)
+                        .addToBackStack(FragmentsTags.EDIT_MATERIALS.tag)
+                        .replace(R.id.fragment_container, editMaterialFragment, FragmentsTags.EDIT_MATERIALS.tag)
                         .commit()
             }
             else -> {
-                Toast.makeText(this,"Passed command: " + command , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Passed command: " + command, Toast.LENGTH_SHORT).show()
             }
         }
     }
