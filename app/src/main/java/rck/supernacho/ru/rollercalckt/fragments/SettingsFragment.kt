@@ -4,25 +4,29 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 
 import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.controller.MainController
+import rck.supernacho.ru.rollercalckt.controller.PrefsController
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [SettingsFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListener {
 
-    // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
+
+    private var tempInnMax = "150"
+    private var tempOutMax = "300"
+    private lateinit var editTextMaxInnD: EditText
+    private lateinit var editTextMaxOutD: EditText
+    private lateinit var prefs: PrefsController
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -36,15 +40,81 @@ class SettingsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_settings, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_settings, container, false)
+        init(view)
+        return view
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    private fun init(view: View) {
+        prefs = MainController.getPrefController()
+        editTextMaxInnD = view.findViewById(R.id.edit_text_set_inner_d)
+        editTextMaxInnD.setOnKeyListener(this)
+        editTextMaxInnD.onFocusChangeListener = this
+        editTextMaxOutD = view.findViewById(R.id.edit_text_set_outer_d)
+        editTextMaxOutD.setOnKeyListener(this)
+        editTextMaxOutD.onFocusChangeListener = this
+        editTextMaxInnD.text = Editable.Factory.getInstance().newEditable(prefs.getInnerMax())
+        editTextMaxOutD.text = Editable.Factory.getInstance().newEditable(prefs.getOuterMax())
+    }
+
+    fun onButtonPressed(command: String) {
         if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
+            mListener!!.onFragmentInteraction(command)
         }
+    }
+
+    override fun onFocusChange(p0: View?, p1: Boolean) {
+        when (p0) {
+            editTextMaxInnD -> {
+                if (p1) {
+                    tempInnMax = editTextMaxInnD.text.toString()
+                    setInputInnD("")
+                } else {
+                    setInputInnD(tempInnMax)
+                }
+            }
+            editTextMaxOutD -> {
+                if (p1) {
+                    tempOutMax = editTextMaxOutD.text.toString()
+                    setInputOutD("")
+                } else {
+                    setInputOutD(tempOutMax)
+                }
+            }
+        }
+    }
+
+    private fun setInputInnD(string: String) {
+        editTextMaxInnD.text = Editable.Factory.getInstance().newEditable(string)
+    }
+
+    private fun setInputOutD(string: String) {
+        editTextMaxOutD.text = Editable.Factory.getInstance().newEditable(string)
+    }
+
+    override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
+        when (p0) {
+            editTextMaxInnD -> {
+                if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
+                        && editTextMaxInnD.text.isNotBlank()) {
+                    tempInnMax = editTextMaxInnD.text.toString()
+                    prefs.setInnerMax(tempInnMax)
+                    return true
+                }
+            }
+            editTextMaxOutD -> {
+                if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
+                        && editTextMaxOutD.text.isNotBlank()) {
+                    tempOutMax = editTextMaxOutD.text.toString()
+                    prefs.setOuterMax(tempOutMax)
+                    return true
+                }
+            }
+            else -> {
+                Toast.makeText(context, "No such element in listener", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return false
     }
 
     override fun onAttach(context: Context?) {
@@ -61,35 +131,14 @@ class SettingsFragment : Fragment() {
         mListener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(command: String)
     }
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private val ARG_PARAM1 = "param1"
         private val ARG_PARAM2 = "param2"
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         fun newInstance(param1: String, param2: String): SettingsFragment {
             val fragment = SettingsFragment()
             val args = Bundle()
@@ -99,4 +148,4 @@ class SettingsFragment : Fragment() {
             return fragment
         }
     }
-}// Required empty public constructor
+}
