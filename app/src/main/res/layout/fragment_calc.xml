@@ -23,8 +23,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select material:"
-                android:textSize="24dp"/>
+                android:text="@string/calc_select_material_text_view"
+                android:textSize="24sp"/>
 
             <Spinner
                 android:id="@+id/calc_fragment_spinner_material"
@@ -41,8 +41,9 @@
             android:layout_height="40dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="52dp"
-            android:text="EDIT"
-            app:layout_constraintLeft_toRightOf="@+id/calc_fragment_spinner_material"/>
+            android:text="@string/calc_edit_button"
+            app:layout_constraintLeft_toRightOf="@+id/calc_fragment_spinner_material"
+            android:layout_marginEnd="20dp"/>
     </LinearLayout>
 
     <TextView
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="4"
-            android:text="Inner D:"
+            android:text="@string/calc_inner_d_text_view"
             />
 
         <EditText
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="4"
-            android:text="Outer D:"/>
+            android:text="@string/calc_outer_d_text_view"/>
 
         <EditText
             android:id="@+id/calc_fragment_outer_d"
