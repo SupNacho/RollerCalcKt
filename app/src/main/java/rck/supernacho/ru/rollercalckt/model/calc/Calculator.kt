@@ -1,6 +1,6 @@
 package rck.supernacho.ru.rollercalckt.model.calc
 
-class Calculator: Calculatable {
+class Calculator: Calculable {
     override fun getLength(dMax: Int, dMin: Int, thick: Double): String {
         val dRoll = (dMax - dMin) / 2
         val nLayers = dRoll / thick
@@ -9,11 +9,11 @@ class Calculator: Calculatable {
     }
 
     override fun getThickness(nLayers: Int, rule: Thickness): Double{
-        when (rule){
+        return when (rule){
             Thickness.TEN_MM ->{
-                return 10.0 / nLayers
+                10.0 / nLayers
             }
-            Thickness.ONE_MM -> return 1.0 / nLayers
+            Thickness.ONE_MM -> 1.0 / nLayers
         }
     }
 }
