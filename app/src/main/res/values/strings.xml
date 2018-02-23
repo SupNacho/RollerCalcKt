@@ -18,6 +18,7 @@
     <string name="settings_150_hint">150</string>
     <string name="settings_max_outer_d_mm_text_view">Max outer Ø mm:</string>
     <string name="settings_300_hint">300</string>
+    <string name="list_thickness"> thickness: </string>
     <string name="about_text">
         "Calculator for roll materials\n\n"
 
