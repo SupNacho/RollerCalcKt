@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
+              android:baselineAligned="false"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="horizontal"
@@ -24,43 +25,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Material name:"/>
+            android:text="@string/edit_material_material_name"/>
         <EditText
             android:id="@+id/add_frag_edit_text_material_name"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:layout_marginStart="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Material thickness:"/>
+            android:text="@string/edit_material_material_thickness"/>
         <EditText
             android:id="@+id/add_frag_edit_text_material_thick"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:layout_marginStart="10dp"/>
         <Button
             android:id="@+id/add_frag_button_new_material"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Add new material"/>
+            android:text="@string/edit_material_add_new_material_button"/>
         <Button
             android:id="@+id/add_frag_button_update"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Update material"/>
+            android:text="@string/edit_material_update_material_button"/>
         <Button
             android:id="@+id/add_frag_button_delete"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Delete material"/>
+            android:text="@string/edit_material_delete_material_button"/>
     </LinearLayout>
 </LinearLayout>

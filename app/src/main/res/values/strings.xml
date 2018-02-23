@@ -6,4 +6,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_material_material_name">Material name:</string>
+    <string name="edit_material_material_thickness">Material thickness:</string>
+    <string name="edit_material_add_new_material_button">Add new material</string>
+    <string name="edit_material_update_material_button">Update material</string>
+    <string name="edit_material_delete_material_button">Delete material</string>
 </resources>
