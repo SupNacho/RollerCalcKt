@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CalcController
@@ -55,7 +56,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun init(view: View) {
-        prefs = MainController.getPrefController()
+        prefs = (context as MainActivity).prefsController
         addButton = view.findViewById(R.id.calc_fragment_button_add_material)
         addButton.requestFocus()
         addButton.setOnClickListener(this)
