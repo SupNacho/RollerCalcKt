@@ -3,28 +3,30 @@ package rck.supernacho.ru.rollercalckt.controller
 import android.app.Activity
 import android.content.Context
 
-class PrefsController(private val context: Context) {
+class PrefsController(context: Context) {
+    companion object {
+        private const val RC_PREFS = "rc_preferences"
+        private const val RC_PREFS_INN_MAX = "inner_max"
+        private const val RC_PREFS_OUT_MAX = "outer_max"
+        private const val RC_PREFS_LAST_INN = "inner_last"
+        private const val RC_PREFS_LAST_OUT = "outer_last"
+    }
 
-    private val RC_PREFS = "rc_preferences"
-    private val RC_PREFS_INN_MAX = "inner_max"
-    private val RC_PREFS_OUT_MAX = "outer_max"
-    private val RC_PREFS_LAST_INN = "inner_last"
-    private val RC_PREFS_LAST_OUT = "outer_last"
     private val prefs = context.getSharedPreferences(RC_PREFS, Activity.MODE_PRIVATE)
 
-    fun setInnerMax(innMax: String){
+    fun setInnerMax(innMax: String) {
         prefs.edit().putString(RC_PREFS_INN_MAX, innMax).apply()
     }
 
-    fun setOuterMax(outMax: String){
+    fun setOuterMax(outMax: String) {
         prefs.edit().putString(RC_PREFS_OUT_MAX, outMax).apply()
     }
 
-    fun setLastInner(innLast: String){
+    fun setLastInner(innLast: String) {
         prefs.edit().putString(RC_PREFS_LAST_INN, innLast).apply()
     }
 
-    fun setLastOuter(outLast: String){
+    fun setLastOuter(outLast: String) {
         prefs.edit().putString(RC_PREFS_LAST_OUT, outLast).apply()
     }
 

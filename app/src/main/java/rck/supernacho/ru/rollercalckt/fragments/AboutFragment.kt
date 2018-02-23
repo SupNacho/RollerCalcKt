@@ -1,7 +1,6 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -57,8 +56,8 @@ class AboutFragment : Fragment() {
     }
 
     companion object {
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
 
         fun newInstance(param1: String, param2: String): AboutFragment {
             val fragment = AboutFragment()

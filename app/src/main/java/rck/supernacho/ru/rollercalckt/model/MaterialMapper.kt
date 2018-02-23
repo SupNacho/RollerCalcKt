@@ -23,15 +23,15 @@ class MaterialMapper(context: Context) {
         val conValues = ContentValues()
         dataBase.beginTransaction()
         val id: Long
-        var dublicateName = false
-        var dublicateThickness = false
+        var duplicateName = false
+        var duplicateThickness = false
         try {
             var idBrand = findByBrand(brand)
             if ( idBrand <= 0){
                 conValues.put(DataBaseFields.COLUMN_NAME.field, brand)
                 idBrand = dataBase.insert(DataBaseFields.TABLE_MATERIALS.field, null, conValues)
             } else {
-                dublicateName = true
+                duplicateName = true
             }
             conValues.clear()
             var idThick = findByThickness(thickness)
@@ -39,10 +39,10 @@ class MaterialMapper(context: Context) {
                 conValues.put(DataBaseFields.COLUMN_THICK.field, thickness)
                 idThick = dataBase.insert(DataBaseFields.TABLE_THICKS.field, null, conValues)
             } else {
-                dublicateThickness = true
+                duplicateThickness = true
             }
             conValues.clear()
-            if (!dublicateName || !dublicateThickness)
+            if (!duplicateName || !duplicateThickness)
             conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
             conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
             id = dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
@@ -105,7 +105,7 @@ class MaterialMapper(context: Context) {
                 + material.id, null)
     }
 
-    // Returns array of ids in tables 0 - Result, 1 - Material, 2 - Thicks
+    // Returns array of ids in tables 0 - Result, 1 - Material, 2 - Thickness
     private fun findByMaterial(material: Material): ArrayList<Long> {
         val cursor = dataBase.rawQuery(
                 "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field
@@ -138,11 +138,11 @@ class MaterialMapper(context: Context) {
         )
 
         cursor.moveToFirst()
-        var id: Long
-        if( cursor.count > 0) {
-            id = cursor.getLong(0)
+        val id: Long
+        id = if( cursor.count > 0) {
+            cursor.getLong(0)
         } else {
-            id = 0
+            0
         }
         cursor.close()
         return id
@@ -159,11 +159,11 @@ class MaterialMapper(context: Context) {
         )
 
         cursor.moveToFirst()
-        var id: Long
-        if( cursor.count > 0) {
-            id = cursor.getLong(0)
+        val id: Long
+        id = if( cursor.count > 0) {
+            cursor.getLong(0)
         } else {
-            id = 0
+            0
         }
         cursor.close()
         return id

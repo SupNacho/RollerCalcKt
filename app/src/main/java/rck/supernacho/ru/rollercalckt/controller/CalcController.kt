@@ -33,10 +33,10 @@ class CalcController(val context: Context, private vararg val views: View) : Con
                 out = view.text.toString().toInt()
             }
         }
-        val result = calculator.getLength(out, inn, thickness)
+        val result = calculator.getLength(out, inn, thickness) + context.resources.getString(R.string.calc_out_unit_text_view)
         views
                 .filterIsInstance<TextView>()
                 .filter { it.id == R.id.calc_fragment_text_view_output }
-                .forEach { it.text = result }
+                .forEach { it.text = result}
     }
 }
