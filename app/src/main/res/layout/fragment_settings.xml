@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Max inner D mm:"
-            android:textSize="20dp"/>
+            android:text="@string/settiongs_max_inner_d_mm_txt_view"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edit_text_set_inner_d"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:inputType="number"
-            android:hint="150"/>
+            android:hint="@string/settings_150_hint"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Max outer D mm:"
-            android:textSize="20dp"/>
+            android:text="@string/settings_max_outer_d_mm_text_view"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edit_text_set_outer_d"
@@ -47,6 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:inputType="number"
-            android:hint="300"/>
+            android:hint="@string/settings_300_hint"/>
     </LinearLayout>
 </LinearLayout>
