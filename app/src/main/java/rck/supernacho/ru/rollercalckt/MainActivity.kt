@@ -9,34 +9,31 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
-import rck.supernacho.ru.rollercalckt.fragments.EditMaterialFragment
-import rck.supernacho.ru.rollercalckt.fragments.CalcFragment
-import rck.supernacho.ru.rollercalckt.fragments.FragmentsTags
-import rck.supernacho.ru.rollercalckt.fragments.SettingsFragment
+import rck.supernacho.ru.rollercalckt.fragments.*
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
-        EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
+        EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener {
+    lateinit var prefsController :PrefsController
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                if (navigation.selectedItemId != item.itemId) {
                     Log.d("++", "BackStack: ${supportFragmentManager.backStackEntryCount}")
                     removeFragments()
                     Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
-                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_about -> {
                 if (navigation.selectedItemId != item.itemId) {
                     removeFragments()
                     Log.d("++", "Main calc BackStack: ${supportFragmentManager.backStackEntryCount}")
-//                supportFragmentManager.beginTransaction()
-//                        .addToBackStack(FragmentsTags.ABOUT.tag)
-//                        .add(R.id.fragment_container, EditMaterialFragment.newInstance("tt", "tt"),
-//                                FragmentsTags.SETTINGS.tag)
-//                        .commit()
+                supportFragmentManager.beginTransaction()
+                        .addToBackStack(FragmentsTags.ABOUT.tag)
+                        .replace(R.id.fragment_container, AboutFragment.newInstance("tt", "tt"),
+                                FragmentsTags.ABOUT.tag)
+                        .commit()
                 }
                 return@OnNavigationItemSelectedListener true
             }
@@ -77,8 +74,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
-        val prefController = PrefsController(this)
-        MainController.setPrefController(prefController)
+        prefsController = PrefsController(this)
         MainController.setMaterialMapper(matMapper)
         MainController.onCreate()
         init()
