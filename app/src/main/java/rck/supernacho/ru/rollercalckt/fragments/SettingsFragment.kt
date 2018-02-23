@@ -1,7 +1,6 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -14,7 +13,6 @@ import android.widget.Toast
 import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
-import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 
 class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListener {
@@ -136,8 +134,8 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
     }
 
     companion object {
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
 
         fun newInstance(param1: String, param2: String): SettingsFragment {
             val fragment = SettingsFragment()
