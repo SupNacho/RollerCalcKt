@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         return view
     }
 
-    fun init(view: View){
+    private fun init(view: View){
         editTextBrandName = view.findViewById(R.id.add_frag_edit_text_material_name)
         editTextBrandThick = view.findViewById(R.id.add_frag_edit_text_material_thick)
         listViewMaterials = view.findViewById(R.id.add_frag_list_view_materials)
@@ -59,7 +58,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         buttonAdd.setOnClickListener(this)
         buttonUpd.setOnClickListener(this)
         buttonDel.setOnClickListener(this)
-        matController = CrudMaterialController(context, editTextBrandThick, editTextBrandName,
+        matController = CrudMaterialController(editTextBrandThick, editTextBrandName,
                 listViewMaterials, buttonDel, buttonUpd, buttonAdd)
         MainController.setMaterialController(matController)
         materials = MainController.getMaterialList()
@@ -91,7 +90,6 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {
         selectedItem = adapter.getItem(pos)
-        Log.d("++", selectedItem.toString() + " OnClick")
         editTextBrandName.text = Editable.Factory.getInstance().newEditable(selectedItem.brand)
         editTextBrandThick.text = Editable.Factory.getInstance().newEditable(selectedItem.thickness.toString())
     }
@@ -118,8 +116,8 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     }
 
     companion object {
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
 
         fun newInstance(param1: String, param2: String): EditMaterialFragment {
             val fragment = EditMaterialFragment()
