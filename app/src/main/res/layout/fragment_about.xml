@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="rck.supernacho.ru.rollercalckt.fragments.AboutFragment">
+
+    <ImageView
+        android:id="@+id/image_view_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:id="@+id/text_view_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:text="@string/hello_blank_fragment"/>
+
+</LinearLayout>

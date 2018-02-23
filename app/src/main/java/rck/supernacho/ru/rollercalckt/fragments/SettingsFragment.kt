@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.MainController
@@ -46,7 +47,7 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
     }
 
     private fun init(view: View) {
-        prefs = MainController.getPrefController()
+        prefs = (context as MainActivity).prefsController
         editTextMaxInnD = view.findViewById(R.id.edit_text_set_inner_d)
         editTextMaxInnD.setOnKeyListener(this)
         editTextMaxInnD.onFocusChangeListener = this
