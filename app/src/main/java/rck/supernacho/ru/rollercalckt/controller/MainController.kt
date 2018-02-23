@@ -26,14 +26,6 @@ object MainController {
         calcController = calController
     }
 
-    fun setPrefController(controller: PrefsController){
-        prefsController = controller
-    }
-
-    fun getPrefController(): PrefsController{
-        return prefsController
-    }
-
     fun getMaterialMapper(): MaterialMapper{
         return materialMaper
     }
@@ -56,7 +48,6 @@ object MainController {
         materialMaper.close()
     }
 
-    private lateinit var prefsController: PrefsController
     private lateinit var calcController: Controllable
     private lateinit var materialController: ManageableMaterials
     private lateinit var materialMaper: MaterialMapper
