@@ -21,29 +21,35 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                Log.d("++", "BackStack: ${supportFragmentManager.backStackEntryCount}")
+                if (navigation.selectedItemId != item.itemId) {
+                    Log.d("++", "BackStack: ${supportFragmentManager.backStackEntryCount}")
                     removeFragments()
-                Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
+                    Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_about -> {
-                removeFragments()
-                Log.d("++", "Main calc BackStack: ${supportFragmentManager.backStackEntryCount}")
+                if (navigation.selectedItemId != item.itemId) {
+                    removeFragments()
+                    Log.d("++", "Main calc BackStack: ${supportFragmentManager.backStackEntryCount}")
 //                supportFragmentManager.beginTransaction()
 //                        .addToBackStack(FragmentsTags.ABOUT.tag)
 //                        .add(R.id.fragment_container, EditMaterialFragment.newInstance("tt", "tt"),
 //                                FragmentsTags.SETTINGS.tag)
 //                        .commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_settings -> {
-                removeFragments()
-                Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
-                supportFragmentManager.beginTransaction()
-                        .addToBackStack(FragmentsTags.SETTINGS.tag)
-                        .replace(R.id.fragment_container, SettingsFragment.newInstance("tt", "tt"),
-                                FragmentsTags.SETTINGS.tag)
-                        .commit()
+                if (navigation.selectedItemId != item.itemId) {
+                    removeFragments()
+                    Log.d("++", "BackStack - End menu usage : ${supportFragmentManager.backStackEntryCount}")
+                    supportFragmentManager.beginTransaction()
+                            .addToBackStack(FragmentsTags.SETTINGS.tag)
+                            .replace(R.id.fragment_container, SettingsFragment.newInstance("tt", "tt"),
+                                    FragmentsTags.SETTINGS.tag)
+                            .commit()
+                }
                 return@OnNavigationItemSelectedListener true
             }
         }
