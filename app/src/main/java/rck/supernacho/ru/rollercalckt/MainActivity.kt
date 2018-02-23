@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     override fun onFragmentInteraction(command: String) {
         when (command) {
             "add_fragment" -> {
-                Toast.makeText(this, "Button Add", Toast.LENGTH_SHORT).show()
                 val editMaterialFragment = EditMaterialFragment.newInstance("tt", "tt")
                 supportFragmentManager.beginTransaction()
                         .addToBackStack(FragmentsTags.EDIT_MATERIALS.tag)
