@@ -2,6 +2,7 @@ package rck.supernacho.ru.rollercalckt.controller
 
 import android.app.Activity
 import android.content.Context
+import java.lang.ref.WeakReference
 
 class PrefsController(context: Context) {
     companion object {

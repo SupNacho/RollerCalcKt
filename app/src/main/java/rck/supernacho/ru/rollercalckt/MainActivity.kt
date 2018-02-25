@@ -1,20 +1,28 @@
 package rck.supernacho.ru.rollercalckt
 
+import android.app.Application
 import android.app.FragmentManager
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.squareup.leakcanary.LeakCanary
+import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.fragments.*
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
+import java.lang.ref.WeakReference
+import java.sql.Ref
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
         EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener {
     lateinit var prefsController :PrefsController
+
+
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -66,6 +74,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LeakCanary.install(application)
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
         prefsController = PrefsController(this)

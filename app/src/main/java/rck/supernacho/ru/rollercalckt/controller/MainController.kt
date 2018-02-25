@@ -29,8 +29,10 @@ object MainController {
         return materialMapper
     }
     fun getMaterialList(): ArrayList<Material>{
-        materials.clear()
-        materials.addAll(materialMapper.getMaterials())
+        if(!materialMapper.isOpened()) materialMapper.open()
+            materials.clear()
+            materials.addAll(materialMapper.getMaterials())
+
         return materials
     }
 

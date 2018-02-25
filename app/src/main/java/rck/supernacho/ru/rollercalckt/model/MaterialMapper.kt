@@ -15,6 +15,10 @@ class MaterialMapper(context: Context) {
         dataBase = dbHelper.writableDatabase
     }
 
+    fun isOpened(): Boolean{
+        return dataBase.isOpen
+    }
+
     fun close() {
         dataBase.close()
     }
