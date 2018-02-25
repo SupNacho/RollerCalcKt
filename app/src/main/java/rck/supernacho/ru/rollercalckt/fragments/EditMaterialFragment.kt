@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
@@ -86,6 +87,11 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     override fun onDetach() {
         super.onDetach()
         mListener = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (context as MainActivity).getRWatcher().watch(this)
     }
 
     override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {

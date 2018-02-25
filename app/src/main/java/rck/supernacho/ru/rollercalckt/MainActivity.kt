@@ -14,30 +14,28 @@ import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.fragments.*
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
-import java.lang.ref.WeakReference
-import java.sql.Ref
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
         EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener {
-    lateinit var prefsController :PrefsController
-
+    lateinit var prefsController: PrefsController
+    lateinit var refWatcher: RefWatcher
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                    removeFragments()
+                removeFragments()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_about -> {
                 if (navigation.selectedItemId != item.itemId) {
                     removeFragments()
-                supportFragmentManager.beginTransaction()
-                        .addToBackStack(FragmentsTags.ABOUT.tag)
-                        .replace(R.id.fragment_container, AboutFragment.newInstance("tt", "tt"),
-                                FragmentsTags.ABOUT.tag)
-                        .commit()
+                    supportFragmentManager.beginTransaction()
+                            .addToBackStack(FragmentsTags.ABOUT.tag)
+                            .replace(R.id.fragment_container, AboutFragment.newInstance("tt", "tt"),
+                                    FragmentsTags.ABOUT.tag)
+                            .commit()
                 }
                 return@OnNavigationItemSelectedListener true
             }
@@ -74,7 +72,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LeakCanary.install(application)
+        refWatcher = LeakCanary.install(application)
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
         prefsController = PrefsController(this)
@@ -110,5 +108,14 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     override fun onPause() {
         super.onPause()
         MainController.onDestroy()
+    }
+
+    fun getRWatcher(): RefWatcher {
+        return refWatcher
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        refWatcher.watch(this)
     }
 }

@@ -129,6 +129,11 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
         mListener = null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        (context as MainActivity).getRWatcher().watch(this)
+    }
+
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(command: String)
     }

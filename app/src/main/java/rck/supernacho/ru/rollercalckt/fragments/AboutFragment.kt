@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 
@@ -50,6 +51,10 @@ class AboutFragment : Fragment() {
         mListener = null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        (context as MainActivity).getRWatcher().watch(this)
+    }
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(command: String)

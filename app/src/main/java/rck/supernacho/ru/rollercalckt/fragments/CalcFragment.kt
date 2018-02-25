@@ -85,11 +85,11 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun restoreSeekProgress() {
-        seekIn.max = prefs.getInnerMax().toInt()
-        seekOut.max = prefs.getOuterMax().toInt()
+        seekIn.max = prefs.getInnerMax()?.toInt() as Int
+        seekOut.max = prefs.getOuterMax()?.toInt() as Int
         if (Build.VERSION.SDK_INT >= 26) seekOut.min = seekIn.max
-        seekOut.progress = prefs.getOuterLast().toInt()
-        seekIn.progress = prefs.getInnerLast().toInt()
+        seekOut.progress = prefs.getOuterLast()?.toInt() as Int
+        seekIn.progress = prefs.getInnerLast()?.toInt() as Int
     }
 
     private fun onButtonPressed(command: String) {
@@ -222,10 +222,15 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         }
     }
 
-    private fun setInputInnD(string: String) {
+    private fun setInputInnD(string: String?) {
         inputInnD.text = Editable.Factory.getInstance().newEditable(string)
     }
-    private fun setInputOutD(string: String) {
+    private fun setInputOutD(string: String?) {
         inputOuterD.text = Editable.Factory.getInstance().newEditable(string)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (context as MainActivity).getRWatcher().watch(this)
     }
 }
