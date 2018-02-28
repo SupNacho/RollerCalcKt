@@ -25,7 +25,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private var mParam1: String? = null
     private var mParam2: String? = null
     private var cont: Context? = null
-    private lateinit var addButton: Button
+    private lateinit var addButton: ImageButton
     private lateinit var resultTextView: TextView
     private lateinit var inputOuterD: EditText
     private lateinit var inputInnD: EditText
