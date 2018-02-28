@@ -24,9 +24,9 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     private lateinit var editTextBrandName: EditText
     private lateinit var editTextBrandThick: EditText
     private lateinit var listViewMaterials: ListView
-    private lateinit var buttonAdd: Button
-    private lateinit var buttonUpd: Button
-    private lateinit var buttonDel: Button
+    private lateinit var buttonAdd: ImageButton
+    private lateinit var buttonUpd: ImageButton
+    private lateinit var buttonDel: ImageButton
     private lateinit var matController: ManageableMaterials
     private lateinit var adapter: ArrayAdapter<Material>
     private lateinit var materials: ArrayList<Material>
