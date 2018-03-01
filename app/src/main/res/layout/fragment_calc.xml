@@ -1,4 +1,4 @@
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,117 +6,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:orientation="vertical"
     android:background="@color/colorWhite"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/calc_fragment_select_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/calc_select_material_text_view"
+        android:textSize="24sp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/calc_fragment_spinner_material"
+        app:layout_constraintLeft_toLeftOf="@id/calc_fragment_spinner_material"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <Spinner
+        android:id="@+id/calc_fragment_spinner_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/calc_fragment_text_view_output"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_fragment_select_label"
+        app:layout_constraintEnd_toStartOf="@id/calc_fragment_button_add_material"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/calc_select_material_text_view"
-                android:textSize="24sp"/>
 
-            <Spinner
-                android:id="@+id/calc_fragment_spinner_material"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_margin="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        </LinearLayout>
+    <ImageButton
+        android:id="@+id/calc_fragment_button_add_material"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/ic_edit_black_48dp"
+        android:background="@color/colorWhite"
+        android:text="@string/calc_edit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_fragment_select_label"
+        app:layout_constraintStart_toEndOf="@+id/calc_fragment_spinner_material"
+        android:contentDescription="@string/add_material_button"/>
 
-        <ImageButton
-            android:id="@+id/calc_fragment_button_add_material"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="52dp"
-            android:background="@color/colorWhite"
-            android:text="@string/calc_edit_button"
-            android:src="@drawable/ic_edit_black_48dp"
-            app:layout_constraintLeft_toRightOf="@+id/calc_fragment_spinner_material"
-            android:layout_marginEnd="20dp"/>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/calc_fragment_text_view_output"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
         android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calc_fragment_spinner_material"
         tools:text="145.232"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/calc_fragment_frame_input_inn_d"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="8">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_fragment_text_view_output">
 
-        <TextView
-            android:id="@+id/calc_fragment_text_view_inner_d"
-            android:layout_width="0dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_layout_inner_d"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="4"
-            android:text="@string/calc_inner_d_text_view"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calc_fragment_text_view_output">
 
-        <EditText
-            android:id="@+id/calc_fragment_inner_d"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="4"
-            android:inputType="number"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/calc_fragment_inner_d"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/calc_inner_d_text_view"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+    </FrameLayout>
 
     <SeekBar
         android:id="@+id/calc_fragment_seek_inner_d"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="20dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="8">
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calc_fragment_frame_input_inn_d"/>
 
-        <TextView
-            android:id="@+id/calc_fragment_text_view_outer_d"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="4"
-            android:text="@string/calc_outer_d_text_view"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout_outer_d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_fragment_seek_inner_d">
 
         <EditText
             android:id="@+id/calc_fragment_outer_d"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="4"
+            android:hint="@string/calc_outer_d_text_view"
             android:inputType="number"
             />
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
+
 
     <SeekBar
         android:id="@+id/calc_fragment_seek_outer_d"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="20dp"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_outer_d"/>
+</android.support.constraint.ConstraintLayout>
 
