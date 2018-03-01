@@ -1,75 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:baselineAligned="false"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal"
-              android:weightSum="10"
-              android:background="@color/colorWhite"
-              tools:context="rck.supernacho.ru.rollercalckt.fragments.EditMaterialFragment">
-
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:weightSum="10"
+    tools:context="rck.supernacho.ru.rollercalckt.fragments.EditMaterialFragment">
 
     <ListView
         android:id="@+id/add_frag_list_view_materials"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_frag_input_layout_thickness"/>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/edit_material_material_name"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/add_frag_input_layout_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/add_frag_button_new_material"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <EditText
             android:id="@+id/add_frag_edit_text_material_name"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:inputType="text"
-            android:layout_marginStart="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/edit_material_material_thickness"/>
+            android:hint="@string/edit_material_material_name"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/add_frag_input_layout_thickness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/add_frag_input_layout_name"
+        app:layout_constraintEnd_toEndOf="@id/add_frag_input_layout_name"
+        app:layout_constraintTop_toBottomOf="@+id/add_frag_input_layout_name">
+
         <EditText
             android:id="@+id/add_frag_edit_text_material_thick"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:inputType="numberDecimal"
-            android:layout_marginStart="10dp"/>
-        <ImageButton
-            android:id="@+id/add_frag_button_new_material"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_note_add_black_48dp"
-            android:background="@color/colorWhite"
-            android:text="@string/edit_material_add_new_material_button"/>
-        <ImageButton
-            android:id="@+id/add_frag_button_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:src="@drawable/ic_edit_black_48dp"
-            android:layout_margin="10dp"
-            android:text="@string/edit_material_update_material_button"/>
-        <ImageButton
-            android:id="@+id/add_frag_button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/colorWhite"
-            android:src="@drawable/ic_delete_forever_black_48dp"
-            android:text="@string/edit_material_delete_material_button"/>
-    </LinearLayout>
-</LinearLayout>
+            android:hint="@string/edit_material_material_thickness"
+            android:inputType="numberDecimal"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/add_frag_button_new_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintEnd_toStartOf="@id/add_frag_button_update"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/add_frag_input_layout_name"
+        app:srcCompat="@drawable/ic_note_add_black_48dp"
+        android:contentDescription="@string/edit_material_add_new_material_button"/>
+
+    <ImageButton
+        android:id="@+id/add_frag_button_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintEnd_toStartOf="@id/add_frag_button_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/add_frag_button_new_material"
+        app:srcCompat="@drawable/ic_edit_black_48dp"
+        android:contentDescription="@string/edit_material_update_material_button"/>
+
+    <ImageButton
+        android:id="@+id/add_frag_button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/add_frag_button_update"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_delete_forever_black_48dp"
+        android:contentDescription="@string/edit_material_delete_material_button"/>
+
+</android.support.constraint.ConstraintLayout>
