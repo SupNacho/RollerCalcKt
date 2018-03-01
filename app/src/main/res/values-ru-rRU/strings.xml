@@ -5,20 +5,21 @@
     <string name="title_help">О программе</string>
     <string name="title_settings">Настройки</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="edit_material_material_name">Материал:</string>
-    <string name="edit_material_material_thickness">Толщина метериала:</string>
+    <string name="edit_material_material_name">Наменование</string>
+    <string name="edit_material_material_thickness">Толщина метериала, мм</string>
     <string name="edit_material_add_new_material_button">Добавить материал</string>
     <string name="edit_material_update_material_button">Обновить материал</string>
     <string name="edit_material_delete_material_button">Удалить материал</string>
-    <string name="calc_outer_d_text_view">Внешний Ø:</string>
-    <string name="calc_inner_d_text_view">Внутренний Ø:</string>
+    <string name="calc_outer_d_text_view">Внешний Ø, мм</string>
+    <string name="calc_inner_d_text_view">Внутренний Ø, мм</string>
     <string name="calc_edit_button">Изменить</string>
     <string name="calc_select_material_text_view">Выбор материала:</string>
     <string name="calc_out_unit_text_view"> м</string>
-    <string name="settiongs_max_inner_d_mm_txt_view">Макс.внут. Ø mm:</string>
+    <string name="settiongs_max_inner_d_mm_txt_view">Макс.внут. Ø, mm</string>
     <string name="settings_150_hint">150</string>
-    <string name="settings_max_outer_d_mm_text_view">Макс.внеш. Ø mm:</string>
+    <string name="settings_max_outer_d_mm_text_view">Макс.внеш. Ø, mm</string>
     <string name="settings_300_hint">300</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">\"Калькулятор для рулонных материалов." \n\nВ данном калькуляторе вы можете рассчитать длину материала в рулоне. Для этого вам надо будет указать толщину материала, внешний диаметр и внутренний диаметр. Для точности расчета надо произвести замер диаметров при максимально плотной намотке, так же будет влиять точность определения толщины материала в измеряемом рулоне. \n\n"</string>
+    <string name="add_material_button">Add Material button</string>
 </resources>
