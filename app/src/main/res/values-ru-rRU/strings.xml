@@ -16,9 +16,9 @@
     <string name="calc_select_material_text_view">Выбор материала:</string>
     <string name="calc_out_unit_text_view"> м</string>
     <string name="settiongs_max_inner_d_mm_txt_view">Макс.внут. Ø, mm</string>
-    <string name="settings_150_hint">150</string>
+    <string name="settings_150_hint">Макс.внут. Ø, mm</string>
     <string name="settings_max_outer_d_mm_text_view">Макс.внеш. Ø, mm</string>
-    <string name="settings_300_hint">300</string>
+    <string name="settings_300_hint">Макс.внеш. Ø, mm</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">\"Калькулятор для рулонных материалов." \n\nВ данном калькуляторе вы можете рассчитать длину материала в рулоне. Для этого вам надо будет указать толщину материала, внешний диаметр и внутренний диаметр. Для точности расчета надо произвести замер диаметров при максимально плотной намотке, так же будет влиять точность определения толщины материала в измеряемом рулоне. \n\n"</string>
     <string name="add_material_button">Add Material button</string>

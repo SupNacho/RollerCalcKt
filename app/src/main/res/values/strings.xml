@@ -15,9 +15,9 @@
     <string name="calc_select_material_text_view">Select material:</string>
     <string name="calc_out_unit_text_view"> m</string>
     <string name="settiongs_max_inner_d_mm_txt_view">Max inner Ø, mm</string>
-    <string name="settings_150_hint">150</string>
+    <string name="settings_150_hint">Max inner Ø, mm</string>
     <string name="settings_max_outer_d_mm_text_view">Max outer Ø, mm</string>
-    <string name="settings_300_hint">300</string>
+    <string name="settings_300_hint">Max outer Ø, mm</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">
         "Calculator for roll materials\n\n"
@@ -27,4 +27,5 @@
         "For the accuracy of the calculation should be performed at the maximum diameter measured winding dense, will also affect the accuracy of determining the thickness of the material in the measured roll.
 \nThank you for using my app.\nHave a nice day!"</string>
     <string name="add_material_button">Add Material button</string>
+    <string name="image_description_rollercalc_icon" translatable="false">RollerCalc icon</string>
 </resources>
