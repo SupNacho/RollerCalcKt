@@ -21,6 +21,7 @@
         android:id="@+id/add_frag_input_layout_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@id/add_frag_button_new_material"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
         android:id="@+id/add_frag_input_layout_thickness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@id/add_frag_input_layout_name"
         app:layout_constraintEnd_toEndOf="@id/add_frag_input_layout_name"
         app:layout_constraintTop_toBottomOf="@+id/add_frag_input_layout_name">
