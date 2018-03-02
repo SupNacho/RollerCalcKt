@@ -25,7 +25,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private var mParam1: String? = null
     private var mParam2: String? = null
     private var cont: Context? = null
-    private lateinit var addButton: Button
+    private lateinit var addButton: ImageButton
     private lateinit var resultTextView: TextView
     private lateinit var inputOuterD: EditText
     private lateinit var inputInnD: EditText
@@ -85,11 +85,11 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun restoreSeekProgress() {
-        seekIn.max = prefs.getInnerMax()?.toInt() as Int
-        seekOut.max = prefs.getOuterMax()?.toInt() as Int
+        seekIn.max = prefs.getInnerMax().toInt()
+        seekOut.max = prefs.getOuterMax().toInt()
         if (Build.VERSION.SDK_INT >= 26) seekOut.min = seekIn.max
-        seekOut.progress = prefs.getOuterLast()?.toInt() as Int
-        seekIn.progress = prefs.getInnerLast()?.toInt() as Int
+        seekOut.progress = prefs.getOuterLast().toInt()
+        seekIn.progress = prefs.getInnerLast().toInt()
     }
 
     private fun onButtonPressed(command: String) {

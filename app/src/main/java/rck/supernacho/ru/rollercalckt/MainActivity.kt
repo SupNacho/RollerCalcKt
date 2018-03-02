@@ -1,8 +1,6 @@
 package rck.supernacho.ru.rollercalckt
 
-import android.app.Application
 import android.app.FragmentManager
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity

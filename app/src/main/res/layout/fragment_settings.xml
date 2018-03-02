@@ -1,52 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:descendantFocusability="beforeDescendants"
-              android:focusableInTouchMode="true"
-              android:orientation="vertical"
-              android:background="@color/colorWhite"
-              tools:context="rck.supernacho.ru.rollercalckt.fragments.SettingsFragment">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:background="@color/colorWhite"
+    tools:context="rck.supernacho.ru.rollercalckt.fragments.SettingsFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/settiongs_max_inner_d_mm_txt_view"
-            android:textSize="20sp"/>
-
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/settings_frag_input_layout_inn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
         <EditText
             android:id="@+id/edit_text_set_inner_d"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:inputType="number"
             android:hint="@string/settings_150_hint"/>
-    </LinearLayout>
+</android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/settings_max_outer_d_mm_text_view"
-            android:textSize="20sp"/>
-
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/settings_frag_input_layout_out"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+    app:layout_constraintTop_toBottomOf="@id/settings_frag_input_layout_inn"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
         <EditText
             android:id="@+id/edit_text_set_outer_d"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:inputType="number"
             android:hint="@string/settings_300_hint"/>
-    </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.TextInputLayout>
+</android.support.constraint.ConstraintLayout>

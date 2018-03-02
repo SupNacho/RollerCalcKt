@@ -26,10 +26,10 @@ class CalcController(val context: Context, private vararg val views: View) : Con
 
     override fun getLength() {
         for (view in views) {
-            if (view is EditText && view.id == R.id.calc_fragment_inner_d) {
+            if (view is EditText && view.id == R.id.calc_fragment_inner_d && !view.text.isNullOrEmpty()) {
                 inn = view.text.toString().toInt()
             }
-            if (view is EditText && view.id == R.id.calc_fragment_outer_d) {
+            if (view is EditText && view.id == R.id.calc_fragment_outer_d  && !view.text.isNullOrEmpty()) {
                 out = view.text.toString().toInt()
             }
         }
