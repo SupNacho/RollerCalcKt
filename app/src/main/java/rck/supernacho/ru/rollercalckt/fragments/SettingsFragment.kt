@@ -17,9 +17,6 @@ import rck.supernacho.ru.rollercalckt.controller.PrefsController
 
 class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListener {
 
-    private var mParam1: String? = null
-    private var mParam2: String? = null
-
     private var tempInnMax = "150"
     private var tempOutMax = "300"
     private lateinit var editTextMaxInnD: EditText
@@ -27,14 +24,6 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
     private lateinit var prefs: PrefsController
 
     private var mListener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,12 +42,6 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
         editTextMaxOutD.onFocusChangeListener = this
         editTextMaxInnD.text = Editable.Factory.getInstance().newEditable(prefs.getInnerMax())
         editTextMaxOutD.text = Editable.Factory.getInstance().newEditable(prefs.getOuterMax())
-    }
-
-    fun onButtonPressed(command: String) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(command)
-        }
     }
 
     override fun onFocusChange(p0: View?, p1: Boolean) {
@@ -139,16 +122,8 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
     }
 
     companion object {
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
-
-        fun newInstance(param1: String, param2: String): SettingsFragment {
-            val fragment = SettingsFragment()
-            val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): SettingsFragment {
+            return SettingsFragment()
         }
     }
 }

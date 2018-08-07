@@ -22,8 +22,6 @@ import rck.supernacho.ru.rollercalckt.model.Material
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
                         AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener{
 
-    private var mParam1: String? = null
-    private var mParam2: String? = null
     private var cont: Context? = null
     private lateinit var addButton: ImageButton
     private lateinit var resultTextView: TextView
@@ -39,14 +37,6 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private var tempOutD: String = ""
 
     private var mListener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -87,7 +77,6 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private fun restoreSeekProgress() {
         seekIn.max = prefs.getInnerMax().toInt()
         seekOut.max = prefs.getOuterMax().toInt()
-        if (Build.VERSION.SDK_INT >= 26) seekOut.min = seekIn.max
         seekOut.progress = prefs.getOuterLast().toInt()
         seekIn.progress = prefs.getInnerLast().toInt()
     }
@@ -118,16 +107,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     companion object {
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
-
-        fun newInstance(param1: String, param2: String): CalcFragment {
-            val fragment = CalcFragment()
-            val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): CalcFragment {
+            return CalcFragment()
         }
     }
 

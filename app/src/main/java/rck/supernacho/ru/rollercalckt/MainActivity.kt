@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
         EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener {
     lateinit var prefsController: PrefsController
-    lateinit var refWatcher: RefWatcher
+    private lateinit var refWatcher: RefWatcher
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
                     removeFragments()
                     supportFragmentManager.beginTransaction()
                             .addToBackStack(FragmentsTags.ABOUT.tag)
-                            .replace(R.id.fragment_container, AboutFragment.newInstance("tt", "tt"),
+                            .replace(R.id.fragment_container, AboutFragment.newInstance(),
                                     FragmentsTags.ABOUT.tag)
                             .commit()
                 }
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
                     removeFragments()
                     supportFragmentManager.beginTransaction()
                             .addToBackStack(FragmentsTags.SETTINGS.tag)
-                            .replace(R.id.fragment_container, SettingsFragment.newInstance("tt", "tt"),
+                            .replace(R.id.fragment_container, SettingsFragment.newInstance(),
                                     FragmentsTags.SETTINGS.tag)
                             .commit()
                 }
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     }
 
     private fun init() {
-        val calcFragment = CalcFragment.newInstance("tt", "tt")
+        val calcFragment = CalcFragment.newInstance()
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, calcFragment, FragmentsTags.CALCULATE.tag)
                 .commit()
@@ -91,14 +91,14 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
     override fun onFragmentInteraction(command: String) {
         when (command) {
             "add_fragment" -> {
-                val editMaterialFragment = EditMaterialFragment.newInstance("tt", "tt")
+                val editMaterialFragment = EditMaterialFragment.newInstance()
                 supportFragmentManager.beginTransaction()
                         .addToBackStack(FragmentsTags.EDIT_MATERIALS.tag)
                         .replace(R.id.fragment_container, editMaterialFragment, FragmentsTags.EDIT_MATERIALS.tag)
                         .commit()
             }
             else -> {
-                Toast.makeText(this, "Passed command: " + command, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Passed command: $command", Toast.LENGTH_SHORT).show()
             }
         }
     }
