@@ -12,14 +12,14 @@
 
     <ListView
         android:id="@+id/add_frag_list_view_materials"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_frag_input_layout_thickness"/>
+        app:layout_constraintTop_toBottomOf="@id/add_frag_button_new_material"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/add_frag_input_layout_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@id/add_frag_button_new_material"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <EditText
             android:id="@+id/add_frag_edit_text_material_name"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/edit_material_material_name"
             android:inputType="text"/>
@@ -36,7 +36,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/add_frag_input_layout_thickness"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@id/add_frag_input_layout_name"
@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/add_frag_edit_text_material_thick"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/edit_material_material_thickness"
             android:inputType="numberDecimal"/>
@@ -58,8 +58,9 @@
         android:layout_margin="8dp"
         android:background="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@id/add_frag_button_update"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/add_frag_input_layout_name"
+        app:layout_constraintTop_toBottomOf="@id/add_frag_input_layout_thickness"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:srcCompat="@drawable/ic_note_add_black_48dp"
         android:contentDescription="@string/edit_material_add_new_material_button"/>
 
@@ -70,7 +71,8 @@
         android:layout_margin="8dp"
         android:background="@color/colorWhite"
         app:layout_constraintEnd_toStartOf="@id/add_frag_button_delete"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/add_frag_button_new_material"
+        app:layout_constraintBottom_toBottomOf="@id/add_frag_button_new_material"
         app:layout_constraintStart_toEndOf="@id/add_frag_button_new_material"
         app:srcCompat="@drawable/ic_edit_black_48dp"
         android:contentDescription="@string/edit_material_update_material_button"/>
@@ -82,7 +84,8 @@
         android:layout_margin="8dp"
         android:background="@color/colorWhite"
         app:layout_constraintStart_toEndOf="@id/add_frag_button_update"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/add_frag_button_update"
+        app:layout_constraintBottom_toBottomOf="@id/add_frag_button_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_delete_forever_black_48dp"
         android:contentDescription="@string/edit_material_delete_material_button"/>

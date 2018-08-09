@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Рассчет длины рулонна</string>
+    <string name="app_name">Калькулятор рулонных материалов</string>
     <string name="title_home">Расчет</string>
     <string name="title_help">О программе</string>
     <string name="title_settings">Настройки</string>
