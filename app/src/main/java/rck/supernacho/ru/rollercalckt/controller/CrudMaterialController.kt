@@ -17,7 +17,9 @@ class CrudMaterialController(vararg views: View) : ManageableMaterials{
     override fun add() {
         if (!editTextName.text.isNullOrEmpty() && !editTextThick.text.isNullOrEmpty()) {
             val id = materialMapper.insert(editTextName.text.toString(), editTextThick.text.toString().toDouble())
-            materials.add(Material(id, editTextName.text.toString(), editTextThick.text.toString().toDouble()))
+            if (id > -1) {
+                materials.add(Material(id, editTextName.text.toString(), editTextThick.text.toString().toDouble()))
+            }
             MainController.updateLists()
             clearInputFields()
         }
