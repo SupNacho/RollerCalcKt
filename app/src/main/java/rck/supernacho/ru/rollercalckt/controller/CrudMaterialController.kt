@@ -19,13 +19,20 @@ class CrudMaterialController(vararg views: View) : ManageableMaterials{
             val id = materialMapper.insert(editTextName.text.toString(), editTextThick.text.toString().toDouble())
             materials.add(Material(id, editTextName.text.toString(), editTextThick.text.toString().toDouble()))
             MainController.updateLists()
+            clearInputFields()
         }
+    }
+
+    private fun clearInputFields() {
+        editTextName.text.clear()
+        editTextThick.text.clear()
     }
 
     override fun remove(item: Material) {
         materialMapper.delete(item)
         materials.remove(item)
         MainController.updateLists()
+        clearInputFields()
     }
 
     override fun edit(item: Material) {
@@ -34,6 +41,7 @@ class CrudMaterialController(vararg views: View) : ManageableMaterials{
         materials.clear()
         MainController.getMaterialList()
         MainController.updateLists()
+        clearInputFields()
     }
 
     init {

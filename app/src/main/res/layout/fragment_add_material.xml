@@ -13,9 +13,12 @@
     <ListView
         android:id="@+id/add_frag_list_view_materials"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_percent="0.64"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_frag_button_new_material"/>
+
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/add_frag_input_layout_name"
