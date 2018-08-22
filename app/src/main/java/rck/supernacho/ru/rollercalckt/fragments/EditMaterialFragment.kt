@@ -1,7 +1,9 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
+import android.support.constraint.R.id.gone
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.view.LayoutInflater
@@ -57,6 +59,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         MainController.setAdapterAddFragment(adapter)
         listViewMaterials.adapter = adapter
         listViewMaterials.onItemClickListener = this
+        setButtonsState(false)
     }
 
     override fun onAttach(context: Context?) {
@@ -82,23 +85,37 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         selectedItem = adapter.getItem(pos)
         editTextBrandName.text = Editable.Factory.getInstance().newEditable(selectedItem.brand)
         editTextBrandThick.text = Editable.Factory.getInstance().newEditable(selectedItem.thickness.toString())
+        setButtonsState(true)
     }
 
     override fun onClick(view: View?) {
         when(view){
             buttonAdd -> {
                 matController.add()
+                setButtonsState(false)
             }
             buttonUpd -> {
                 matController.edit(selectedItem)
+                setButtonsState(false)
             }
             buttonDel -> {
                 matController.remove(selectedItem)
+                setButtonsState(false)
             }
             else -> {
                 Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun setButtonsState(udButtonsState: Boolean){
+            if (udButtonsState) {
+                buttonUpd.visibility = View.VISIBLE
+                buttonDel.visibility = View.VISIBLE
+            } else {
+                buttonUpd.visibility = View.GONE
+                buttonDel.visibility = View.GONE
+            }
     }
 
     interface OnFragmentInteractionListener {

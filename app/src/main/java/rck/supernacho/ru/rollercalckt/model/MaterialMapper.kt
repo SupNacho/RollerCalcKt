@@ -46,11 +46,14 @@ class MaterialMapper(context: Context) {
                 duplicateThickness = true
             }
             conValues.clear()
-            if (!duplicateName || !duplicateThickness)
-            conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
-            conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
-            id = dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
-            dataBase.setTransactionSuccessful()
+            if (!duplicateName || !duplicateThickness) {
+                conValues.put(DataBaseFields.COLUMN_ID_BRANDS.field, idBrand)
+                conValues.put(DataBaseFields.COLUMN_ID_THICK.field, idThick)
+                id = dataBase.insert(DataBaseFields.TABLE_RESULTS.field, null, conValues)
+                dataBase.setTransactionSuccessful()
+            } else {
+                id = -1
+            }
         } finally {
             dataBase.endTransaction()
         }
