@@ -103,17 +103,13 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        MainController.onDestroy()
-    }
-
     fun getRWatcher(): RefWatcher {
         return refWatcher
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        MainController.onDestroy()
         refWatcher.watch(this)
     }
 }

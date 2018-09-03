@@ -25,6 +25,7 @@ class MaterialMapper(context: Context) {
 
     fun insert(brand: String, thickness: Double): Long {
         val conValues = ContentValues()
+        if (!this.isOpened()) this.open()
         dataBase.beginTransaction()
         val id: Long
         var duplicateName = false

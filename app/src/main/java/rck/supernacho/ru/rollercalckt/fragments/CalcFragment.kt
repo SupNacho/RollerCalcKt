@@ -75,10 +75,20 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun restoreSeekProgress() {
-        seekIn.max = prefs.getInnerMax().toInt()
-        seekOut.max = prefs.getOuterMax().toInt()
-        seekOut.progress = prefs.getOuterLast().toInt()
-        seekIn.progress = prefs.getInnerLast().toInt()
+        seekIn.max = getIntPrefs(prefs.getInnerMax())
+        seekOut.max = getIntPrefs(prefs.getOuterMax())
+        seekOut.progress = getIntPrefs(prefs.getOuterLast())
+        seekIn.progress = getIntPrefs(prefs.getInnerLast())
+    }
+
+    private fun getIntPrefs(pref : String) : Int {
+        var result: Int
+        try {
+            result = pref.toInt()
+        } catch (e : NumberFormatException){
+            return 0
+        }
+        return result
     }
 
     private fun onButtonPressed(command: String) {
