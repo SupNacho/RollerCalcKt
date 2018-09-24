@@ -1,7 +1,6 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -127,7 +126,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             inputInnD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
                         && inputInnD.text.isNotBlank()){
-                    seekIn.progress = inputInnD.text.toString().toInt()
+                    val progressVal = getProgressVal(inputInnD)
+                    seekIn.progress = progressVal
                     tempInnD = inputInnD.text.toString()
                     prefs.setLastInner(inputInnD.text.toString())
                     controller.getLength()
@@ -137,7 +137,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             inputOuterD -> {
                 if (p2!!.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER
                         && inputOuterD.text.isNotBlank()){
-                    seekOut.progress = inputOuterD.text.toString().toInt()
+                    val progressVal = getProgressVal(inputOuterD)
+                    seekOut.progress = progressVal
                     tempOutD = inputOuterD.text.toString()
                     prefs.setLastOuter(inputOuterD.text.toString())
                     controller.getLength()
@@ -149,6 +150,14 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
             }
         }
         return false
+    }
+
+    private fun getProgressVal(input : EditText): Int {
+        return try {
+            input.text.toString().toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
     }
 
     override fun onNothingSelected(adapter: AdapterView<*>?) {
