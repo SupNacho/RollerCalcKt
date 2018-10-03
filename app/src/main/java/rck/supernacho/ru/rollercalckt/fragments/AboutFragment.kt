@@ -1,6 +1,8 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -10,13 +12,19 @@ import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 
+import kotlinx.android.synthetic.main.fragment_about.view.*
+
 class AboutFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_about, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_about, container, false)
+        view.tv_about_policy.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://supnacho.github.io/rollercalc/privacy_policy.html")))
+        }
+        return view
     }
 
 
