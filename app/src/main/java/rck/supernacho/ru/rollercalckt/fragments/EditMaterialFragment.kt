@@ -16,6 +16,7 @@ import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 import rck.supernacho.ru.rollercalckt.model.Material
+import java.lang.NumberFormatException
 
 
 class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener, IViewUpdate {
@@ -49,8 +50,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         buttonAdd.setOnClickListener(this)
         buttonUpd.setOnClickListener(this)
         buttonDel.setOnClickListener(this)
-        matController = CrudMaterialController(editTextBrandThick, editTextBrandName,
-                listViewMaterials, buttonDel, buttonUpd, buttonAdd)
+        matController = CrudMaterialController()
         MainController.setMaterialController(matController)
         materials = MainController.getMaterialList()
         adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, materials)
@@ -76,6 +76,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     override fun onDestroy() {
         super.onDestroy()
+        MainController.removeUpdateListener(this)
         (context as MainActivity).getRWatcher().watch(this)
     }
 
@@ -90,23 +91,41 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     }
 
     override fun onClick(view: View?) {
-        when(view){
-            buttonAdd -> {
-                matController.add()
-                setButtonsState(false)
+        val materialName = editTextBrandName.text.toString()
+        val materialThickness = editTextBrandThick.text.toString().toDouble()
+        try {
+            when (view) {
+                buttonAdd -> {
+                    if (materialName.isNotEmpty() && materialThickness.isFinite()) {
+                        matController.add(materialName, materialThickness)
+                        setButtonsState(false)
+                        clearInput()
+                    }
+                }
+                buttonUpd -> {
+                    if (materialName.isNotEmpty() && materialThickness.isFinite()) {
+                        matController.edit(selectedItem, materialName, materialThickness)
+                        setButtonsState(false)
+                        clearInput()
+                    }
+                }
+                buttonDel -> {
+                    matController.remove(selectedItem)
+                    setButtonsState(false)
+                    clearInput()
+                }
+                else -> {
+                    Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
+                }
             }
-            buttonUpd -> {
-                matController.edit(selectedItem)
-                setButtonsState(false)
-            }
-            buttonDel -> {
-                matController.remove(selectedItem)
-                setButtonsState(false)
-            }
-            else -> {
-                Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
-            }
+        } catch (e: NumberFormatException){
+            Toast.makeText(context, "Pls enter number in thickness field", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun clearInput(){
+        editTextBrandName.text.clear()
+        editTextBrandThick.text.clear()
     }
 
     override fun updateView() {

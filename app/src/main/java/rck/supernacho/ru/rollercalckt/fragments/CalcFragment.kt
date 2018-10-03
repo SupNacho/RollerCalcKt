@@ -239,6 +239,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
 
     override fun onDestroy() {
         super.onDestroy()
+        MainController.removeUpdateListener(this)
         (context as MainActivity).getRWatcher().watch(this)
     }
 }

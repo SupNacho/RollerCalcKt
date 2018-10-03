@@ -1,5 +1,6 @@
 package rck.supernacho.ru.rollercalckt.controller
 
+import android.util.Log
 import rck.supernacho.ru.rollercalckt.fragments.IViewUpdate
 import rck.supernacho.ru.rollercalckt.model.Material
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
@@ -8,6 +9,11 @@ object MainController {
 
     fun addUpdateListener(updateListener: IViewUpdate){
         updateList.add(updateListener)
+    }
+
+    fun removeUpdateListener(updateListener: IViewUpdate){
+        updateList.remove(updateListener)
+        Log.d("REM", "On Remove is called")
     }
 
     fun setMaterialMapper(mapMat: MaterialMapper){
