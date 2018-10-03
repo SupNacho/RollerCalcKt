@@ -5,8 +5,11 @@ import android.view.View
 import android.widget.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.calc.Calculator
+import java.lang.ref.WeakReference
 
-class CalcController(val context: Context, private vararg val views: View) : Controllable {
+//class CalcController(val context: Context, private vararg val views: View) : Controllable {
+class CalcController(val contextRef: WeakReference<Context>, private vararg val views: View) : Controllable {
+    private val context = contextRef.get()
     private val calculator = Calculator()
     private var out: Int = 0
     private var inn: Int = 0
@@ -33,7 +36,7 @@ class CalcController(val context: Context, private vararg val views: View) : Con
                 out = view.text.toString().toInt()
             }
         }
-        val result = calculator.getLength(out, inn, thickness) + context.resources.getString(R.string.calc_out_unit_text_view)
+        val result = calculator.getLength(out, inn, thickness) + context?.resources?.getString(R.string.calc_out_unit_text_view)
         views
                 .filterIsInstance<TextView>()
                 .filter { it.id == R.id.calc_fragment_text_view_output }

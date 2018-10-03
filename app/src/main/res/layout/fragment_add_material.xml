@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@id/add_frag_button_new_material"/>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_frag_input_layout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/edit_material_material_name"
             android:inputType="text"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_frag_input_layout_thickness"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/edit_material_material_thickness"
             android:inputType="numberDecimal"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/add_frag_button_new_material"
@@ -93,4 +93,4 @@
         app:srcCompat="@drawable/ic_delete_forever_black_48dp"
         android:contentDescription="@string/edit_material_delete_material_button"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

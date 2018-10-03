@@ -1,15 +1,13 @@
 package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.support.constraint.R.id.gone
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
@@ -34,9 +32,8 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_add_material, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_add_material, container, false)
         init(view)
         return view
     }
@@ -55,7 +52,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
                 listViewMaterials, buttonDel, buttonUpd, buttonAdd)
         MainController.setMaterialController(matController)
         materials = MainController.getMaterialList()
-        adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, materials)
+        adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, materials)
         MainController.setAdapterAddFragment(adapter)
         listViewMaterials.adapter = adapter
         listViewMaterials.onItemClickListener = this
@@ -82,10 +79,13 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     }
 
     override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {
-        selectedItem = adapter.getItem(pos)
-        editTextBrandName.text = Editable.Factory.getInstance().newEditable(selectedItem.brand)
-        editTextBrandThick.text = Editable.Factory.getInstance().newEditable(selectedItem.thickness.toString())
-        setButtonsState(true)
+        val item = adapter.getItem(pos)
+        if (item != null) {
+            selectedItem = item
+            editTextBrandName.text = Editable.Factory.getInstance().newEditable(selectedItem.brand)
+            editTextBrandThick.text = Editable.Factory.getInstance().newEditable(selectedItem.thickness.toString())
+            setButtonsState(true)
+        }
     }
 
     override fun onClick(view: View?) {

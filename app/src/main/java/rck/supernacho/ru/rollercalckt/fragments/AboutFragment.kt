@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +18,13 @@ class AboutFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_about, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_about, container, false)
         view.tv_about_policy.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://supnacho.github.io/rollercalc/privacy_policy.html")))
         }
         return view
     }
-
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

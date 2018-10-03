@@ -1,10 +1,10 @@
 package rck.supernacho.ru.rollercalckt
 
-import android.app.FragmentManager
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,9 +58,10 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
             if (tag == FragmentsTags.EDIT_MATERIALS.tag || tag == FragmentsTags.SETTINGS.tag ||
                     tag == FragmentsTags.ABOUT.tag) {
                 val fragment = supportFragmentManager.findFragmentByTag(tag)
-                supportFragmentManager.beginTransaction()
-                        .remove(fragment)
-                        .commit()
+                if (fragment != null)
+                    supportFragmentManager.beginTransaction()
+                            .remove(fragment)
+                            .commit()
                 supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             } else {
                 Toast.makeText(this, "No such fragment", Toast.LENGTH_SHORT).show()

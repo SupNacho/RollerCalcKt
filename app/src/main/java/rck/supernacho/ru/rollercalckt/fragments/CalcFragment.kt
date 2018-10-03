@@ -2,7 +2,7 @@ package rck.supernacho.ru.rollercalckt.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -17,6 +17,7 @@ import rck.supernacho.ru.rollercalckt.controller.Controllable
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.model.Material
+import java.lang.ref.WeakReference
 
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
                         AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener{
@@ -37,9 +38,9 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_calc, container, false)
+        val view = inflater.inflate(R.layout.fragment_calc, container, false)
         init(view)
         return view
     }
@@ -52,7 +53,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
         spinner = view.findViewById(R.id.calc_fragment_spinner_material)
         val materials = MainController.getMaterialList()
-        val spinnerAdapter = ArrayAdapter<Material>(context, android.R.layout.simple_list_item_1, materials)
+        val spinnerAdapter = ArrayAdapter<Material>(context!!, android.R.layout.simple_list_item_1, materials)
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = this
         seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
@@ -68,7 +69,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         inputInnD.onFocusChangeListener = this
         inputOuterD.setOnKeyListener(this)
         inputOuterD.onFocusChangeListener = this
-        controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
+//        controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
+        controller = CalcController(WeakReference<Context>(context), inputInnD, inputOuterD, resultTextView)
         MainController.setAdapterCalcFragment(spinnerAdapter)
         MainController.setCalcController(controller)
     }
