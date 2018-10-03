@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_add_material.view.*
 import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
@@ -17,7 +18,7 @@ import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 import rck.supernacho.ru.rollercalckt.model.Material
 
 
-class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener {
+class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener, IViewUpdate {
 
     private lateinit var editTextBrandName: EditText
     private lateinit var editTextBrandThick: EditText
@@ -39,12 +40,12 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     }
 
     private fun init(view: View){
-        editTextBrandName = view.findViewById(R.id.add_frag_edit_text_material_name)
-        editTextBrandThick = view.findViewById(R.id.add_frag_edit_text_material_thick)
-        listViewMaterials = view.findViewById(R.id.add_frag_list_view_materials)
-        buttonAdd = view.findViewById(R.id.add_frag_button_new_material)
-        buttonUpd = view.findViewById(R.id.add_frag_button_update)
-        buttonDel = view.findViewById(R.id.add_frag_button_delete)
+        editTextBrandName = view.add_frag_edit_text_material_name
+        editTextBrandThick = view.add_frag_edit_text_material_thick
+        listViewMaterials = view.add_frag_list_view_materials
+        buttonAdd = view.add_frag_button_new_material
+        buttonUpd = view.add_frag_button_update
+        buttonDel = view.add_frag_button_delete
         buttonAdd.setOnClickListener(this)
         buttonUpd.setOnClickListener(this)
         buttonDel.setOnClickListener(this)
@@ -53,7 +54,7 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         MainController.setMaterialController(matController)
         materials = MainController.getMaterialList()
         adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, materials)
-        MainController.setAdapterAddFragment(adapter)
+        MainController.addUpdateListener(this)
         listViewMaterials.adapter = adapter
         listViewMaterials.onItemClickListener = this
         setButtonsState(false)
@@ -106,6 +107,10 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
                 Toast.makeText(context, "No such button", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun updateView() {
+        adapter.notifyDataSetChanged()
     }
 
     private fun setButtonsState(udButtonsState: Boolean){
