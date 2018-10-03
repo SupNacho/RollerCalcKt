@@ -4,7 +4,7 @@ import rck.supernacho.ru.rollercalckt.model.Material
 
 
 interface ManageableMaterials {
-    fun add()
+    fun add(materialName: String, thickness: Double)
     fun remove(item: Material)
-    fun edit(item: Material)
+    fun edit(item: Material, materialName: String, thickness: Double)
 }

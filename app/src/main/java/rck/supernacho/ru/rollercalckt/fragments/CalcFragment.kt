@@ -19,8 +19,10 @@ import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.model.Material
 import java.lang.ref.WeakReference
 
+import kotlinx.android.synthetic.main.fragment_calc.view.*
+
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
-                        AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener{
+                        AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener, IViewUpdate{
 
     private var cont: Context? = null
     private lateinit var addButton: ImageButton
@@ -32,6 +34,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private lateinit var spinner: Spinner
     private lateinit var controller: Controllable
     private lateinit var prefs: PrefsController
+    private lateinit var spinnerAdapter: ArrayAdapter<Material>
 
     private var tempInnD: String = ""
     private var tempOutD: String = ""
@@ -47,21 +50,21 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
 
     private fun init(view: View) {
         prefs = (context as MainActivity).prefsController
-        addButton = view.findViewById(R.id.calc_fragment_button_add_material)
+        addButton = view.calc_fragment_button_add_material
         addButton.requestFocus()
         addButton.setOnClickListener(this)
-        resultTextView = view.findViewById(R.id.calc_fragment_text_view_output)
-        spinner = view.findViewById(R.id.calc_fragment_spinner_material)
+        resultTextView = view.calc_fragment_text_view_output
+        spinner = view.calc_fragment_spinner_material
         val materials = MainController.getMaterialList()
-        val spinnerAdapter = ArrayAdapter<Material>(context!!, android.R.layout.simple_list_item_1, materials)
+        spinnerAdapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, materials)
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = this
-        seekIn = view.findViewById(R.id.calc_fragment_seek_inner_d)
-        seekOut = view.findViewById(R.id.calc_fragment_seek_outer_d)
+        seekIn = view.calc_fragment_seek_inner_d
+        seekOut = view.calc_fragment_seek_outer_d
         seekIn.setOnSeekBarChangeListener(this)
         seekOut.setOnSeekBarChangeListener(this)
-        inputOuterD = view.findViewById(R.id.calc_fragment_outer_d)
-        inputInnD = view.findViewById(R.id.calc_fragment_inner_d)
+        inputOuterD = view.calc_fragment_outer_d
+        inputInnD = view.calc_fragment_inner_d
         setInputOutD(prefs.getOuterLast())
         setInputInnD(prefs.getInnerLast())
         restoreSeekProgress()
@@ -69,9 +72,8 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         inputInnD.onFocusChangeListener = this
         inputOuterD.setOnKeyListener(this)
         inputOuterD.onFocusChangeListener = this
-//        controller = CalcController(context, inputInnD, inputOuterD, resultTextView)
         controller = CalcController(WeakReference<Context>(context), inputInnD, inputOuterD, resultTextView)
-        MainController.setAdapterCalcFragment(spinnerAdapter)
+        MainController.addUpdateListener(this)
         MainController.setCalcController(controller)
     }
 
@@ -83,7 +85,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     private fun getIntPrefs(pref : String) : Int {
-        var result: Int
+        val result: Int
         try {
             result = pref.toInt()
         } catch (e : NumberFormatException){
@@ -224,6 +226,10 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         }
     }
 
+    override fun updateView() {
+        spinnerAdapter.notifyDataSetChanged()
+    }
+
     private fun setInputInnD(string: String?) {
         inputInnD.text = Editable.Factory.getInstance().newEditable(string)
     }
@@ -233,6 +239,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
 
     override fun onDestroy() {
         super.onDestroy()
+        MainController.removeUpdateListener(this)
         (context as MainActivity).getRWatcher().watch(this)
     }
 }

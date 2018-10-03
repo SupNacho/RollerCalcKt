@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
@@ -33,10 +34,10 @@ class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListe
 
     private fun init(view: View) {
         prefs = (context as MainActivity).prefsController
-        editTextMaxInnD = view.findViewById(R.id.edit_text_set_inner_d)
+        editTextMaxInnD = view.edit_text_set_inner_d
         editTextMaxInnD.setOnKeyListener(this)
         editTextMaxInnD.onFocusChangeListener = this
-        editTextMaxOutD = view.findViewById(R.id.edit_text_set_outer_d)
+        editTextMaxOutD = view.edit_text_set_outer_d
         editTextMaxOutD.setOnKeyListener(this)
         editTextMaxOutD.onFocusChangeListener = this
         editTextMaxInnD.text = Editable.Factory.getInstance().newEditable(prefs.getInnerMax())

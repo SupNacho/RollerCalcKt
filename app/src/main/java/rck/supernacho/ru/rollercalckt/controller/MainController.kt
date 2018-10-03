@@ -1,17 +1,19 @@
 package rck.supernacho.ru.rollercalckt.controller
 
-import android.widget.ArrayAdapter
+import android.util.Log
+import rck.supernacho.ru.rollercalckt.fragments.IViewUpdate
 import rck.supernacho.ru.rollercalckt.model.Material
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 object MainController {
 
-    fun setAdapterCalcFragment(adapter: ArrayAdapter<Material>){
-        adapterCalc = adapter
+    fun addUpdateListener(updateListener: IViewUpdate){
+        updateList.add(updateListener)
     }
 
-    fun setAdapterAddFragment(adapter: ArrayAdapter<Material>){
-        adapterAdd = adapter
+    fun removeUpdateListener(updateListener: IViewUpdate){
+        updateList.remove(updateListener)
+        Log.d("REM", "On Remove is called")
     }
 
     fun setMaterialMapper(mapMat: MaterialMapper){
@@ -37,8 +39,7 @@ object MainController {
     }
 
     fun updateLists(){
-        adapterCalc.notifyDataSetChanged()
-        adapterAdd.notifyDataSetChanged()
+        updateList.forEach{ e -> e.updateView()}
     }
 
     fun onCreate(){
@@ -53,6 +54,5 @@ object MainController {
     private lateinit var materialController: ManageableMaterials
     private lateinit var materialMapper: MaterialMapper
     private val materials: ArrayList<Material> = ArrayList()
-    private lateinit var adapterCalc: ArrayAdapter<Material>
-    private lateinit var adapterAdd: ArrayAdapter<Material>
+    private val updateList = ArrayList<IViewUpdate>()
 }
