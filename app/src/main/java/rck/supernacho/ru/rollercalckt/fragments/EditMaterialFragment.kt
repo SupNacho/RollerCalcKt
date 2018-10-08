@@ -92,8 +92,8 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     override fun onClick(view: View?) {
         val materialName = editTextBrandName.text.toString()
-        val materialThickness = editTextBrandThick.text.toString().toDouble()
         try {
+            val materialThickness = editTextBrandThick.text.toString().toDouble()
             when (view) {
                 buttonAdd -> {
                     if (materialName.isNotEmpty() && materialThickness.isFinite()) {
