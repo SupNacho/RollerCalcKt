@@ -31,18 +31,18 @@ class PrefsController(context: Context) {
     }
 
     fun getInnerMax(): String {
-        return prefs.getString(RC_PREFS_INN_MAX, "150")
+        return prefs.getString(RC_PREFS_INN_MAX, "150")!!
     }
 
     fun getOuterMax(): String {
-        return prefs.getString(RC_PREFS_OUT_MAX, "300")
+        return prefs.getString(RC_PREFS_OUT_MAX, "300")!!
     }
 
     fun getInnerLast(): String {
-        return prefs.getString(RC_PREFS_LAST_INN, "82")
+        return prefs.getString(RC_PREFS_LAST_INN, "82")!!
     }
 
     fun getOuterLast(): String {
-        return prefs.getString(RC_PREFS_LAST_OUT, "144")
+        return prefs.getString(RC_PREFS_LAST_OUT, "144")!!
     }
 }
