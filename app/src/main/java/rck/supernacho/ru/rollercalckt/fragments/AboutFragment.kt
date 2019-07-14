@@ -42,7 +42,6 @@ class AboutFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        (context as MainActivity).getRWatcher().watch(this)
     }
 
     interface OnFragmentInteractionListener {

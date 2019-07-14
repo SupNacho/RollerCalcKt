@@ -5,9 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
 import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.fragments.*
@@ -15,10 +16,10 @@ import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
         EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
-        AboutFragment.OnFragmentInteractionListener {
+        AboutFragment.OnFragmentInteractionListener, KodeinAware {
     lateinit var prefsController: PrefsController
-    private lateinit var refWatcher: RefWatcher
 
+    override val kodein: Kodein by closestKodein()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -71,7 +72,6 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        refWatcher = LeakCanary.install(application)
         setContentView(R.layout.activity_main)
         val matMapper = MaterialMapper(this)
         prefsController = PrefsController(this)
@@ -104,13 +104,8 @@ class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionList
         }
     }
 
-    fun getRWatcher(): RefWatcher {
-        return refWatcher
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         MainController.onDestroy()
-        refWatcher.watch(this)
     }
 }
