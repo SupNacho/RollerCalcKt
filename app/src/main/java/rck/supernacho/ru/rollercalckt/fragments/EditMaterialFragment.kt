@@ -77,7 +77,6 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     override fun onDestroy() {
         super.onDestroy()
         MainController.removeUpdateListener(this)
-        (context as MainActivity).getRWatcher().watch(this)
     }
 
     override fun onItemClick(adapt: AdapterView<*>?, view: View?, pos: Int, l: Long) {
