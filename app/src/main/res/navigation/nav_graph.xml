@@ -2,24 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-    app:startDestination="@id/calculationFragment">
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/calculationFragment"
+        android:id="@+id/navigation_home"
         android:name="rck.supernacho.ru.rollercalckt.screens.calculation.view.CalculationFragment"
         android:label="fragment_calculation"
         tools:layout="@layout/fragment_calculation" />
     <fragment
-        android:id="@+id/aboutFragment"
+        android:id="@+id/navigation_about"
         android:name="rck.supernacho.ru.rollercalckt.screens.about.view.AboutFragment"
         android:label="AboutFragment" />
     <fragment
-        android:id="@+id/preferenceFragment"
+        android:id="@+id/navigation_settings"
         android:name="rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferenceFragment"
         android:label="fragment_preference"
         tools:layout="@layout/fragment_preference" />
     <fragment
-        android:id="@+id/materialFragment"
+        android:id="@+id/navigation_material"
         android:name="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialFragment"
         android:label="fragment_material"
         tools:layout="@layout/fragment_material" />
