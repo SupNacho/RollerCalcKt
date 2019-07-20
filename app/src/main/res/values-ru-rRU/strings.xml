@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Калькулятор рулонных материалов</string>
     <string name="title_home">Расчет</string>
+    <string name="title_materials">Материалы</string>
     <string name="title_help">О программе</string>
     <string name="title_settings">Настройки</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

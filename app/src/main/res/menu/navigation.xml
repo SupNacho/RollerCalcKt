@@ -8,8 +8,13 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_roll"
+        android:icon="@drawable/ic_calc_icon"
         android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/navigation_material"
+        android:icon="@drawable/ic_materials"
+        android:title="@string/title_materials"/>
 
 
     <item
