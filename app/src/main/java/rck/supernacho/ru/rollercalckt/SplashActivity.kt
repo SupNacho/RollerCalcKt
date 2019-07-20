@@ -8,6 +8,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        startActivity(Intent(this, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NO_ANIMATION })
+        startActivity(Intent(this, NavActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NO_ANIMATION })
     }
 }
