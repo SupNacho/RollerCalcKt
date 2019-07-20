@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context="rck.supernacho.ru.rollercalckt.fragments.AboutFragment">
 
     <ImageView
@@ -26,7 +27,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view_about"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="16sp"
         android:text="@string/about_text"/>

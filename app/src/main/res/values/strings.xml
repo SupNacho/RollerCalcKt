@@ -29,5 +29,6 @@
 \nThank you for using my app.\nHave a nice day!"</string>
     <string name="add_material_button">Add Material button</string>
     <string name="image_description_rollercalc_icon" translatable="false">RollerCalc icon</string>
-    <string name="privacy_policy">privacy policy</string>
+    <string name="privacy_policy" translatable="false">privacy policy</string>
+    <string name="privacy_policy_url" translatable="false">https://supnacho.github.io/rollercalc/privacy_policy.html</string>
 </resources>

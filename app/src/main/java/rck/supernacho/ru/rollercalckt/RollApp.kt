@@ -6,6 +6,10 @@ import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import rck.supernacho.ru.rollercalckt.di.appModule
+import com.yandex.metrica.YandexMetrica
+import com.yandex.metrica.YandexMetricaConfig
+
+
 
 class RollApp: Application(), KodeinAware {
 
@@ -16,11 +20,21 @@ class RollApp: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         initLeakCanary()
+        initAppMetrika()
     }
 
     private fun initLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this))
             return
         LeakCanary.install(this)
+    }
+
+    private fun initAppMetrika(){
+        // Creating an extended library configuration.
+        val config = YandexMetricaConfig.newConfigBuilder(getString(R.string.app_metrika)).build()
+        // Initializing the AppMetrica SDK.
+        YandexMetrica.activate(applicationContext, config)
+        // Automatic tracking of user activity.
+        YandexMetrica.enableActivityAutoTracking(this)
     }
 }
