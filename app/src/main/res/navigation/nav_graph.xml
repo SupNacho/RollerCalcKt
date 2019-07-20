@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+    app:startDestination="@id/calculationFragment">
+
+    <fragment
+        android:id="@+id/calculationFragment"
+        android:name="rck.supernacho.ru.rollercalckt.screens.calculation.view.CalculationFragment"
+        android:label="fragment_calculation"
+        tools:layout="@layout/fragment_calculation" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="rck.supernacho.ru.rollercalckt.screens.about.view.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/preferenceFragment"
+        android:name="rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferenceFragment"
+        android:label="fragment_preference"
+        tools:layout="@layout/fragment_preference" />
+    <fragment
+        android:id="@+id/materialFragment"
+        android:name="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialFragment"
+        android:label="fragment_material"
+        tools:layout="@layout/fragment_material" />
+</navigation>

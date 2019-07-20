@@ -13,6 +13,7 @@ import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
 import rck.supernacho.ru.rollercalckt.fragments.*
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
+import rck.supernacho.ru.rollercalckt.screens.about.view.AboutFragment
 
 class MainActivity : AppCompatActivity(), CalcFragment.OnFragmentInteractionListener,
         EditMaterialFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener,
