@@ -14,6 +14,7 @@
         },
         {
           "id": "2:8601314269724196302",
+          "indexId": "2:8296070580542569901",
           "name": "name"
         }
       ],
@@ -46,7 +47,7 @@
     }
   ],
   "lastEntityId": "2:8628583698353141450",
-  "lastIndexId": "1:4471809537286515771",
+  "lastIndexId": "2:8296070580542569901",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

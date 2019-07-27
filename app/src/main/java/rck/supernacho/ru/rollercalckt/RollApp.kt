@@ -9,6 +9,8 @@ import rck.supernacho.ru.rollercalckt.di.appModule
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import rck.supernacho.ru.rollercalckt.modelnew.helper.ObjectBox
+import rck.supernacho.ru.rollercalckt.modelnew.helper.SqlToBoxMigrator
+import timber.log.Timber
 
 
 class RollApp: Application(), KodeinAware {
@@ -19,9 +21,11 @@ class RollApp: Application(), KodeinAware {
     }
     override fun onCreate() {
         super.onCreate()
+        Timber.plant(Timber.DebugTree())
         initLeakCanary()
         initAppMetrika()
         ObjectBox.init(this)
+        SqlToBoxMigrator.checkAndMigrate(this)
     }
 
     private fun initLeakCanary() {
