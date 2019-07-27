@@ -8,19 +8,20 @@ import org.kodein.di.android.x.androidXModule
 import rck.supernacho.ru.rollercalckt.di.appModule
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
-
+import rck.supernacho.ru.rollercalckt.modelnew.helper.ObjectBox
 
 
 class RollApp: Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein {
-        import(appModule)
         import(androidXModule(this@RollApp))
+        import(appModule)
     }
     override fun onCreate() {
         super.onCreate()
         initLeakCanary()
         initAppMetrika()
+        ObjectBox.init(this)
     }
 
     private fun initLeakCanary() {
