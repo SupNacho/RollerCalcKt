@@ -13,7 +13,11 @@ data class Material(
         @Convert(converter = BigDecimalToStringConverter::class, dbType = String::class)
         var thickness: BigDecimal = BigDecimal.ZERO,
         @Convert(converter = BigDecimalToStringConverter::class, dbType = String::class)
-        var weight: BigDecimal = BigDecimal.ZERO
+        var weight: BigDecimal = BigDecimal.ZERO,
+        @Convert(converter = BigDecimalToStringConverter::class, dbType = String::class)
+        var density: BigDecimal = BigDecimal.ZERO,
+        @Convert(converter = BigDecimalToStringConverter::class, dbType = String::class)
+        var mass: BigDecimal = BigDecimal.ZERO
 ) {
     lateinit var brand: ToOne<Brand>
 }
