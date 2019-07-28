@@ -5,3 +5,4 @@ import java.math.BigDecimal
 
 @BindingConversion
 fun bigDecimalToString(value: BigDecimal) = value.toPlainString()
+fun bigDecimalToString(value: BigDecimal?) = value?.toPlainString() ?: BigDecimal.ZERO
