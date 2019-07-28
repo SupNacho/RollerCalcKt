@@ -4,12 +4,13 @@ import android.content.Context
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
+import io.objectbox.reactive.SubscriptionBuilder
 import rck.supernacho.ru.rollercalckt.BuildConfig
 import rck.supernacho.ru.rollercalckt.model.entity.MyObjectBox
 import timber.log.Timber
 
 
-object ObjectBox{
+object ObjectBox {
 
     private lateinit var boxStore: BoxStore
 
@@ -20,5 +21,8 @@ object ObjectBox{
             AndroidObjectBrowser(boxStore).start(context.applicationContext)
         }
     }
-   fun <T> getRepository(entity: Class<T>): Box<T> = boxStore.boxFor(entity)
+
+    fun getBoxStore() = boxStore
+    fun <T> getRepository(entity: Class<T>): Box<T> = boxStore.boxFor(entity)
+    fun <T> subscribe(entity: Class<T>): SubscriptionBuilder<Class<T>> = boxStore.subscribe(entity)
 }

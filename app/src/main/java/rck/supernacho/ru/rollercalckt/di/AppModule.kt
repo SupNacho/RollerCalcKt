@@ -12,5 +12,5 @@ import rck.supernacho.ru.rollercalckt.model.repository.database.MaterialsReposit
 
 val appModule = Kodein.Module("main_module", false){
     bind<IPrefRepository>() with singleton { PreferecesRepository() }
-    bind<IMaterialsRepository>() with singleton { MaterialsRepository(ObjectBox.getRepository(Material::class.java)) }
+    bind<IMaterialsRepository>() with singleton { MaterialsRepository(ObjectBox.getRepository(Material::class.java), ObjectBox.subscribe(Material::class.java)) }
 }
