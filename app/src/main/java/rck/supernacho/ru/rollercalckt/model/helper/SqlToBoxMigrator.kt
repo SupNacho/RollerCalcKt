@@ -3,6 +3,8 @@ package rck.supernacho.ru.rollercalckt.model.helper
 import android.content.Context
 import com.yandex.metrica.YandexMetrica
 import io.objectbox.Box
+import io.objectbox.annotation.Unique
+import io.objectbox.exception.UniqueViolationException
 import io.objectbox.kotlin.boxFor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -45,10 +47,14 @@ object SqlToBoxMigrator : CoroutineScope by CoroutineScope(SupervisorJob()) {
 
 
     private fun mapMaterial(material: OldMaterial) {
-        val newBrand = Brand(name = material.brand)
-        val newMaterial = Material(thickness = material.thickness.toBigDecimal())
-        Timber.d("THREAD map  ${Thread.currentThread().name}")
-        newMaterial.brand.target = newBrand
-        materialBox.put(newMaterial)
+        try {
+            val newBrand = Brand(name = material.brand)
+            val newMaterial = Material(thickness = material.thickness.toBigDecimal())
+            Timber.d("THREAD map  ${Thread.currentThread().name}")
+            newMaterial.brand.target = newBrand
+            materialBox.put(newMaterial)
+        } catch (e: UniqueViolationException) {
+            Timber.e(e)
+        }
     }
 }

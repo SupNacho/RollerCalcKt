@@ -8,22 +8,24 @@ import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsReposi
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import timber.log.Timber
 
-class MaterialsViewModel( private val preferences: IPrefRepository,  private val materials: IMaterialsRepository): ViewModel() {
-    val materialsList : LiveData<List<Material>> by lazy {
-       initMaterialLiveData()
+class MaterialsViewModel(private val preferences: IPrefRepository, private val materials: IMaterialsRepository) : ViewModel() {
+    val materialsList: LiveData<List<Material>> by lazy {
+        initMaterialLiveData()
     }
-    private val dataSubscription = materials.subscription.observer {/* data ->
-        Timber.d("Updates received: $data")
-        (materialsList as MutableLiveData<List<Material>>).value = materials.box.all*/
-    }
+    private val dataSubscription = materials.subscription
+            .onError { Timber.e(it) }
+            .observer { data ->
+                Timber.d("Updates received: $data")
+                (materialsList as MutableLiveData<List<Material>>).postValue(materials.box.all)
+            }
 
-    private fun initMaterialLiveData(): LiveData<List<Material>>{
+    private fun initMaterialLiveData(): LiveData<List<Material>> {
         val liveData = MutableLiveData<List<Material>>()
-        liveData.value = materials.box.all
+        liveData.postValue(materials.box.all)
         return liveData
     }
 
-    fun onClickDeleteItem(material: Material){
+    fun onClickDeleteItem(material: Material) {
         Timber.d("Delete clicked")
         materials.box.remove(material)
     }
