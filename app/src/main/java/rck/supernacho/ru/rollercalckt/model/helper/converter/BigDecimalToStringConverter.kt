@@ -1,4 +1,4 @@
-package rck.supernacho.ru.rollercalckt.modelnew.helper.converter
+package rck.supernacho.ru.rollercalckt.model.helper.converter
 
 import io.objectbox.converter.PropertyConverter
 import java.lang.NumberFormatException

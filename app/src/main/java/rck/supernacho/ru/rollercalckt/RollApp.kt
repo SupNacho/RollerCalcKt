@@ -9,8 +9,8 @@ import rck.supernacho.ru.rollercalckt.di.appModule
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import kotlinx.coroutines.*
-import rck.supernacho.ru.rollercalckt.modelnew.helper.ObjectBox
-import rck.supernacho.ru.rollercalckt.modelnew.helper.SqlToBoxMigrator
+import rck.supernacho.ru.rollercalckt.model.helper.ObjectBox
+import rck.supernacho.ru.rollercalckt.model.helper.SqlToBoxMigrator
 import timber.log.Timber
 
 

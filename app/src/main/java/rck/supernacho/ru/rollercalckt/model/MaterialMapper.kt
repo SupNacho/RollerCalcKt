@@ -61,8 +61,8 @@ class MaterialMapper(context: Context) {
         return id
     }
 
-    fun getMaterials(): ArrayList<Material>{
-        val materials: ArrayList<Material> = ArrayList()
+    fun getMaterials(): ArrayList<OldMaterial>{
+        val materials: ArrayList<OldMaterial> = ArrayList()
         val cursor = dataBase.rawQuery(
                 "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field
                         + ", " + DataBaseFields.TABLE_MATERIALS.field + "." + DataBaseFields.COLUMN_NAME.field + ", "
@@ -76,7 +76,7 @@ class MaterialMapper(context: Context) {
         )
         cursor.moveToFirst()
         while (!cursor.isAfterLast){
-            val material = Material(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2))
+            val material = OldMaterial(cursor.getLong(0), cursor.getString(1), cursor.getDouble(2))
             materials.add(material)
             cursor.moveToNext()
         }
@@ -84,7 +84,7 @@ class MaterialMapper(context: Context) {
         return materials
     }
 
-    fun update(material: Material, newName: String?, newThickness: Double?) {
+    fun update(material: OldMaterial, newName: String?, newThickness: Double?) {
         val ids = findByMaterial(material)
         val contentValues = ContentValues()
         dataBase.beginTransaction()
@@ -108,13 +108,13 @@ class MaterialMapper(context: Context) {
         }
     }
 
-    fun delete(material: Material) {
+    fun delete(material: OldMaterial) {
         dataBase.delete(DataBaseFields.TABLE_RESULTS.field, DataBaseFields.COLUMN_ID.field + " = "
                 + material.id, null)
     }
 
-    // Returns array of ids in tables 0 - Result, 1 - Material, 2 - Thickness
-    private fun findByMaterial(material: Material): ArrayList<Long> {
+    // Returns array of ids in tables 0 - Result, 1 - OldMaterial, 2 - Thickness
+    private fun findByMaterial(material: OldMaterial): ArrayList<Long> {
         val cursor = dataBase.rawQuery(
                 "select " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID.field
                         + ", " + DataBaseFields.TABLE_RESULTS.field + "." + DataBaseFields.COLUMN_ID_BRANDS.field

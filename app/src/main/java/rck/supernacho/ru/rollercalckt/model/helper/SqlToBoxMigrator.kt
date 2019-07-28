@@ -1,4 +1,4 @@
-package rck.supernacho.ru.rollercalckt.modelnew.helper
+package rck.supernacho.ru.rollercalckt.model.helper
 
 import android.content.Context
 import com.yandex.metrica.YandexMetrica
@@ -8,11 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 import rck.supernacho.ru.rollercalckt.model.database.DataBaseFields
-import rck.supernacho.ru.rollercalckt.modelnew.entity.Brand
-import rck.supernacho.ru.rollercalckt.modelnew.entity.Material
+import rck.supernacho.ru.rollercalckt.model.entity.Brand
+import rck.supernacho.ru.rollercalckt.model.entity.Material
 import timber.log.Timber
 
-typealias OldMaterial = rck.supernacho.ru.rollercalckt.model.Material
+typealias OldMaterial = rck.supernacho.ru.rollercalckt.model.OldMaterial
 
 object SqlToBoxMigrator : CoroutineScope by CoroutineScope(SupervisorJob()) {
     private val materialBox: Box<Material> = ObjectBox.getRepository().boxFor()
@@ -38,7 +38,7 @@ object SqlToBoxMigrator : CoroutineScope by CoroutineScope(SupervisorJob()) {
         }
     }
 
-    private fun removeOldDB(context: Context, result: ArrayList<rck.supernacho.ru.rollercalckt.model.Material>) {
+    private fun removeOldDB(context: Context, result: ArrayList<rck.supernacho.ru.rollercalckt.model.OldMaterial>) {
         context.deleteDatabase(DataBaseFields.DATABASE_NAME.field)
         YandexMetrica.reportEvent("old db migrated", "{\"items\":\"${result.size}\"}")
     }

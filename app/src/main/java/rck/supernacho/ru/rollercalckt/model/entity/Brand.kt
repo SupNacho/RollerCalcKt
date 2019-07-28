@@ -1,4 +1,4 @@
-package rck.supernacho.ru.rollercalckt.modelnew.entity
+package rck.supernacho.ru.rollercalckt.model.entity
 
 import io.objectbox.annotation.Backlink
 import io.objectbox.annotation.Entity

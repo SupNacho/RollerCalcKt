@@ -2,7 +2,7 @@ package rck.supernacho.ru.rollercalckt.controller
 
 import android.util.Log
 import rck.supernacho.ru.rollercalckt.fragments.IViewUpdate
-import rck.supernacho.ru.rollercalckt.model.Material
+import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
 
 object MainController {
@@ -30,7 +30,7 @@ object MainController {
     fun getMaterialMapper(): MaterialMapper{
         return materialMapper
     }
-    fun getMaterialList(): ArrayList<Material>{
+    fun getMaterialList(): ArrayList<OldMaterial>{
         if(!materialMapper.isOpened()) materialMapper.open()
             materials.clear()
             materials.addAll(materialMapper.getMaterials())
@@ -53,6 +53,6 @@ object MainController {
     private lateinit var calcController: Controllable
     private lateinit var materialController: ManageableMaterials
     private lateinit var materialMapper: MaterialMapper
-    private val materials: ArrayList<Material> = ArrayList()
+    private val materials: ArrayList<OldMaterial> = ArrayList()
     private val updateList = ArrayList<IViewUpdate>()
 }

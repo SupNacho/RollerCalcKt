@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="rck.supernacho.ru.rollercalckt.model.entity.Material" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:baselineAligned="false"
+        android:background="@drawable/material_bg">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@{item.brand.target.name}"
+                tools:text="Oracal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{item.name}"
+                android:maxLines="3"
+                android:ellipsize="end"
+                tools:text="835 Carbone asadasdasda asdasdads asdasdasdad asd asd asd asda ssd a asda da dsasd ad2s asd a2ds  dasda s ad2ad ad asdd ad a" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@{item.thickness}"
+                android:drawableStart="@drawable/ic_about"
+                tools:text="0.121 mm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@{item.weight}"
+                android:drawableStart="@drawable/ic_about"
+                tools:text="123g/m2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@{item.density}"
+                android:drawableStart="@drawable/ic_about"
+                tools:text="123g/m3" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

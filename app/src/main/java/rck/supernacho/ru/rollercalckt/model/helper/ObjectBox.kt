@@ -1,11 +1,11 @@
-package rck.supernacho.ru.rollercalckt.modelnew.helper
+package rck.supernacho.ru.rollercalckt.model.helper
 
 import android.content.Context
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import rck.supernacho.ru.rollercalckt.BuildConfig
+import rck.supernacho.ru.rollercalckt.model.entity.MyObjectBox
 import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
-import rck.supernacho.ru.rollercalckt.modelnew.entity.MyObjectBox
 import timber.log.Timber
 
 
