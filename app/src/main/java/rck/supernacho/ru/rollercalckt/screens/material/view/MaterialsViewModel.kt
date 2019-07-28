@@ -12,9 +12,9 @@ class MaterialsViewModel( private val preferences: IPrefRepository,  private val
     val materialsList : LiveData<List<Material>> by lazy {
        initMaterialLiveData()
     }
-    private val dataSubscription = materials.subscription.observer { data ->
+    private val dataSubscription = materials.subscription.observer {/* data ->
         Timber.d("Updates received: $data")
-        (materialsList as MutableLiveData<List<Material>>).value = materials.box.all
+        (materialsList as MutableLiveData<List<Material>>).value = materials.box.all*/
     }
 
     private fun initMaterialLiveData(): LiveData<List<Material>>{
@@ -23,8 +23,9 @@ class MaterialsViewModel( private val preferences: IPrefRepository,  private val
         return liveData
     }
 
-    fun onClickDeleteItem(id: Long){
-        materials.box.remove(id)
+    fun onClickDeleteItem(material: Material){
+        Timber.d("Delete clicked")
+        materials.box.remove(material)
     }
 
     override fun onCleared() {

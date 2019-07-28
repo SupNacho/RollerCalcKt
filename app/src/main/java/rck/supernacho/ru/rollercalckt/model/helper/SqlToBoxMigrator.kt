@@ -15,7 +15,7 @@ import timber.log.Timber
 typealias OldMaterial = rck.supernacho.ru.rollercalckt.model.OldMaterial
 
 object SqlToBoxMigrator : CoroutineScope by CoroutineScope(SupervisorJob()) {
-    private val materialBox: Box<Material> = ObjectBox.getRepository().boxFor()
+    private val materialBox: Box<Material> = ObjectBox.getBoxStore().boxFor()
 
     fun checkAndMigrateAsync(context: Context) {
         Timber.d("THREAD ${Thread.currentThread().name}")

@@ -6,6 +6,9 @@
         <variable
             name="item"
             type="rck.supernacho.ru.rollercalckt.model.entity.Material" />
+        <variable
+            name="viewModel"
+            type="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel" />
     </data>
 
     <com.tubb.smrv.SwipeMenuLayout
@@ -26,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             layout="@layout/material_item_swipe_menu"
-            app:item="@{item}"/>
+            app:item="@{item}"
+            app:viewModel="@{viewModel}"/>
     </com.tubb.smrv.SwipeMenuLayout>
 </layout>

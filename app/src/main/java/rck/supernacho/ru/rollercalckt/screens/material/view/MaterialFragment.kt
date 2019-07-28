@@ -42,7 +42,7 @@ class MaterialFragment : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rv_materials.layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.VERTICAL }
-        rv_materials.adapter = MaterialListAdapter()
+        rv_materials.adapter = MaterialListAdapter(viewModel)
         viewModel.materialsList.observe(this, Observer {
             (rv_materials.adapter as MaterialListAdapter).submitList(it)
         })
