@@ -1,9 +1,10 @@
 package rck.supernacho.ru.rollercalckt.model.repository.database
 
-import io.objectbox.BoxStore
+import io.objectbox.Box
+import rck.supernacho.ru.rollercalckt.model.entity.Material
 
-class MaterialsRepository: IMaterialsRepository {
-    override fun getRepository(): BoxStore {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class MaterialsRepository(private val box: Box<Material>): IMaterialsRepository {
+    override fun getRepo(): Box<Material> {
+        return box
     }
 }

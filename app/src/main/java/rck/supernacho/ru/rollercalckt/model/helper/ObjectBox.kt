@@ -1,15 +1,15 @@
 package rck.supernacho.ru.rollercalckt.model.helper
 
 import android.content.Context
+import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import rck.supernacho.ru.rollercalckt.BuildConfig
 import rck.supernacho.ru.rollercalckt.model.entity.MyObjectBox
-import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
 import timber.log.Timber
 
 
-object ObjectBox : IMaterialsRepository{
+object ObjectBox{
 
     private lateinit var boxStore: BoxStore
 
@@ -20,5 +20,5 @@ object ObjectBox : IMaterialsRepository{
             AndroidObjectBrowser(boxStore).start(context.applicationContext)
         }
     }
-    override fun getRepository(): BoxStore = boxStore
+   fun <T> getRepository(entity: Class<T>): Box<T> = boxStore.boxFor(entity)
 }

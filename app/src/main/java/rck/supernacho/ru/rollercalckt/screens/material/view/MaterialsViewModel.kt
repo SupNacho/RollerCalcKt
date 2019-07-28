@@ -14,7 +14,7 @@ class MaterialsViewModel( private val preferences: IPrefRepository,  private val
 
     private fun initMaterialLiveData(): LiveData<List<Material>>{
         val liveData = MutableLiveData<List<Material>>()
-        liveData.value = materials.getRepository().boxFor(Material::class.java).all
+        liveData.value = materials.getRepo().all
         return liveData
     }
 }
