@@ -4,15 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
-import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
-import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
-import rck.supernacho.ru.rollercalckt.screens.material.domain.CrudMaterialInteractor
+import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 
-class EditMaterialViewModel(
-        private val preferences: IPrefRepository,
-        private val materials: IMaterialsRepository) : ViewModel() {
-    private val interactor = CrudMaterialInteractor(preferences, materials)
+class EditMaterialViewModel(private val interactor: ICrudMaterialInteractor) : ViewModel() {
     private val clickState = LiveEvent<ClickEvent>()
     val actionState: LiveData<ClickEvent> = clickState
     var materialUi: MaterialUi? = MaterialUi()

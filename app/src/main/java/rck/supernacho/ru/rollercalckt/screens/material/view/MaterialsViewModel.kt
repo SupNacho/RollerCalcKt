@@ -4,37 +4,38 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
-import rck.supernacho.ru.rollercalckt.model.entity.Material
-import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
-import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
+import io.reactivex.schedulers.Schedulers
+import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import timber.log.Timber
 
-class MaterialsViewModel(private val preferences: IPrefRepository, private val materials: IMaterialsRepository) : ViewModel() {
-    val materialsList: LiveData<List<Material>> by lazy {
+class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : ViewModel() {
+    val materialsList: LiveData<List<MaterialUi>> by lazy { //TODO convert on use materialUI
         initMaterialLiveData()
     }
     private val clickState = LiveEvent<ClickEvent>()
     val actionState: LiveData<ClickEvent> = clickState
 
-    private val dataSubscription = materials.subscription
-            .observer { data ->
+    private val dataSubscription = interactor.dataSubscription
+            .subscribeOn(Schedulers.io())
+            .subscribe { data ->
                 Timber.d("Updates received: $data")
-                (materialsList as MutableLiveData<List<Material>>).postValue(materials.box.all)
+                (materialsList as MutableLiveData<List<MaterialUi>>).postValue(interactor.getMaterials())
             }
 
-    private fun initMaterialLiveData(): LiveData<List<Material>> {
-        val liveData = MutableLiveData<List<Material>>()
-        liveData.postValue(materials.box.all)
+    private fun initMaterialLiveData(): LiveData<List<MaterialUi>> {
+        val liveData = MutableLiveData<List<MaterialUi>>()
+        liveData.postValue(interactor.getMaterials())
         return liveData
     }
 
-    fun onClickDeleteItem(material: Material) {
+    fun onClickDeleteItem(materialUi: MaterialUi) {
         Timber.d("Delete clicked")
-        materials.box.remove(material)
+        interactor.removeItem(materialUi)
     }
 
-    fun onClickEdit(material: Material){
+    fun onClickEdit(material: MaterialUi){
         Timber.d("Edit clicked")
         clickState.value = ClickEvent.EditClick(material)
     }
@@ -46,6 +47,6 @@ class MaterialsViewModel(private val preferences: IPrefRepository, private val m
 
     override fun onCleared() {
         super.onCleared()
-        dataSubscription.cancel()
+        dataSubscription.dispose()
     }
 }

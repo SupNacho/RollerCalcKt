@@ -16,7 +16,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentMaterialBinding
-import rck.supernacho.ru.rollercalckt.model.entity.Material
+import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
@@ -54,7 +54,7 @@ class MaterialFragment : Fragment(), KodeinAware {
         })
     }
 
-    private fun openDialog(material: Material? = null){
+    private fun openDialog(material: MaterialUi? = null){
         val dialog = EditMaterialDialog.getInstance(material?.id)
         dialog.show(childFragmentManager, "MATERIAL DIALOG")
     }

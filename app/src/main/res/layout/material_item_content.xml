@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="rck.supernacho.ru.rollercalckt.model.entity.Material" />
+            type="rck.supernacho.ru.rollercalckt.model.entity.MaterialUi" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Text.Light"
                 android:maxLines="1"
-                android:text="@{item.brand.target.name}"
+                android:text="@{item.brand}"
                 tools:text="Oracal" />
 
             <TextView
