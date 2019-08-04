@@ -1,36 +1,27 @@
 package rck.supernacho.ru.rollercalckt.screens.material.view
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
+import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
+import rck.supernacho.ru.rollercalckt.screens.material.domain.CrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
-import java.math.BigDecimal
 
 class EditMaterialViewModel(
         private val preferences: IPrefRepository,
         private val materials: IMaterialsRepository) : ViewModel() {
-
+    private val interactor = CrudMaterialInteractor(preferences, materials)
     private val clickState = LiveEvent<ClickEvent>()
     val actionState: LiveData<ClickEvent> = clickState
-    val brandField = ObservableField<String>()
-    val nameField = ObservableField<String>()
-    val thicknessField = ObservableField<BigDecimal>()
-    val weightField = ObservableField<BigDecimal>()
-    val densityField = ObservableField<BigDecimal>()
+    var materialUi: MaterialUi? = MaterialUi()
+        private set
     var materialId: Long? = null
         set(value) {
             field = value
             value?.let {
-                materials.box.get(it).let { mat ->
-                    brandField.set(mat.brand.target.name)
-                    nameField.set(mat.name)
-                    thicknessField.set(mat.thickness)
-                    weightField.set(mat.thickness)
-                    densityField.set(mat.density)
-                }
+                materialUi = interactor.getMaterial(it)
             }
         }
 
@@ -44,12 +35,12 @@ class EditMaterialViewModel(
     }
 
     private fun updateMaterial() {
-
+        materialUi?.let { interactor.updateMaterial(it) }
         closeDialog()
     }
 
     private fun addMaterial() {
-
+        materialUi?.let { interactor.addMaterial(it) }
         closeDialog()
     }
 

@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="rck.supernacho.ru.rollercalckt.screens.material.view.EditMaterialViewModel" />
+        <variable
+            name="material"
+            type="rck.supernacho.ru.rollercalckt.model.entity.MaterialUi" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +33,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.brandField}"
+                android:text="@={material.brand}"
                 tools:text="Oracal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +53,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.nameField}"
+                android:text="@={material.name}"
                 tools:text="8300"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +80,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.thicknessField}"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="@={material.thickness}"
                     tools:text="0.3"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -97,7 +102,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.weightField}"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="@={material.weight}"
                     tools:text="200"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +124,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.densityField}"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="@={material.density}"
                     tools:text="200"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

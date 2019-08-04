@@ -18,7 +18,6 @@ class MaterialsViewModel(private val preferences: IPrefRepository, private val m
     val actionState: LiveData<ClickEvent> = clickState
 
     private val dataSubscription = materials.subscription
-            .onError { Timber.e(it) }
             .observer { data ->
                 Timber.d("Updates received: $data")
                 (materialsList as MutableLiveData<List<Material>>).postValue(materials.box.all)

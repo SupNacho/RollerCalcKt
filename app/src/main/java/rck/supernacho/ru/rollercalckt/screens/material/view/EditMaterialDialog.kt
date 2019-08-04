@@ -32,6 +32,7 @@ class EditMaterialDialog: DialogFragment(), KodeinAware {
         arguments?.let {
             viewModel.materialId = it.getLong(MATERIAL_ID)
         }
+        binding.material = viewModel.materialUi
         return binding.root
     }
 
