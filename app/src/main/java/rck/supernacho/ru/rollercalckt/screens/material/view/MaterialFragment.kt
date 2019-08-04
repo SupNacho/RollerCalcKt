@@ -1,6 +1,5 @@
 package rck.supernacho.ru.rollercalckt.screens.material.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_calculation.*
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
-import rck.supernacho.ru.rollercalckt.MainActivity
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentMaterialBinding
+import rck.supernacho.ru.rollercalckt.model.entity.Material
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
+import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
 
@@ -46,5 +44,18 @@ class MaterialFragment : Fragment(), KodeinAware {
         viewModel.materialsList.observe(this, Observer {
             (rv_materials.adapter as MaterialListAdapter).submitList(it)
         })
+
+        viewModel.actionState.observe(this, Observer {
+            when(it){
+                is ClickEvent.EditClick -> openDialog(it.material)
+                is ClickEvent.AddClick -> openDialog()
+                else -> {}
+            }
+        })
+    }
+
+    private fun openDialog(material: Material? = null){
+        val dialog = EditMaterialDialog.getInstance(material?.id)
+        dialog.show(childFragmentManager, "MATERIAL DIALOG")
     }
 }

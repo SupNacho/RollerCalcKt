@@ -4,5 +4,4 @@ import androidx.databinding.BindingConversion
 import java.math.BigDecimal
 
 @BindingConversion
-fun bigDecimalToString(value: BigDecimal) = value.toPlainString()
-fun bigDecimalToString(value: BigDecimal?) = value?.toPlainString() ?: BigDecimal.ZERO
+fun bigDecimalToString(value: BigDecimal?): String? = value?.toPlainString() ?: BigDecimal.ZERO.toPlainString()

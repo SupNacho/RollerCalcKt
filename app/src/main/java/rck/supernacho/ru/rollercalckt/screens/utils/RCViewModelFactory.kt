@@ -8,6 +8,7 @@ import org.kodein.di.generic.instance
 import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.CalculationViewModel
+import rck.supernacho.ru.rollercalckt.screens.material.view.EditMaterialViewModel
 import rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel
 import rck.supernacho.ru.rollercalckt.screens.preferences.view.PrefsViewModel
 
@@ -20,6 +21,7 @@ class RCViewModelFactory(override val kodein: Kodein): KodeinAware, ViewModelPro
             CalculationViewModel::class.java -> CalculationViewModel(preferences = prefsRepo, materials = materialsRepo) as T
             PrefsViewModel::class.java -> PrefsViewModel(preferences = prefsRepo) as T
             MaterialsViewModel::class.java -> MaterialsViewModel(preferences = prefsRepo, materials = materialsRepo) as T
+            EditMaterialViewModel::class.java -> EditMaterialViewModel(preferences = prefsRepo, materials = materialsRepo) as T
             else -> throw IllegalStateException("seems you forgot add new viewmodel type to factory...")
         }
 

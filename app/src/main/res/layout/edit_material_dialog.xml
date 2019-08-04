@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="" />
+            type="rck.supernacho.ru.rollercalckt.screens.material.view.EditMaterialViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.brandField}"
                 tools:text="Oracal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,6 +50,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.nameField}"
                 tools:text="8300"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +77,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.thicknessField}"
                     tools:text="0.3"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -94,6 +97,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.weightField}"
                     tools:text="200"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -113,6 +117,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.densityField}"
                     tools:text="200"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -126,11 +131,13 @@
         android:weightSum="2">
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:id="@+id/btn_cancelEditDialog"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClickListener="@{() -> viewModel.negativeAction()}"
             android:text="Cancel"/>
-        <view
+        <View
             android:layout_width="16dp"
             android:layout_height="0dp"/>
         <com.google.android.material.button.MaterialButton
@@ -138,6 +145,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClickListener="@{() -> viewModel.positiveAction()}"
             android:text="ADD"/>
     </LinearLayout>
     </LinearLayout>

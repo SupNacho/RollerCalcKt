@@ -18,7 +18,8 @@
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_edit_black_48dp"/>
+    android:src="@drawable/ic_edit_black_48dp"
+    android:onClickListener="@{(view) -> viewModel.onClickEdit(item)}"/>
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
