@@ -8,7 +8,7 @@ interface ICrudMaterialInteractor {
 
     val dataSubscription : Observable<Boolean>
 
-    fun getMaterials(): List<MaterialUi>
+    fun getMaterials(order: QueryConst  = QueryConst.ASCENDING): List<MaterialUi>
 
     fun getBrands(): List<BrandUi>
 

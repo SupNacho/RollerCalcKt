@@ -1,11 +1,9 @@
 package rck.supernacho.ru.rollercalckt.screens.material.domain
 
+import io.objectbox.query.QueryBuilder
 import io.objectbox.reactive.DataSubscription
 import io.reactivex.Observable
-import rck.supernacho.ru.rollercalckt.model.entity.Brand
-import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
-import rck.supernacho.ru.rollercalckt.model.entity.Brand_
-import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.model.entity.*
 import rck.supernacho.ru.rollercalckt.model.entity.adapter.toMaterial
 import rck.supernacho.ru.rollercalckt.model.entity.adapter.toUiModel
 import rck.supernacho.ru.rollercalckt.model.repository.database.IBrandsRepository
@@ -21,8 +19,16 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
         subscriptionMaterial = materials.subscription.observer { emit.onNext(true) }
     }
 
-    override fun getMaterials(): List<MaterialUi> {
-        return materials.box.all.map { material -> material.toUiModel() }
+    override fun getMaterials(order: QueryConst): List<MaterialUi> {
+        val orderDirection = when(order){
+            QueryConst.ASCENDING -> 0
+            QueryConst.DESCENDING -> QueryBuilder.DESCENDING
+        }
+        val queryResult = materials.box.query().order(Material_.name, orderDirection).build().find()
+        return when(order) {
+            QueryConst.ASCENDING -> queryResult.sortedBy { m -> m.brand.target.name }.map { material -> material.toUiModel() }
+            QueryConst.DESCENDING -> queryResult.sortedByDescending { m -> m.brand.target.name }.map { material -> material.toUiModel() }
+        }
     }
 
     override fun getMaterial(id: Long): MaterialUi = materials.box.get(id).toUiModel()
@@ -57,5 +63,4 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
 
     private fun getBrandId(materialUi: MaterialUi): Long? =
             materialUi.brand?.let { brands.box.query().equal(Brand_.name, it).build().findFirst()?.id }
-
 }
