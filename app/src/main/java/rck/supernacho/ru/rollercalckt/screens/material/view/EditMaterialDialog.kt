@@ -18,6 +18,7 @@ import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.EditMaterialDialogBinding
 import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
+import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.BrandAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
@@ -51,8 +52,15 @@ class EditMaterialDialog : DialogFragment(), KodeinAware {
                 if (arguments?.getLong(MATERIAL_ID) != null) getString(R.string.edit)
                 else getString(R.string.add)
         context?.let {
-            val adapter = ArrayAdapter(it, android.R.layout.simple_dropdown_item_1line, viewModel.brandsList)
+            val adapter = BrandAdapter(it, viewModel.brandsList)
+            actv_brandEditDialog.threshold = 1
             actv_brandEditDialog.setAdapter(adapter)
+            actv_brandEditDialog.setOnItemClickListener { adapterView, _, i, _ ->
+                val brand = adapterView.getItemAtPosition(i) as BrandUi
+                actv_brandEditDialog.text?.let { et ->
+                    et.replace(0, et.length, brand.name)
+                }
+            }
         }
 
     }
