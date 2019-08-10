@@ -3,6 +3,7 @@ package rck.supernacho.ru.rollercalckt.screens.material.domain
 import io.objectbox.reactive.DataSubscription
 import io.reactivex.Observable
 import rck.supernacho.ru.rollercalckt.model.entity.Brand
+import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
 import rck.supernacho.ru.rollercalckt.model.entity.Brand_
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.adapter.toMaterial
@@ -20,13 +21,17 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
         subscriptionMaterial = materials.subscription.observer { emit.onNext(true) }
     }
 
-    override fun getMaterials(): List<MaterialUi> { //TODO convert to modelUI
+    override fun getMaterials(): List<MaterialUi> {
         return materials.box.all.map { material -> material.toUiModel() }
     }
 
     override fun getMaterial(id: Long): MaterialUi = materials.box.get(id).toUiModel()
 
-    override fun removeItem(materialUi: MaterialUi) { //TODO convert to model UI
+    override fun getBrands(): List<BrandUi> {
+        return brands.box.all.map { brand -> brand.toUiModel() }
+    }
+
+    override fun removeItem(materialUi: MaterialUi) {
         materials.box.remove(materialUi.toMaterial())
     }
 

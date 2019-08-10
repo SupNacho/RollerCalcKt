@@ -1,6 +1,7 @@
 package rck.supernacho.ru.rollercalckt.screens.material.domain
 
 import io.reactivex.Observable
+import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 
 interface ICrudMaterialInteractor {
@@ -8,6 +9,8 @@ interface ICrudMaterialInteractor {
     val dataSubscription : Observable<Boolean>
 
     fun getMaterials(): List<MaterialUi>
+
+    fun getBrands(): List<BrandUi>
 
     fun getMaterial(id: Long): MaterialUi
 

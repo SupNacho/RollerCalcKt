@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -16,10 +17,11 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.EditMaterialDialogBinding
+import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
-class EditMaterialDialog: DialogFragment(), KodeinAware {
+class EditMaterialDialog : DialogFragment(), KodeinAware {
     override val kodein: Kodein by closestKodein()
 
     private val viewModel: EditMaterialViewModel by lazy {
@@ -39,11 +41,20 @@ class EditMaterialDialog: DialogFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.actionState.observe(this, Observer {
-            when(it){
+            when (it) {
                 is ClickEvent.DismissDialog -> dismiss()
-                else -> {}
+                else -> {
+                }
             }
         })
+        btn_positiveActionEditDialog.text =
+                if (arguments?.getLong(MATERIAL_ID) != null) getString(R.string.edit)
+                else getString(R.string.add)
+        context?.let {
+            val adapter = ArrayAdapter(it, android.R.layout.simple_dropdown_item_1line, viewModel.brandsList)
+            actv_brandEditDialog.setAdapter(adapter)
+        }
+
     }
 
     override fun onResume() {
@@ -66,7 +77,7 @@ class EditMaterialDialog: DialogFragment(), KodeinAware {
 
         private const val MATERIAL_ID = "material_id"
 
-        fun getInstance(materialId: Long? = null): DialogFragment{
+        fun getInstance(materialId: Long? = null): DialogFragment {
             val instance = EditMaterialDialog()
             materialId?.let {
                 instance.arguments = Bundle().apply {

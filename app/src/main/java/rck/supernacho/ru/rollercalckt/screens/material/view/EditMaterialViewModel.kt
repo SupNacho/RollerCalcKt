@@ -3,6 +3,7 @@ package rck.supernacho.ru.rollercalckt.screens.material.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
+import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
@@ -19,6 +20,8 @@ class EditMaterialViewModel(private val interactor: ICrudMaterialInteractor) : V
                 materialUi = interactor.getMaterial(it)
             }
         }
+
+    val brandsList: List<BrandUi> = interactor.getBrands()
 
     fun positiveAction() {
         if (materialId != null) updateMaterial()

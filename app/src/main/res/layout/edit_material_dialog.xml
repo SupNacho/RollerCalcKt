@@ -30,11 +30,16 @@
             app:boxCornerRadiusTopStart="8dp"
             android:hint="@string/brand"
             >
-            <com.google.android.material.textfield.TextInputEditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/actv_brandEditDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:text="@={material.brand}"
-                tools:text="Oracal"/>
+                tools:text="8300 Oracal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,17 +150,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClickListener="@{() -> viewModel.negativeAction()}"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
         <View
             android:layout_width="16dp"
             android:layout_height="0dp"/>
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_positiveActionEditDialog"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClickListener="@{() -> viewModel.positiveAction()}"
-            android:text="ADD"/>
+            android:onClickListener="@{() -> viewModel.positiveAction()}"/>
     </LinearLayout>
     </LinearLayout>
 </layout>

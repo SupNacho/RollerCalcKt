@@ -11,7 +11,7 @@ import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import timber.log.Timber
 
 class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : ViewModel() {
-    val materialsList: LiveData<List<MaterialUi>> by lazy { //TODO convert on use materialUI
+    val materialsList: LiveData<List<MaterialUi>> by lazy {
         initMaterialLiveData()
     }
     private val clickState = LiveEvent<ClickEvent>()
@@ -35,12 +35,12 @@ class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : View
         interactor.removeItem(materialUi)
     }
 
-    fun onClickEdit(material: MaterialUi){
+    fun onClickEdit(material: MaterialUi) {
         Timber.d("Edit clicked")
         clickState.value = ClickEvent.EditClick(material)
     }
 
-    fun onClickAdd(){
+    fun onClickAdd() {
         Timber.d("Add clicked")
         clickState.value = ClickEvent.AddClick
     }
