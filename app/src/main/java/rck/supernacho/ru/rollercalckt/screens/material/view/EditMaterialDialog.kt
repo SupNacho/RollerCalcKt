@@ -75,10 +75,10 @@ class EditMaterialDialog : DialogFragment(), KodeinAware {
         activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
         val displayWidth = displayMetrics.widthPixels
         val layoutParams = WindowManager.LayoutParams()
-        dialog.window?.let { layoutParams.copyFrom(it.attributes) }
+        dialog?.window?.let { layoutParams.copyFrom(it.attributes) }
         val dialogWidth = displayWidth * 0.9f
         layoutParams.width = dialogWidth.toInt()
-        dialog.window?.let { it.attributes = layoutParams }
+        dialog?.window?.let { it.attributes = layoutParams }
     }
 
     companion object {

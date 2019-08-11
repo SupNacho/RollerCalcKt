@@ -13,11 +13,11 @@ class FilterInteractor(private val filterableItems: MutableLiveData<List<Materia
     override fun filterBy(input: CharSequence?) {
         input?.let {
             val result = tempCollection.filter { m ->
-                m.brand?.contains(it) == true
-                        || m.name?.contains(it) == true
-                        || m.thickness?.contains(it) == true
-                        || m.weight?.contains(it) == true
-                        || m.density?.contains(it) == true
+                m.brand?.contains(it, ignoreCase = true) == true
+                        || m.name?.contains(it, ignoreCase = true) == true
+                        || m.thickness?.contains(it, ignoreCase = true) == true
+                        || m.weight?.contains(it, ignoreCase = true) == true
+                        || m.density?.contains(it, ignoreCase = true) == true
             }
             filterableItems.postValue(result)
         } ?: filterableItems.postValue(tempCollection)
