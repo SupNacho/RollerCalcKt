@@ -28,11 +28,11 @@ class FilterInteractor(private val filterableItems: MutableLiveData<List<Materia
         val result = when (sortThickness) {
             null, QueryConst.DESCENDING -> {
                 sortThickness = QueryConst.ASCENDING
-                collection?.sortedBy { m -> m.thickness }
+                collection?.sortedBy { m -> m.thickness?.toBigDecimal() }
             }
             QueryConst.ASCENDING -> {
                 sortThickness = QueryConst.DESCENDING
-                collection?.sortedByDescending { m -> m.thickness }
+                collection?.sortedByDescending { m -> m.thickness?.toBigDecimal() }
             }
         }
         filterableItems.postValue(result)
@@ -43,11 +43,11 @@ class FilterInteractor(private val filterableItems: MutableLiveData<List<Materia
         val result = when (sortWeight) {
             null, QueryConst.DESCENDING -> {
                 sortWeight = QueryConst.ASCENDING
-                collection?.sortedBy { m -> m.weight }
+                collection?.sortedBy { m -> m.weight?.toBigDecimal() }
             }
             QueryConst.ASCENDING -> {
                 sortWeight = QueryConst.DESCENDING
-                collection?.sortedByDescending { m -> m.weight }
+                collection?.sortedByDescending { m -> m.weight?.toBigDecimal() }
             }
         }
         filterableItems.postValue(result)
@@ -58,11 +58,26 @@ class FilterInteractor(private val filterableItems: MutableLiveData<List<Materia
         val result = when (sortDensity) {
             null, QueryConst.DESCENDING -> {
                 sortDensity = QueryConst.ASCENDING
-                collection?.sortedBy { m -> m.density }
+                collection?.sortedBy { m -> m.density?.toBigDecimal() }
             }
             QueryConst.ASCENDING -> {
                 sortDensity = QueryConst.DESCENDING
-                collection?.sortedByDescending { m -> m.density }
+                collection?.sortedByDescending { m -> m.density?.toBigDecimal() }
+            }
+        }
+        filterableItems.postValue(result)
+    }
+
+    override fun sortByName() {
+        val collection = filterableItems.value
+        val result = when (sortDensity) {
+            null, QueryConst.DESCENDING -> {
+                sortDensity = QueryConst.ASCENDING
+                collection?.sortedBy { m -> m.name }?.sortedBy { m -> m.brand }
+            }
+            QueryConst.ASCENDING -> {
+                sortDensity = QueryConst.DESCENDING
+                collection?.sortedByDescending { m -> m.name }?.sortedByDescending { m -> m.brand }
             }
         }
         filterableItems.postValue(result)

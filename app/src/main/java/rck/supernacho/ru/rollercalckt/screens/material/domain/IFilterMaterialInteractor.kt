@@ -8,4 +8,5 @@ interface IFilterMaterialInteractor {
     fun sortByThickness()
     fun sortByWeight()
     fun sortByDensity()
+    fun sortByName()
 }

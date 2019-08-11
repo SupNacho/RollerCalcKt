@@ -37,6 +37,36 @@
                     android:onTextChanged="@{(text, start, before, count) -> viewModel.filterInteractor.filterBy(text)}"
                     tools:text="Avery"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByName()}"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thickness"
+                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByThickness()}"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight"
+                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByWeight()}"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/density"
+                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByDensity()}"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
         <com.tubb.smrv.SwipeMenuRecyclerView
