@@ -48,11 +48,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-crash:16.2.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
-    def nav_fragment_version = "1.0.0"
-    def nav_version = "1.0.0"
+    def nav_fragment_version = "2.0.0"
+    def nav_version = "2.0.0"
 
-    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_fragment_version"
-    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_fragment_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
