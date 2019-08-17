@@ -1,6 +1,7 @@
 package rck.supernacho.ru.rollercalckt.screens.calculation.view
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.fragment_calculation.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
+import rck.supernacho.ru.rollercalckt.MainActivity
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
@@ -30,4 +33,8 @@ class CalculationFragment : Fragment(), KodeinAware {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btn_oldCalc.setOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
+    }
 }

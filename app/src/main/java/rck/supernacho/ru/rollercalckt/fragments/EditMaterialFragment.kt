@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_add_material.view.*
-import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.CrudMaterialController
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
-import rck.supernacho.ru.rollercalckt.model.Material
+import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import java.lang.NumberFormatException
 
 
@@ -28,9 +27,9 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     private lateinit var buttonUpd: ImageButton
     private lateinit var buttonDel: ImageButton
     private lateinit var matController: ManageableMaterials
-    private lateinit var adapter: ArrayAdapter<Material>
-    private lateinit var materials: ArrayList<Material>
-    private lateinit var selectedItem: Material
+    private lateinit var adapter: ArrayAdapter<OldMaterial>
+    private lateinit var materials: ArrayList<OldMaterial>
+    private lateinit var selectedItem: OldMaterial
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -60,12 +59,12 @@ class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         setButtonsState(false)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             mListener = context
         } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 

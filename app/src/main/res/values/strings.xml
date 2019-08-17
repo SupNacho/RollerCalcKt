@@ -31,4 +31,13 @@
     <string name="image_description_rollercalc_icon" translatable="false">RollerCalc icon</string>
     <string name="privacy_policy" translatable="false">privacy policy</string>
     <string name="privacy_policy_url" translatable="false">https://supnacho.github.io/rollercalc/privacy_policy.html</string>
+    <string name="brand">Brand</string>
+    <string name="material_name">Material name</string>
+    <string name="thickness">Thickness</string>
+    <string name="weight">Weight</string>
+    <string name="density">Density</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+
 </resources>

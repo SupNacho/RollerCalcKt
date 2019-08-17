@@ -16,7 +16,7 @@ import rck.supernacho.ru.rollercalckt.controller.CalcController
 import rck.supernacho.ru.rollercalckt.controller.Controllable
 import rck.supernacho.ru.rollercalckt.controller.MainController
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
-import rck.supernacho.ru.rollercalckt.model.Material
+import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import java.lang.ref.WeakReference
 
 import kotlinx.android.synthetic.main.fragment_calc.view.*
@@ -34,7 +34,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     private lateinit var spinner: Spinner
     private lateinit var controller: Controllable
     private lateinit var prefs: PrefsController
-    private lateinit var spinnerAdapter: ArrayAdapter<Material>
+    private lateinit var spinnerAdapter: ArrayAdapter<OldMaterial>
 
     private var tempInnD: String = ""
     private var tempOutD: String = ""
@@ -100,13 +100,13 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             mListener = context
             cont = context
         } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 
@@ -169,7 +169,7 @@ class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.
     }
 
     override fun onItemSelected(adapter: AdapterView<*>?, view: View?, pos: Int, l: Long) {
-        val material = adapter?.getItemAtPosition(pos) as Material
+        val material = adapter?.getItemAtPosition(pos) as OldMaterial
         controller.setThick(material.thickness)
         controller.getLength()
     }
