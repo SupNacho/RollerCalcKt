@@ -1,98 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="measureSystem"
             type="rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem" />
+
         <variable
             name="viewModel"
             type="rck.supernacho.ru.rollercalckt.screens.preferences.view.PrefsViewModel" />
     </data>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".screens.preferences.view.PreferenceFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:boxStrokeColor="@color/colorPrimaryDark"
-        app:boxStrokeWidth="2dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        android:hint="@string/settings_150_hint"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.viewState.limits.inner}"
-            tools:text="150"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:boxStrokeColor="@color/colorPrimaryDark"
-        app:boxStrokeWidth="2dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusTopStart="8dp"
-        android:hint="@string/settings_300_hint"
-        >
-        <com.google.android.material.textfield.TextInputEditText
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.viewState.limits.outer}"
-            tools:text="300"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Choose units:"/>
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center"
-            android:layout_weight="2"
-            android:layout_margin="4dp"
-            app:singleSelection="true"
-            android:text="Choose your system">
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_Metric"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:checked="@{viewModel.viewState.measureSystem == measureSystem.METRIC}"
-            android:text="mm, m, kg"/>
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_Imperial"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:checked="@{viewModel.viewState.measureSystem == measureSystem.IMPERIAL}"
-            android:text="inch, ft, lb"/>
-        </com.google.android.material.chip.ChipGroup>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".screens.preferences.view.PreferenceFragment">
 
-</LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/settings_150_hint"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="2dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_innerMax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.viewState.limits.inner}"
+                        tools:text="150" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/settings_300_hint"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="2dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_outerMax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.viewState.limits.outer}"
+                        tools:text="300" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Choose units:" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_margin="4dp"
+                        android:layout_weight="2"
+                        android:text="Choose your system"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_Metric"
+                            style="@style/Widget.MaterialComponents.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.viewState.measureSystem == measureSystem.METRIC}"
+                            android:text="mm, m, kg"
+                            android:textAlignment="center" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_Imperial"
+                            style="@style/Widget.MaterialComponents.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{viewModel.viewState.measureSystem == measureSystem.IMPERIAL}"
+                            android:text="inch, ft, lb"
+                            android:textAlignment="center" />
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <rck.supernacho.ru.rollercalckt.screens.custom.StatusPupUp
+            android:id="@+id/status_popup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </layout>

@@ -1,6 +1,5 @@
 package rck.supernacho.ru.rollercalckt.screens.preferences.view
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
@@ -12,7 +11,8 @@ class PrefsViewModel(val preferences: IPrefRepository): ViewModel() {
         preferences.saveSettings(viewState)
     }
 
-    fun chooiseMeasureSystem(system: MeasureSystem){
+    fun chooseMeasureSystem(system: MeasureSystem){
         viewState.measureSystem = system
+        saveState()
     }
 }
