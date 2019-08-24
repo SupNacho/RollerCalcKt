@@ -1,5 +1,6 @@
 package rck.supernacho.ru.rollercalckt.screens.material.domain
 
+import com.google.firebase.perf.FirebasePerformance
 import io.objectbox.query.QueryBuilder
 import io.objectbox.reactive.DataSubscription
 import io.reactivex.Observable
@@ -20,14 +21,22 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
     }
 
     override fun getMaterials(order: QueryConst): List<MaterialUi> {
+        val trace = FirebasePerformance.getInstance().newTrace("get Materials query")
+        trace.start()
         val orderDirection = when(order){
             QueryConst.ASCENDING -> 0
             QueryConst.DESCENDING -> QueryBuilder.DESCENDING
         }
         val queryResult = materials.box.query().order(Material_.name, orderDirection).build().find()
         return when(order) {
-            QueryConst.ASCENDING -> queryResult.sortedBy { m -> m.brand.target.name }.map { material -> material.toUiModel() }
-            QueryConst.DESCENDING -> queryResult.sortedByDescending { m -> m.brand.target.name }.map { material -> material.toUiModel() }
+            QueryConst.ASCENDING -> {
+                trace.stop()
+                queryResult.sortedBy { m -> m.brand.target.name }.map { material -> material.toUiModel() }
+            }
+            QueryConst.DESCENDING -> {
+                trace.stop()
+                queryResult.sortedByDescending { m -> m.brand.target.name }.map { material -> material.toUiModel() }
+            }
         }
     }
 
@@ -42,6 +51,8 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
     }
 
     override fun updateMaterial(materialUi: MaterialUi) {
+        val trace = FirebasePerformance.getInstance().newTrace("update material")
+        trace.start()
         materialUi.brandId?.let {
             val oldBrand = brands.box.get(it)
             if (materialUi.brand != oldBrand.name) {
@@ -54,6 +65,7 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
             }
         }
         materials.box.put(materialUi.toMaterial())
+        trace.stop()
     }
 
     override fun addMaterial(materialUi: MaterialUi) {

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 29
@@ -44,12 +45,13 @@ dependencies {
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-core:17.1.0'
     implementation 'com.google.firebase:firebase-crash:16.2.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-perf:19.0.0'
 
-    def nav_fragment_version = "2.1.0-alpha02"
-    def nav_version = "2.1.0-alpha02"
+    def nav_fragment_version = "2.2.0-alpha01"
+    def nav_version = "2.2.0-alpha01"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_fragment_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -63,7 +65,7 @@ dependencies {
     implementation 'com.tubb.smrv:swipemenu-recyclerview:3.0.3'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     implementation 'com.github.hadilq.liveevent:liveevent:1.0.1'
 
     api 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
