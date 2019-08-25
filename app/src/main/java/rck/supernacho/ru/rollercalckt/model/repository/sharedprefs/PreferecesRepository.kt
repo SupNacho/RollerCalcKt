@@ -9,6 +9,13 @@ import rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferencesViewSt
 
 class PreferecesRepository(context: Context) : IPrefRepository {
     private val sharedPreferences = context.getSharedPreferences(RC_PREFS, Activity.MODE_PRIVATE)
+    override var cache: PreferencesViewState? = null
+        get() {
+            if (field == null)
+                field = getSettings()
+            return field
+        }
+
     override fun getSettings(): PreferencesViewState {
         sharedPreferences.run {
             return PreferencesViewState(
@@ -25,8 +32,9 @@ class PreferecesRepository(context: Context) : IPrefRepository {
         }
     }
 
-    override fun saveSettings(vs : PreferencesViewState) {
-        sharedPreferences.edit{
+    override fun saveSettings(vs: PreferencesViewState) {
+        cache = vs
+        sharedPreferences.edit {
             putString(RC_PREFS_LAST_INN, vs.lastInput.inner)
             putString(RC_PREFS_INN_MAX, vs.limits.inner)
             putString(RC_PREFS_LAST_OUT, vs.lastInput.outer)
