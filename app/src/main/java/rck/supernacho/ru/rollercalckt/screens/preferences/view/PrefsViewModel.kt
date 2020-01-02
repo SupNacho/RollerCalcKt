@@ -12,7 +12,9 @@ class PrefsViewModel(val preferences: IPrefRepository): ViewModel() {
     }
 
     fun chooseMeasureSystem(system: MeasureSystem){
-        viewState.measureSystem = system
+        viewState.run{
+            measureSystem = system
+        }
         saveState()
     }
 }

@@ -6,5 +6,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.UserInput
 data class PreferencesViewState(
         var limits: UserInput,
         var measureSystem: MeasureSystem,
-        var lastInput: UserInput
+        var lastInput: UserInput,
+        var innerLimitsDescription: String = "",
+        var outerLimitsDescription: String = ""
 )

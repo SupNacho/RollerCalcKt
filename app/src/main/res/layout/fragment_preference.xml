@@ -26,16 +26,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 tools:context=".screens.preferences.view.PreferenceFragment">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_innerMax"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="@string/settings_150_hint"
                     app:boxCornerRadiusBottomEnd="8dp"
                     app:boxCornerRadiusBottomStart="8dp"
                     app:boxCornerRadiusTopEnd="8dp"
@@ -52,11 +52,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_outerMax"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="@string/settings_300_hint"
                     app:boxCornerRadiusBottomEnd="8dp"
                     app:boxCornerRadiusBottomStart="8dp"
                     app:boxCornerRadiusTopEnd="8dp"
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="Choose units:" />
+                        android:text="@string/choose_units" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="0dp"
@@ -91,7 +91,7 @@
                         android:layout_gravity="end|center"
                         android:layout_margin="4dp"
                         android:layout_weight="2"
-                        android:text="Choose your system"
+                        android:text="@string/choose_your_system"
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
@@ -100,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="@{viewModel.viewState.measureSystem == measureSystem.METRIC}"
-                            android:text="mm, m, kg"
+                            android:text="@string/mm_m_kg"
                             android:textAlignment="center" />
 
                         <com.google.android.material.chip.Chip
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="@{viewModel.viewState.measureSystem == measureSystem.IMPERIAL}"
-                            android:text="inch, ft, lb"
+                            android:text="@string/inch_ft_lb"
                             android:textAlignment="center" />
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>

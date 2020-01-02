@@ -17,8 +17,11 @@
     <string name="calc_out_unit_text_view"> m</string>
     <string name="settiongs_max_inner_d_mm_txt_view">Max inner Ø, mm</string>
     <string name="settings_150_hint">Max inner Ø, mm</string>
+    <string name="settings_150_hint_imp">Max inner Ø, inch</string>
     <string name="settings_max_outer_d_mm_text_view">Max outer Ø, mm</string>
+    <string name="settings_max_outer_d_mm_text_view_imp">Max outer Ø, inch</string>
     <string name="settings_300_hint">Max outer Ø, mm</string>
+    <string name="settings_300_hint_imp">Max outer Ø, inch</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">
         "Calculator for roll materials\n\n"
@@ -39,5 +42,9 @@
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+    <string name="inch_ft_lb">inch, ft, lb</string>
+    <string name="mm_m_kg">mm, m, kg</string>
+    <string name="choose_your_system">Choose your system</string>
+    <string name="choose_units">Choose units:</string>
 
 </resources>

@@ -17,7 +17,10 @@ import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentPreferenceBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
+import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
+import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toMetricThickness
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
+import java.math.BigDecimal
 
 class PreferenceFragment : Fragment(), KodeinAware {
 
@@ -37,12 +40,26 @@ class PreferenceFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chip_Imperial.setOnClickListener { viewModel.chooseMeasureSystem(MeasureSystem.IMPERIAL) }
-        chip_Metric.setOnClickListener { viewModel.chooseMeasureSystem(MeasureSystem.METRIC) }
+
+        setHints(isMetric = viewModel.viewState.measureSystem == MeasureSystem.METRIC)
+
+        chip_Imperial.setOnClickListener {
+            setHints(isMetric = false)
+            viewModel.chooseMeasureSystem(MeasureSystem.IMPERIAL)
+            setFieldsData(isMetric = false)
+        }
+
+        chip_Metric.setOnClickListener {
+            setHints(isMetric = true)
+            viewModel.chooseMeasureSystem(MeasureSystem.METRIC)
+            setFieldsData(isMetric = true)
+        }
+
         saveAction = Runnable {
             viewModel.saveState()
             showSavedPopUp()
         }
+
         val watcher = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 view.removeCallbacks(saveAction)
@@ -54,6 +71,37 @@ class PreferenceFragment : Fragment(), KodeinAware {
         }
         et_innerMax.addTextChangedListener(watcher)
         et_outerMax.addTextChangedListener(watcher)
+    }
+
+    private fun setFieldsData(isMetric: Boolean) {
+        val data = Pair(et_innerMax.text?.toString()?.toBigDecimal(), et_outerMax.text?.toString()?.toBigDecimal())
+        setConvertedData(convertData(isMetric, data))
+    }
+
+    private fun convertData(isMetric: Boolean, data: Pair<BigDecimal?, BigDecimal?>): Pair<BigDecimal?, BigDecimal?> {
+        return if (isMetric) {
+            Pair(data.first?.toMetricThickness(), data.second?.toMetricThickness())
+        } else {
+            Pair(data.first?.toImperialThickness(), data.second?.toImperialThickness())
+        }
+    }
+
+    private fun setConvertedData(convertedData: Pair<BigDecimal?, BigDecimal?>) {
+        et_innerMax.setText(convertedData.first.toString())
+        et_outerMax.setText(convertedData.second.toString())
+    }
+
+    private fun setHints(isMetric: Boolean) {
+        val hints = if (isMetric)
+            Pair(R.string.settings_150_hint, R.string.settings_300_hint)
+        else
+            Pair(R.string.settings_150_hint_imp, R.string.settings_300_hint_imp)
+        bindHints(hints)
+    }
+
+    private fun bindHints(hints: Pair<Int, Int>) {
+        til_innerMax.hint = getString(hints.first)
+        til_outerMax.hint = getString(hints.second)
     }
 
     override fun onPause() {
