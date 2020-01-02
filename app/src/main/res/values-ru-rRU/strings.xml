@@ -23,4 +23,19 @@
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">\"Калькулятор для рулонных материалов." \n\nВ данном калькуляторе вы можете рассчитать длину материала в рулоне. Для этого вам надо будет указать толщину материала, внешний диаметр и внутренний диаметр. Для точности расчета надо произвести замер диаметров при максимально плотной намотке, так же будет влиять точность определения толщины материала в измеряемом рулоне. \n\n"</string>
     <string name="add_material_button">Add Material button</string>
+    <string name="add">Добавить</string>
+    <string name="brand">Производитель</string>
+    <string name="cancel">Отмена</string>
+    <string name="density">Плотность</string>
+    <string name="edit">Редактировать</string>
+    <string name="settings_max_outer_d_mm_text_view_imp">Макс.внеш. Ø, дюйм</string>
+    <string name="thickness">Макс.внут. Ø, дюйм</string>
+    <string name="weight">Вес</string>
+    <string name="settings_150_hint_imp">Макс.внут. Ø, дюйм</string>
+    <string name="settings_300_hint_imp">Макс.внеш. Ø, дюйм</string>
+    <string name="material_name">Материал</string>
+    <string name="mm_m_kg">мм, м, кг</string>
+    <string name="inch_ft_lb">дюймы, футы,  фунты</string>
+    <string name="choose_your_system">Выберите систему</string>
+    <string name="choose_units">Выберите ед. измерения:</string>
 </resources>
