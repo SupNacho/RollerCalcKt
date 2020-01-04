@@ -15,12 +15,11 @@ import rck.supernacho.ru.rollercalckt.screens.preferences.view.PrefsViewModel
 
 class RCViewModelFactory(override val kodein: Kodein): KodeinAware, ViewModelProvider.Factory {
     private val prefsRepo : IPrefRepository by instance()
-    private val materialsRepo : IMaterialsRepository by instance()
     private val crudInteractor : ICrudMaterialInteractor by instance()
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when (modelClass) {
-            CalculationViewModel::class.java -> CalculationViewModel(preferences = prefsRepo, materials = materialsRepo) as T
+            CalculationViewModel::class.java -> CalculationViewModel(materialsInteractor = crudInteractor) as T
             PrefsViewModel::class.java -> PrefsViewModel(preferences = prefsRepo) as T
             MaterialsViewModel::class.java -> MaterialsViewModel(interactor = crudInteractor) as T
             EditMaterialViewModel::class.java -> EditMaterialViewModel(interactor = crudInteractor) as T
