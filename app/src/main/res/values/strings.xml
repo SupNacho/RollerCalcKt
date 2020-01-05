@@ -10,8 +10,19 @@
     <string name="edit_material_add_new_material_button">Add new material</string>
     <string name="edit_material_update_material_button">Update material</string>
     <string name="edit_material_delete_material_button">Delete material</string>
-    <string name="calc_outer_d_text_view">Outer Ø, mm</string>
-    <string name="calc_inner_d_text_view">Inner Ø, mm</string>
+    <string name="calc_material_width">Width, %s</string>
+    <string name="calc_outer_d_text_view">Outer Ø, %s</string>
+    <string name="calc_inner_d_text_view">Inner Ø, %s</string>
+    <string name="calc_measure_metric">mm</string>
+    <string name="calc_measure_imperial">inch</string>
+    <string name="calc_w_measure_metric">kg</string>
+    <string name="calc_w_measure_imperial">lbs</string>
+    <string name="calc_l_measure_metric">m</string>
+    <string name="calc_l_measure_imperial">ft</string>
+    <string name="calc_output" translatable="false">%s</string>
+    <string name="calc_output_weight">Weight %s%s</string>
+    <string name="calc_output_length">Length in %s</string>
+    <string name="calc_inner_micros">Microns %s</string>
     <string name="calc_edit_button">Edit</string>
     <string name="calc_select_material_text_view">Select material:</string>
     <string name="calc_out_unit_text_view"> m</string>

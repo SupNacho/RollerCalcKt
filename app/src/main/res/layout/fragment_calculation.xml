@@ -130,9 +130,25 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:lines="1"
+                android:textAlignment="center"
                 android:textSize="64sp"
                 app:layout_constraintTop_toBottomOf="@id/sp_container"
-                tools:text="123123.87ft" />
+                tools:text="123123.87" />
+            <TextView
+                android:id="@+id/tv_outputWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_output"
+                app:layout_constraintLeft_toLeftOf="@id/tv_output"
+                app:layout_constraintRight_toRightOf="@id/tv_output"
+                tools:text="@string/calc_output_weight" />
+            <TextView
+                android:id="@+id/tv_outputDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_output"
+                app:layout_constraintLeft_toLeftOf="@id/tv_output"
+                tools:text="@string/calc_output_length" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_inner"
@@ -151,7 +167,7 @@
                 app:boxStrokeWidth="2dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/til_outer"
-                app:layout_constraintTop_toBottomOf="@id/tv_output">
+                app:layout_constraintTop_toBottomOf="@id/tv_outputWeight">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_inner"
@@ -187,6 +203,34 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_outer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text=""
+                    tools:text="150" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_width"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/calc_outer_d_text_view"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidth="2dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_inner">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_width"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
