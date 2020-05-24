@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@ class MaterialFragment : Fragment(), KodeinAware {
     override val kodein: Kodein by closestKodein()
 
     private val viewModel: MaterialsViewModel by lazy {
-        ViewModelProviders.of(this, RCViewModelFactory(kodein)).get(MaterialsViewModel::class.java)
+        ViewModelProvider(this, RCViewModelFactory(kodein)).get(MaterialsViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

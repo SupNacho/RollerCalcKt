@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.android.synthetic.main.fragment_preference.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -28,7 +31,7 @@ class PreferenceFragment : Fragment(), KodeinAware {
     private var saveAction: Runnable? = null
     override val kodein: Kodein by closestKodein()
     private val viewModel: PrefsViewModel by lazy {
-        ViewModelProviders.of(this, RCViewModelFactory(kodein)).get(PrefsViewModel::class.java)
+        ViewModelProvider(this, RCViewModelFactory(kodein)).get(PrefsViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

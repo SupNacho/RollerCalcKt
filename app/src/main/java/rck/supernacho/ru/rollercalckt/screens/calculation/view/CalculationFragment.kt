@@ -13,6 +13,7 @@ import android.widget.SpinnerAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_calculation.*
@@ -30,7 +31,7 @@ class CalculationFragment : Fragment(), KodeinAware {
 
     override val kodein: Kodein by closestKodein()
     private val viewModel: CalculationViewModel by lazy {
-        ViewModelProviders.of(this, RCViewModelFactory(kodein)).get(CalculationViewModel::class.java)
+        ViewModelProvider(this, RCViewModelFactory(kodein)).get(CalculationViewModel::class.java)
     }
 
     private var spinnerAdapter: MaterialSpinnerAdapter? = null

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.edit_material_dialog.*
 import org.kodein.di.Kodein
@@ -26,7 +27,7 @@ class EditMaterialDialog : DialogFragment(), KodeinAware {
     override val kodein: Kodein by closestKodein()
 
     private val viewModel: EditMaterialViewModel by lazy {
-        ViewModelProviders.of(this, RCViewModelFactory(kodein)).get(EditMaterialViewModel::class.java)
+        ViewModelProvider(this, RCViewModelFactory(kodein)).get(EditMaterialViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
