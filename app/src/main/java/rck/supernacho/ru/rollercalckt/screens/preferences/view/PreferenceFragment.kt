@@ -43,9 +43,38 @@ class PreferenceFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initHints()
+        initButtons()
+        initSaveAction()
+        initTextViews(view)
+    }
 
+    private fun initHints() {
         setHints(isMetric = viewModel.viewState.measureSystem == MeasureSystem.METRIC)
+    }
 
+    private fun initSaveAction() {
+        saveAction = Runnable {
+            viewModel.saveState()
+            showSavedPopUp()
+        }
+    }
+
+    private fun initTextViews(view: View) {
+        val watcher = object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                view.removeCallbacks(saveAction)
+                view.postDelayed(saveAction, 1250)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        }
+        et_innerMax.addTextChangedListener(watcher)
+        et_outerMax.addTextChangedListener(watcher)
+    }
+
+    private fun initButtons() {
         chip_Imperial.setOnClickListener {
             setHints(isMetric = false)
             viewModel.chooseMeasureSystem(MeasureSystem.IMPERIAL)
@@ -58,22 +87,9 @@ class PreferenceFragment : Fragment(), KodeinAware {
             setFieldsData(isMetric = true)
         }
 
-        saveAction = Runnable {
-            viewModel.saveState()
-            showSavedPopUp()
+        swt_weightEnabled.setOnClickListener {
+            viewModel.enableWeightCalculation(swt_weightEnabled.isChecked)
         }
-
-        val watcher = object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                view.removeCallbacks(saveAction)
-                view.postDelayed(saveAction, 1250)
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        }
-        et_innerMax.addTextChangedListener(watcher)
-        et_outerMax.addTextChangedListener(watcher)
     }
 
     private fun setFieldsData(isMetric: Boolean) {

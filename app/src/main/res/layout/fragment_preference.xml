@@ -113,6 +113,13 @@
                             android:textAlignment="center" />
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swt_weightEnabled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/weight_calc"
+                    android:checked="@{viewModel.viewState.isWeightCalculate}"/>
             </LinearLayout>
         </ScrollView>
 

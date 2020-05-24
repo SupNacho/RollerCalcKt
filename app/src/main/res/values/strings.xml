@@ -20,7 +20,7 @@
     <string name="calc_l_measure_metric">m</string>
     <string name="calc_l_measure_imperial">ft</string>
     <string name="calc_output" translatable="false">%s</string>
-    <string name="calc_output_weight">Weight %s%s</string>
+    <string name="calc_output_weight">Weight %1$s%2$s</string>
     <string name="calc_output_length">Length in %s</string>
     <string name="calc_inner_micros">Microns %s</string>
     <string name="calc_edit_button">Edit</string>
@@ -57,5 +57,6 @@
     <string name="mm_m_kg">mm, m, kg</string>
     <string name="choose_your_system">Choose your system</string>
     <string name="choose_units">Choose units:</string>
+    <string name="weight_calc">Enable weight calculation?</string>
 
 </resources>

@@ -8,5 +8,6 @@ data class MaterialUi(
         var density: String? = null,
         var mass: String? = null,
         var brand: String? = null,
-        var brandId: Long? =null
+        var brandId: Long? = null,
+        var weightVisibility: Int = 0
 )

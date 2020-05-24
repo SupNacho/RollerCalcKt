@@ -37,13 +37,13 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
             QueryConst.ASCENDING -> {
                 queryResult.sortedBy { m -> m.brand.target.name }.map { material ->
                     material.applyUnits()
-                    material.toUiModel()
+                    material.toUiModel(preferences.cache?.isWeightCalculate == true)
                 }
             }
             QueryConst.DESCENDING -> {
                 queryResult.sortedByDescending { m -> m.brand.target.name }.map { material ->
                     material.applyUnits()
-                    material.toUiModel()
+                    material.toUiModel(preferences.cache?.isWeightCalculate == true)
                 }
             }
         }
@@ -51,7 +51,7 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
 
     override fun getMaterial(id: Long): MaterialUi = materials.box.get(id).run {
         applyUnits()
-        toUiModel()
+        toUiModel(preferences.cache?.isWeightCalculate == true)
     }
 
     private fun Material.applyUnits() {

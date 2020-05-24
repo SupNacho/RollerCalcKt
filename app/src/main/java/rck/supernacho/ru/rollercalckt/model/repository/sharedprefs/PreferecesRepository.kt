@@ -27,7 +27,8 @@ class PreferecesRepository(context: Context) : IPrefRepository {
                     lastInput = UserInput(
                             inner = getString(RC_PREFS_LAST_INN, "0"),
                             outer = getString(RC_PREFS_LAST_OUT, "300")
-                    )
+                    ),
+                    isWeightCalculate = getBoolean(RC_WEIGHT_ENABLED, false)
             )
         }
     }
@@ -40,6 +41,7 @@ class PreferecesRepository(context: Context) : IPrefRepository {
             putString(RC_PREFS_LAST_OUT, vs.lastInput.outer)
             putString(RC_PREFS_OUT_MAX, vs.limits.outer)
             putInt(RC_MEASURE_SYSTEM, vs.measureSystem.ordinal)
+            putBoolean(RC_WEIGHT_ENABLED, vs.isWeightCalculate)
         }
     }
 
@@ -56,5 +58,6 @@ class PreferecesRepository(context: Context) : IPrefRepository {
         private const val RC_PREFS_LAST_INN = "inner_last"
         private const val RC_PREFS_LAST_OUT = "outer_last"
         private const val RC_MEASURE_SYSTEM = "measure_system"
+        private const val RC_WEIGHT_ENABLED = "weight_enabled"
     }
 }

@@ -42,11 +42,11 @@ class MaterialFragment : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         rv_materials.layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.VERTICAL }
         rv_materials.adapter = MaterialListAdapter(viewModel)
-        viewModel.materialsList.observe(this, Observer {
+        viewModel.materialsList.observe(viewLifecycleOwner, Observer {
             (rv_materials.adapter as MaterialListAdapter).submitList(it)
         })
 
-        viewModel.actionState.observe(this, Observer {
+        viewModel.actionState.observe(viewLifecycleOwner, Observer {
             when(it){
                 is ClickEvent.EditClick -> openDialog(it.material)
                 is ClickEvent.AddClick -> openDialog()

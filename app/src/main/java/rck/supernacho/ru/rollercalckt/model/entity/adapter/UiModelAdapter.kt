@@ -6,7 +6,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.Material
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import java.math.BigDecimal
 
-fun Material.toUiModel(): MaterialUi =
+fun Material.toUiModel(isWeightEnabled: Boolean): MaterialUi =
         MaterialUi(
                 id = this.id,
                 name = this.name,
@@ -14,7 +14,8 @@ fun Material.toUiModel(): MaterialUi =
                 weight = this.weight.toPlainString(),
                 density = this.density.toPlainString(),
                 brand = this.brand.target.name,
-                brandId = this.brand.targetId
+                brandId = this.brand.targetId,
+                weightVisibility = if(isWeightEnabled) 0 else 8
         )
 
 fun MaterialUi.toMaterial(): Material =
