@@ -32,97 +32,22 @@
                 app:strokeColor="@color/colorPrimaryDark"
                 app:strokeWidth="1dp" />
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/sp_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="50dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/btn_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:text="Toggle filter" />
-
-                <FrameLayout
-                    android:id="@+id/fl_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Find"
-                                android:onTextChanged="@{(text, start, before, count) -> viewModel.filterInteractor.filterBy(text)}"
-                                tools:text="Avery" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <LinearLayout
-                            style="?attr/buttonBarStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                style="?attr/buttonBarButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClickListener="@{() -> viewModel.filterInteractor.sortByName()}"
-                                android:text="name" />
-
-                            <Button
-                                style="?attr/buttonBarButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClickListener="@{() -> viewModel.filterInteractor.sortByThickness()}"
-                                android:text="@string/thickness" />
-
-                            <Button
-                                style="?attr/buttonBarButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClickListener="@{() -> viewModel.filterInteractor.sortByWeight()}"
-                                android:text="@string/weight" />
-
-                            <Button
-                                style="?attr/buttonBarButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClickListener="@{() -> viewModel.filterInteractor.sortByDensity()}"
-                                android:text="@string/density" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </FrameLayout>
-
-                <Spinner
-                    android:id="@+id/sp_materials"
+                <include layout="@layout/spinner_material_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    app:layout_constraintBottom_toTopOf="@id/calc_fragment_text_view_output"
-                    app:layout_constraintEnd_toStartOf="@id/calc_fragment_button_add_material"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/calc_fragment_select_label"
-                    tools:listitem="@layout/spinner_material_item" />
-            </LinearLayout>
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_output"

@@ -31,10 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_searchMaterial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Find"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.filterInteractor.filterBy(text)}"
                     tools:text="Avery"/>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
@@ -43,28 +43,28 @@
                 android:layout_gravity="end"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/btn_filterByName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="name"
-                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByName()}"
                     />
                 <Button
+                    android:id="@+id/btn_filterByThick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/thickness"
-                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByThickness()}"
                     />
                 <Button
+                    android:id="@+id/btn_filterByWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weight"
-                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByWeight()}"
                     />
                 <Button
+                    android:id="@+id/btn_filterByDensity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/density"
-                    android:onClickListener="@{() -> viewModel.filterInteractor.sortByDensity()}"
                     />
             </LinearLayout>
         </LinearLayout>

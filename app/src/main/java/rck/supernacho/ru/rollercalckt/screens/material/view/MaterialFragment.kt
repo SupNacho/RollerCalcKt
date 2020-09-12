@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_material.*
@@ -53,6 +53,15 @@ class MaterialFragment : Fragment(), KodeinAware {
                 else -> {}
             }
         })
+
+        btn_filterByName.setOnClickListener { viewModel.sortByName() }
+        btn_filterByThick.setOnClickListener { viewModel.sortByThick() }
+        btn_filterByWeight.setOnClickListener { viewModel.sortByWeight() }
+        btn_filterByDensity.setOnClickListener { viewModel.sortByDensity() }
+
+        et_searchMaterial.doOnTextChanged { text, start, before, count ->
+            viewModel.filterByText(text.toString())
+        }
     }
 
     private fun openDialog(material: MaterialUi? = null){

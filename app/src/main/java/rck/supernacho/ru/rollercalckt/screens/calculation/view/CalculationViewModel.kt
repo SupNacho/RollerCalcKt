@@ -50,7 +50,7 @@ class CalculationViewModel(
         return liveData
     }
 
-    val filterInteractor: IFilterMaterialInteractor = FilterInteractor(materialsList as MutableLiveData)
+    val filterInteractor: IFilterMaterialInteractor = FilterInteractor(materialsInteractor)
     private val dataSubscription = materialsInteractor.dataSubscription
             .subscribeOn(Schedulers.io())
             .subscribe { data ->
@@ -93,22 +93,18 @@ class CalculationViewModel(
                 vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second)
     }
 
-    fun onSelectedMaterial(position: Int) {
-        materialsList.value?.let { materials ->
-            val material = materials[position]
+    fun onSelectedMaterial(material: MaterialUi) {
+        (viewState as MutableLiveData).value =
+                viewState.value?.copy(
+                        thickness = material.thickness?.toBigDecimal() ?: BigDecimal.ZERO,
+                        weight = material.weight?.toBigDecimal() ?: BigDecimal.ZERO,
+                        density = material.density?.toBigDecimal() ?: BigDecimal.ZERO
+                )
 
-            (viewState as MutableLiveData).value =
-                    viewState.value?.copy(
-                            thickness = material.thickness?.toBigDecimal()?: BigDecimal.ZERO,
-                            weight = material.weight?.toBigDecimal()?: BigDecimal.ZERO,
-                            density = material.density?.toBigDecimal()?: BigDecimal.ZERO
-                            )
-
-            calculate()
-        }
+        calculate()
     }
 
-    fun setWidth(input: String){
+    fun setWidth(input: String) {
         //TODO fix check for empty field
         (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimal())
         calculate()

@@ -12,13 +12,14 @@ import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInt
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import timber.log.Timber
 
-class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : ViewModel() {
-    val materialsList: LiveData<List<MaterialUi>> by lazy {
-        initMaterialLiveData()
-    }
+class MaterialsViewModel(
+        private val interactor: ICrudMaterialInteractor,
+        private val filterInteractor: IFilterMaterialInteractor
+) : ViewModel() {
+    val materialsList: LiveData<List<MaterialUi>> by lazy { filterInteractor.filteredItems }
     private val clickState = LiveEvent<ClickEvent>()
     val actionState: LiveData<ClickEvent> = clickState
-    val filterInteractor: IFilterMaterialInteractor = FilterInteractor(materialsList as MutableLiveData)
+
     private val dataSubscription = interactor.dataSubscription
             .subscribeOn(Schedulers.io())
             .subscribe { data ->
@@ -27,12 +28,6 @@ class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : View
                 (materialsList as MutableLiveData<List<MaterialUi>>).postValue(updatedData)
                 filterInteractor.tempCollection = updatedData
             }
-
-    private fun initMaterialLiveData(): LiveData<List<MaterialUi>> {
-        val liveData = MutableLiveData<List<MaterialUi>>()
-        liveData.postValue(interactor.getMaterials())
-        return liveData
-    }
 
     fun onClickDeleteItem(materialUi: MaterialUi) {
         Timber.d("Delete clicked")
@@ -48,6 +43,14 @@ class MaterialsViewModel(private val interactor: ICrudMaterialInteractor) : View
         Timber.d("Add clicked")
         clickState.value = ClickEvent.AddClick
     }
+
+
+    fun sortByName() = filterInteractor.sortByName()
+    fun sortByThick() = filterInteractor.sortByThickness()
+    fun sortByWeight() = filterInteractor.sortByWeight()
+    fun sortByDensity() = filterInteractor.sortByDensity()
+
+    fun filterByText(text: String) = filterInteractor.filterBy(text)
 
     override fun onCleared() {
         super.onCleared()
