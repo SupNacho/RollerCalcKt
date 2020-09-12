@@ -17,7 +17,7 @@ import rck.supernacho.ru.rollercalckt.controller.ManageableMaterials
 import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import java.lang.NumberFormatException
 
-
+@Deprecated("old_calculator")
 class EditMaterialFragment : Fragment(), View.OnClickListener, AdapterView.OnItemClickListener, IViewUpdate {
 
     private lateinit var editTextBrandName: EditText

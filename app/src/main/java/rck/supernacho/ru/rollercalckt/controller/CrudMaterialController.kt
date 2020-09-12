@@ -2,7 +2,7 @@ package rck.supernacho.ru.rollercalckt.controller
 
 import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
-
+@Deprecated("old_calculator")
 class CrudMaterialController : ManageableMaterials{
     private val materialMapper : MaterialMapper = MainController.getMaterialMapper()
     private val materials: ArrayList<OldMaterial> = MainController.getMaterialList()

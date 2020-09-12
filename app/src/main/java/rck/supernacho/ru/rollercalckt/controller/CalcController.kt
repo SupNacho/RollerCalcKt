@@ -6,7 +6,7 @@ import android.widget.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.calc.Calculator
 import java.lang.ref.WeakReference
-
+@Deprecated("old_calculator")
 //class CalcController(val context: Context, private vararg val views: View) : Controllable {
 class CalcController(val contextRef: WeakReference<Context>, private vararg val views: View) : Controllable {
     private val context = contextRef.get()

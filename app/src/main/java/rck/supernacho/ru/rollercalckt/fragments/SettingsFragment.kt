@@ -15,7 +15,7 @@ import rck.supernacho.ru.rollercalckt.MainActivity
 
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.controller.PrefsController
-
+@Deprecated("old_calculator")
 class SettingsFragment : Fragment(), View.OnFocusChangeListener, View.OnKeyListener {
 
     private var tempInnMax = "150"

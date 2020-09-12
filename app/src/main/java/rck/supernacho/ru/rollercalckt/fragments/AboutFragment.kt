@@ -14,6 +14,7 @@ import rck.supernacho.ru.rollercalckt.R
 
 import kotlinx.android.synthetic.main.fragment_about.view.*
 
+@Deprecated("old_calculator")
 class AboutFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null

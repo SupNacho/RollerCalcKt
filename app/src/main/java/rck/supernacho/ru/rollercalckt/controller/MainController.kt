@@ -4,7 +4,7 @@ import android.util.Log
 import rck.supernacho.ru.rollercalckt.fragments.IViewUpdate
 import rck.supernacho.ru.rollercalckt.model.OldMaterial
 import rck.supernacho.ru.rollercalckt.model.MaterialMapper
-
+@Deprecated("old_calculator")
 object MainController {
 
     fun addUpdateListener(updateListener: IViewUpdate){

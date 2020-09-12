@@ -21,6 +21,7 @@ import java.lang.ref.WeakReference
 
 import kotlinx.android.synthetic.main.fragment_calc.view.*
 
+@Deprecated("old_calculator")
 class CalcFragment : Fragment(), View.OnKeyListener, View.OnClickListener, View.OnFocusChangeListener,
                         AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener, IViewUpdate{
 

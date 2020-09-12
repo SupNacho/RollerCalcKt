@@ -2,7 +2,7 @@ package rck.supernacho.ru.rollercalckt.controller
 
 import android.app.Activity
 import android.content.Context
-
+@Deprecated("old_calculator")
 class PrefsController(context: Context) {
     companion object {
         private const val RC_PREFS = "rc_preferences"
