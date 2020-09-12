@@ -106,17 +106,21 @@ class CalculationViewModel(
 
     fun setWidth(input: String) {
         //TODO fix check for empty field
-        (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimal())
-        calculate()
+        if (input.isNotEmpty()) {
+            (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimal())
+            calculate()
+        }
     }
 
     fun setInput(input: String, isInner: Boolean) {
-        (viewState as MutableLiveData).value =
-                if (isInner)
-                    viewState.value?.copy(innerInput = input.toBigDecimal())
-                else
-                    viewState.value?.copy(outerInput = input.toBigDecimal())
-        calculate()
+        if (input.isNotEmpty()) {
+            (viewState as MutableLiveData).value =
+                    if (isInner)
+                        viewState.value?.copy(innerInput = input.toBigDecimal())
+                    else
+                        viewState.value?.copy(outerInput = input.toBigDecimal())
+            calculate()
+        }
     }
 
     override fun onCleared() {
