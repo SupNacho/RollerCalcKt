@@ -1,5 +1,6 @@
 package rck.supernacho.ru.rollercalckt.screens.calculation.domain.calculation
 
+import rck.supernacho.ru.rollercalckt.domain.isZero
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -7,7 +8,7 @@ import java.math.RoundingMode
 class Calculator : Calculable {
     override fun getLength(dMax: BigDecimal, dMin: BigDecimal, thick: BigDecimal): BigDecimal {
         val dRoll = (dMax - dMin) / BigDecimal(2)
-        val nLayers = if (thick == BigDecimal.ZERO) BigDecimal.ZERO else dRoll / thick
+        val nLayers = if (thick.isZero()) BigDecimal.ZERO else dRoll / thick
         val middleLayer = (dMax + dMin) / BigDecimal(2)
         return ((middleLayer * Math.PI.toBigDecimal() * nLayers) / BigDecimal(1000))
                 .setScale(5, RoundingMode.HALF_UP)
