@@ -33,8 +33,6 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
     }
     private var isInitScreen = true
 
-    private var spinnerAdapter: MaterialSpinnerAdapter? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentCalculationBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_calculation, container, false)
@@ -44,7 +42,13 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.materialsList.observe(viewLifecycleOwner, Observer { it.firstOrNull()?.let { setMaterial(it) } })
+        viewModel.materialsList.observe(
+                viewLifecycleOwner, Observer {
+            it.find { it.id == viewModel.viewState.value?.selectedMaterial }
+                    ?.let { onSelected(it) }
+                    ?: it.firstOrNull()?.let { onSelected(it) }
+        }
+        )
         viewModel.viewState.observe(viewLifecycleOwner, Observer { renderUi(it) })
         initSelector()
         initButtons()

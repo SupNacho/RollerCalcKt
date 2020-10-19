@@ -16,5 +16,6 @@ data class CalcViewState (
         val density: BigDecimal,
         val resultLength: BigDecimal,
         val resultWeight: BigDecimal,
+        val selectedMaterial: Long,
         val preferencesViewState: PreferencesViewState
 )

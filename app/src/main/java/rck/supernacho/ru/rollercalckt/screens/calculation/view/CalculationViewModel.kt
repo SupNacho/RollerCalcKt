@@ -47,7 +47,8 @@ class CalculationViewModel(
                 weight = BigDecimal.ZERO,
                 width = BigDecimal.ZERO,
                 density = BigDecimal.ZERO,
-                preferencesViewState = prefs
+                preferencesViewState = prefs,
+                selectedMaterial = prefs.lastInput.lastSelectedMaterial
         )
         return liveData
     }
@@ -81,7 +82,11 @@ class CalculationViewModel(
     }
 
     private fun calculateWith(vs: CalcViewState, inner: BigDecimal, outer: BigDecimal, thickness: BigDecimal, width: BigDecimal) {
-        val updatedPrefs = viewState.value?.preferencesViewState?.copy(lastInput = UserInput(inner.toPlainString(), outer.toPlainString(), width.toPlainString()))
+        val updatedPrefs = viewState.value?.preferencesViewState?.copy(lastInput = UserInput(
+                inner = inner.toPlainString(),
+                outer = outer.toPlainString(),
+                width = width.toPlainString(),
+                lastSelectedMaterial = viewState.value?.selectedMaterial ?: -1))
         val length = calculator.getLength(outer, inner, thickness)
         val weight = calculator.getWeight(length, width, thickness, vs.weight, vs.density)
         val preparedResult = if (vs.measureSystem == MeasureSystem.IMPERIAL) {
@@ -107,6 +112,7 @@ class CalculationViewModel(
     fun onSelectedMaterial(material: MaterialUi) {
         (viewState as MutableLiveData).value =
                 viewState.value?.copy(
+                        selectedMaterial = material.id,
                         thickness = material.thickness?.toBigDecimal() ?: BigDecimal.ZERO,
                         weight = material.weight?.toBigDecimal() ?: BigDecimal.ZERO,
                         density = material.density?.toBigDecimal() ?: BigDecimal.ZERO
