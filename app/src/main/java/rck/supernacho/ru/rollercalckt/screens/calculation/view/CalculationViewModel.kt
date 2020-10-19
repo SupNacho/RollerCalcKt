@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.schedulers.Schedulers
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
+import rck.supernacho.ru.rollercalckt.model.entity.UserInput
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import rck.supernacho.ru.rollercalckt.screens.calculation.domain.calculation.Calculable
 import rck.supernacho.ru.rollercalckt.screens.material.domain.FilterInteractor
@@ -14,6 +15,7 @@ import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInt
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialLength
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialWeight
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toMetricThickness
+import rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferencesViewState
 import timber.log.Timber
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -50,7 +52,7 @@ class CalculationViewModel(
         return liveData
     }
 
-    val filterInteractor: IFilterMaterialInteractor = FilterInteractor(materialsInteractor)
+    private val filterInteractor: IFilterMaterialInteractor = FilterInteractor(materialsInteractor)
     private val dataSubscription = materialsInteractor.dataSubscription
             .subscribeOn(Schedulers.io())
             .subscribe { data ->
@@ -79,6 +81,7 @@ class CalculationViewModel(
     }
 
     private fun calculateWith(vs: CalcViewState, inner: BigDecimal, outer: BigDecimal, thickness: BigDecimal, width: BigDecimal) {
+        val updatedPrefs = viewState.value?.preferencesViewState?.copy(lastInput = UserInput(inner.toPlainString(), outer.toPlainString(), width.toPlainString()))
         val length = calculator.getLength(outer, inner, thickness)
         val weight = calculator.getWeight(length, width, thickness, vs.weight, vs.density)
         val preparedResult = if (vs.measureSystem == MeasureSystem.IMPERIAL) {
@@ -89,8 +92,16 @@ class CalculationViewModel(
         } else
             Pair(length, weight)
 
-        (viewState as MutableLiveData).value =
-                vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second)
+        updatedPrefs?.let {
+            preferences.saveSettings(it)
+            (viewState as MutableLiveData).value =
+                    vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second,
+                            preferencesViewState = it)
+        } ?: let {
+            (viewState as MutableLiveData).value =
+                    vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second)
+        }
+
     }
 
     fun onSelectedMaterial(material: MaterialUi) {

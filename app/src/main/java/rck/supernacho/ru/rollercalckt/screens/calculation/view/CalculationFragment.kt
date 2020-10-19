@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_calculation.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.spinner_material_item.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -30,6 +31,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
     private val viewModel: CalculationViewModel by lazy {
         ViewModelProvider(this, RCViewModelFactory(kodein)).get(CalculationViewModel::class.java)
     }
+    private var isInitScreen = true
 
     private var spinnerAdapter: MaterialSpinnerAdapter? = null
 
@@ -42,7 +44,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.materialsList.observe(viewLifecycleOwner, Observer { it.firstOrNull()?.let { setMaterial(it) }})
+        viewModel.materialsList.observe(viewLifecycleOwner, Observer { it.firstOrNull()?.let { setMaterial(it) } })
         viewModel.viewState.observe(viewLifecycleOwner, Observer { renderUi(it) })
         initSelector()
         initButtons()
@@ -88,9 +90,9 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
     private fun renderUi(vs: CalcViewState) {
         vs.run {
             val weightVisibility = if (preferencesViewState.isWeightCalculate) View.VISIBLE else View.GONE
-            val unit = if (measureSystem == MeasureSystem.METRIC)R.string.calc_measure_metric else R.string.calc_measure_imperial
-            val wUnit = if (measureSystem == MeasureSystem.METRIC)R.string.calc_w_measure_metric else R.string.calc_w_measure_imperial
-            val lUnit = if (measureSystem == MeasureSystem.METRIC)R.string.calc_l_measure_metric else R.string.calc_l_measure_imperial
+            val unit = if (measureSystem == MeasureSystem.METRIC) R.string.calc_measure_metric else R.string.calc_measure_imperial
+            val wUnit = if (measureSystem == MeasureSystem.METRIC) R.string.calc_w_measure_metric else R.string.calc_w_measure_imperial
+            val lUnit = if (measureSystem == MeasureSystem.METRIC) R.string.calc_l_measure_metric else R.string.calc_l_measure_imperial
             val unitString = getString(unit)
             val wUnitString = getString(wUnit)
             val lUnitString = getString(lUnit)
@@ -102,10 +104,18 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             til_outer.hint = getString(R.string.calc_outer_d_text_view, unitString)
             tv_output.text = getString(R.string.calc_output, resultLength)
             tv_outputDesc.text = getString(R.string.calc_output_length, lUnitString)
-            tv_outputWeight.run{
+            tv_outputWeight.run {
                 text = getString(R.string.calc_output_weight, resultWeight, wUnitString)
                 visibility = weightVisibility
             }
+
+            if (isInitScreen)
+                preferencesViewState.run {
+                    isInitScreen = false
+                    et_inner.setText(lastInput.inner)
+                    et_outer.setText(lastInput.outer)
+                    et_width.setText(lastInput.width)
+                }
 
         }
     }
