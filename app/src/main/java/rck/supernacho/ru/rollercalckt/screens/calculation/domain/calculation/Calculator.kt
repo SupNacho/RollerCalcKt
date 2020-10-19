@@ -18,7 +18,7 @@ class Calculator : Calculable {
         val s = length.multiply(width.divide(BigDecimal(1000)))
         val result = when {
             weight > BigDecimal.ZERO -> s.multiply(weight)
-            density > BigDecimal.ZERO -> s.multiply(thickness).multiply(density)
+            density > BigDecimal.ZERO -> s.multiply(thickness.divide(BigDecimal(1000))).multiply(density)
             else -> BigDecimal.ZERO
         }
         return result.setScale(2, RoundingMode.HALF_UP)
