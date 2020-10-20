@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.hadilq.liveevent.LiveEvent
 import io.reactivex.schedulers.Schedulers
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import rck.supernacho.ru.rollercalckt.screens.material.domain.FilterInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInteractor
@@ -14,7 +15,8 @@ import timber.log.Timber
 
 class MaterialsViewModel(
         private val interactor: ICrudMaterialInteractor,
-        private val filterInteractor: IFilterMaterialInteractor
+        private val filterInteractor: IFilterMaterialInteractor,
+        private val preferences: IPrefRepository
 ) : ViewModel() {
     val materialsList: LiveData<List<MaterialUi>> by lazy { filterInteractor.filteredItems }
     private val clickState = LiveEvent<ClickEvent>()
@@ -42,6 +44,12 @@ class MaterialsViewModel(
     fun onClickAdd() {
         Timber.d("Add clicked")
         clickState.value = ClickEvent.AddClick
+    }
+
+    fun onClickSelect(material: MaterialUi) {
+        val prefViewState = preferences.getSettings()
+        preferences.saveSettings(prefViewState.copy(lastInput = prefViewState.lastInput.copy(lastSelectedMaterial = material.id)))
+        clickState.value = ClickEvent.SelectClick(material)
     }
 
 

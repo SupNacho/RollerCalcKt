@@ -7,13 +7,17 @@
         <variable
             name="item"
             type="rck.supernacho.ru.rollercalckt.model.entity.MaterialUi" />
+        <variable
+            name="viewModel"
+            type="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:baselineAligned="false"
-        android:background="@drawable/material_bg">
+        android:background="@drawable/material_bg"
+        android:onClickListener="@{(view) -> viewModel.onClickSelect(item)}">
 
         <LinearLayout
             android:layout_width="0dp"

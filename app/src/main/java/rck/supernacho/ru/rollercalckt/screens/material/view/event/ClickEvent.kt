@@ -4,6 +4,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 
 sealed class ClickEvent {
     data class EditClick(val material: MaterialUi): ClickEvent()
+    data class SelectClick(val material: MaterialUi): ClickEvent()
     object AddClick: ClickEvent()
     object DismissDialog: ClickEvent()
 }

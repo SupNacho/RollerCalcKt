@@ -22,7 +22,8 @@
         <include
             android:id="@id/smContentView"
             layout="@layout/material_item_content"
-            app:item="@{item}"/>
+            app:item="@{item}"
+            app:viewModel="@{viewModel}"/>
         <include
             android:id="@id/smMenuView"
             android:layout_width="wrap_content"

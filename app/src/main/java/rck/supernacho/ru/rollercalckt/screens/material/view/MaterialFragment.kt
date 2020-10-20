@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_material.*
@@ -50,7 +51,8 @@ class MaterialFragment : Fragment(), KodeinAware {
             when(it){
                 is ClickEvent.EditClick -> openDialog(it.material)
                 is ClickEvent.AddClick -> openDialog()
-                else -> {}
+                is ClickEvent.SelectClick -> findNavController().navigate(R.id.navigation_home)
+                is ClickEvent.DismissDialog -> Unit
             }
         })
 

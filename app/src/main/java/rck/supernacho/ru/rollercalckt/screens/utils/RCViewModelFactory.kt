@@ -26,7 +26,7 @@ class RCViewModelFactory(override val kodein: Kodein): KodeinAware, ViewModelPro
         return when (modelClass) {
             CalculationViewModel::class.java -> CalculationViewModel(materialsInteractor = crudInteractor, preferences = prefsRepo, calculator = calculator) as T
             PrefsViewModel::class.java -> PrefsViewModel(preferences = prefsRepo) as T
-            MaterialsViewModel::class.java -> MaterialsViewModel(interactor = crudInteractor, filterInteractor = filterInteractor) as T
+            MaterialsViewModel::class.java -> MaterialsViewModel(interactor = crudInteractor, filterInteractor = filterInteractor, preferences = prefsRepo) as T
             EditMaterialViewModel::class.java -> EditMaterialViewModel(interactor = crudInteractor) as T
             SelectorViewModel::class.java -> SelectorViewModel(materialInteractor = crudInteractor, filterInteractor = filterInteractor) as T
             else -> throw IllegalStateException("seems you forgot add new viewmodel type to factory...")
