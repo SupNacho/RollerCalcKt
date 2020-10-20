@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import rck.supernacho.ru.rollercalckt.model.repository.database.IMaterialsRepository
 import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import rck.supernacho.ru.rollercalckt.screens.calculation.domain.calculation.Calculable
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.CalculationViewModel
@@ -27,7 +26,7 @@ class RCViewModelFactory(override val kodein: Kodein): KodeinAware, ViewModelPro
             CalculationViewModel::class.java -> CalculationViewModel(materialsInteractor = crudInteractor, preferences = prefsRepo, calculator = calculator) as T
             PrefsViewModel::class.java -> PrefsViewModel(preferences = prefsRepo) as T
             MaterialsViewModel::class.java -> MaterialsViewModel(interactor = crudInteractor, filterInteractor = filterInteractor, preferences = prefsRepo) as T
-            EditMaterialViewModel::class.java -> EditMaterialViewModel(interactor = crudInteractor) as T
+            EditMaterialViewModel::class.java -> EditMaterialViewModel(interactor = crudInteractor, preferenceRepo = prefsRepo) as T
             SelectorViewModel::class.java -> SelectorViewModel(materialInteractor = crudInteractor, filterInteractor = filterInteractor) as T
             else -> throw IllegalStateException("seems you forgot add new viewmodel type to factory...")
         }

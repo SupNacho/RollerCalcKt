@@ -58,7 +58,6 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
         val units = preferences.cache?.measureSystem
         if (units == MeasureSystem.IMPERIAL) {
             this.thickness = this.thickness.toImperialThickness()
-            this.weight = this.weight.toImperialWeight()
         }
     }
 
@@ -99,7 +98,6 @@ class CrudMaterialInteractor(private val preferences: IPrefRepository,
     private fun normalizeToMetric(material: Material): Material{
         val units = preferences.cache?.measureSystem
         if (units == MeasureSystem.IMPERIAL) {
-            material.weight = material.weight.toMetricWeight()
             material.thickness = material.thickness.toMetricThickness()
         }
         return material

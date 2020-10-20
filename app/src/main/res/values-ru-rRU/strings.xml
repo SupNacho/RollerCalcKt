@@ -26,11 +26,12 @@
     <string name="add">Добавить</string>
     <string name="brand">Производитель</string>
     <string name="cancel">Отмена</string>
-    <string name="density">Плотность</string>
+    <string name="density">Плотность, %s</string>
     <string name="edit">Редактировать</string>
     <string name="settings_max_outer_d_mm_text_view_imp">Макс.внеш. Ø, дюйм</string>
-    <string name="thickness">Макс.внут. Ø, дюйм</string>
-    <string name="weight">Вес</string>
+    <string name="settings_max_inner_d_mm_text_view_imp">Макс.внут. Ø, дюйм</string>
+    <string name="thickness">Толщина, %s</string>
+    <string name="weight">Вес, %s</string>
     <string name="settings_150_hint_imp">Макс.внут. Ø, дюйм</string>
     <string name="settings_300_hint_imp">Макс.внеш. Ø, дюйм</string>
     <string name="material_name">Материал</string>
@@ -49,4 +50,6 @@
     <string name="calc_inner_micros">Микроны %s</string>
     <string name="calc_material_width">Ширина, %s</string>
     <string name="weight_calc">Рассчитывать вес?</string>
+    <string name="density_pcs">кг/м3</string>
+    <string name="weight_pcs_metric">г/м2</string>
 </resources>

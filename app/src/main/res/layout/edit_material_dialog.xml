@@ -12,6 +12,10 @@
             name="material"
             type="rck.supernacho.ru.rollercalckt.model.entity.MaterialUi" />
     </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +42,9 @@
                 android:paddingBottom="12dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
                 android:text="@={material.brand}"
                 tools:text="8300 Oracal"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -58,6 +65,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
                 android:text="@={material.name}"
                 tools:text="8300"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -65,15 +75,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="true"
-            android:weightSum="3">
+            android:orientation="vertical"
+            android:baselineAligned="true">
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
+                android:id="@+id/til_thicknessDialog"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="8dp"
@@ -91,11 +100,11 @@
                     tools:text="0.3"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_weightDialog"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="8dp"
@@ -113,11 +122,11 @@
                     tools:text="200"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_densityDialog"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:boxStrokeWidth="2dp"
                 app:boxCornerRadiusBottomEnd="8dp"
@@ -163,4 +172,5 @@
             android:onClickListener="@{() -> viewModel.positiveAction()}"/>
     </LinearLayout>
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
