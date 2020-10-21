@@ -17,7 +17,7 @@ class Calculator : Calculable {
     override fun getWeight(length: BigDecimal, width: BigDecimal, thickness: BigDecimal, weight: BigDecimal, density: BigDecimal): BigDecimal {
         val s = length.multiply(width.divide(BigDecimal(1000)))
         val result = when {
-            weight > BigDecimal.ZERO -> s.multiply(weight)
+            weight > BigDecimal.ZERO -> s.multiply(weight).divide(BigDecimal(1000))
             density > BigDecimal.ZERO -> s.multiply(thickness.divide(BigDecimal(1000))).multiply(density)
             else -> BigDecimal.ZERO
         }
