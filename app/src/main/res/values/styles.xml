@@ -31,10 +31,9 @@
     <style name="Text.Light.Params">
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:layout_marginEnd">2dp</item>
-        <item name="android:textAlignment">center</item>
         <item name="android:lines">1</item>
         <item name="android:maxLength">6</item>
-        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_gravity">start</item>
     </style>
     <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>

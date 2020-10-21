@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -62,11 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Text.Light.Params"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:text="@{item.thickness}"
-                android:drawableEnd="@drawable/ic_about"
-                tools:text="0.121 mm" />
+                tools:text="0.121 mm"
+                app:drawableEndCompat="@drawable/ic_about" />
 
             <View
                 android:layout_width="match_parent"
@@ -82,8 +81,8 @@
                 style="@style/Text.Light.Params"
                 android:text="@{item.weight}"
                 android:visibility="@{item.weightVisibility}"
-                android:drawableEnd="@drawable/ic_about"
-                tools:text="123g/m2" />
+                tools:text="123g/m2"
+                app:drawableEndCompat="@drawable/ic_about" />
 
             <View
                 android:layout_width="match_parent"
@@ -98,8 +97,8 @@
                 style="@style/Text.Light.Params"
                 android:text="@{item.density}"
                 android:visibility="@{item.weightVisibility}"
-                android:drawableEnd="@drawable/ic_about"
-                tools:text="123g/m3" />
+                tools:text="123g/m3"
+                app:drawableEndCompat="@drawable/ic_about" />
         </LinearLayout>
     </LinearLayout>
 </layout>
