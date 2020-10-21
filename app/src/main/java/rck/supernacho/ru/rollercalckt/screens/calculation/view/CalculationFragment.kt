@@ -2,6 +2,8 @@ package rck.supernacho.ru.rollercalckt.screens.calculation.view
 
 
 import android.content.Intent
+import android.graphics.Point
+import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +13,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.skydoves.balloon.*
+import com.skydoves.balloon.overlay.BalloonOverlayRect
+import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
 import kotlinx.android.synthetic.main.fragment_calculation.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.spinner_material_item.*
@@ -23,6 +28,7 @@ import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
+import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
 class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMaterialSelected {
@@ -53,7 +59,34 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
         initSelector()
         initButtons()
         initInputViews()
+        initBalloonHints()
+    }
 
+    private fun initBalloonHints() {
+        val (pcs, oneMicron) = if (viewModel.viewState.value?.preferencesViewState?.measureSystem == MeasureSystem.IMPERIAL)
+            Pair(
+                    requireContext().getString(R.string.calc_measure_imperial),
+                    requireContext().getString(R.string.one_micron_imp)
+            )
+        else
+            Pair(
+                    requireContext().getString(R.string.calc_measure_metric),
+                    requireContext().getString(R.string.one_micron_m)
+            )
+
+
+        tv_spinnerThick.setOnClickListener { v ->
+            val thickBalloon = createBalloon(requireContext()) { setBalloonSettings(v, viewLifecycleOwner, requireContext().getString(R.string.thick_balloon, pcs, oneMicron, pcs, pcs)) }
+            v.showAlignLeft(thickBalloon)
+        }
+        tv_spinnerWeight.setOnClickListener { v ->
+            val weightBalloon = createBalloon(requireContext()) { setBalloonSettings(v, viewLifecycleOwner, requireContext().getString(R.string.weight_balloon)) }
+            v.showAlignLeft(weightBalloon)
+        }
+        tv_spinnerDensity.setOnClickListener { v ->
+            val densityBalloon = createBalloon(requireContext()) { setBalloonSettings(v, viewLifecycleOwner, requireContext().getString(R.string.density_balloon)) }
+            v.showAlignLeft(densityBalloon)
+        }
     }
 
     private fun initSelector() {

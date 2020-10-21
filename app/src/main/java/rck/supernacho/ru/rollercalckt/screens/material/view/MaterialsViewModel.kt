@@ -1,5 +1,6 @@
 package rck.supernacho.ru.rollercalckt.screens.material.view
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,12 +12,13 @@ import rck.supernacho.ru.rollercalckt.screens.material.domain.FilterInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
+import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import timber.log.Timber
 
 class MaterialsViewModel(
         private val interactor: ICrudMaterialInteractor,
         private val filterInteractor: IFilterMaterialInteractor,
-        private val preferences: IPrefRepository
+        val preferences: IPrefRepository
 ) : ViewModel() {
     val materialsList: LiveData<List<MaterialUi>> by lazy { filterInteractor.filteredItems }
     private val clickState = LiveEvent<ClickEvent>()
@@ -52,6 +54,9 @@ class MaterialsViewModel(
         clickState.value = ClickEvent.SelectClick(material)
     }
 
+    fun onClickBalloon(view: View, type: BalloonType) {
+        clickState.value = ClickEvent.BalloonClick(view, type)
+    }
 
     fun sortByName() = filterInteractor.sortByName()
     fun sortByThick() = filterInteractor.sortByThickness()

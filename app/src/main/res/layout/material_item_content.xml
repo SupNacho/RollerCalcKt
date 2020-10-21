@@ -11,6 +11,9 @@
         <variable
             name="viewModel"
             type="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel" />
+        <variable
+            name="type"
+            type="rck.supernacho.ru.rollercalckt.screens.utils.BalloonType" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,11 +62,13 @@
             android:background="@drawable/material_param_bg">
 
             <TextView
+                android:id="@+id/tv_thicknessMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.thickness}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.THICK)}"
                 tools:text="0.121 mm"
                 app:drawableEndCompat="@drawable/ic_about" />
 
@@ -75,12 +80,14 @@
                 />
 
             <TextView
+                android:id="@+id/tv_weightMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.weight}"
                 android:visibility="@{item.weightVisibility}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.WEIGHT)}"
                 tools:text="123g/m2"
                 app:drawableEndCompat="@drawable/ic_about" />
 
@@ -91,12 +98,14 @@
                 android:visibility="@{item.weightVisibility}"
                 />
             <TextView
+                android:id="@+id/tv_densityMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.density}"
                 android:visibility="@{item.weightVisibility}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.DENSITY)}"
                 tools:text="123g/m3"
                 app:drawableEndCompat="@drawable/ic_about" />
         </LinearLayout>

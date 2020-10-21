@@ -4,4 +4,6 @@
     <color name="colorPrimary">#00A0E3</color>
     <color name="colorPrimaryDark">#0078AA</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="balloonBg">#595656</color>
+    <color name="balloonOverlayBg">#CC000000</color>
 </resources>

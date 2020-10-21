@@ -61,5 +61,9 @@
     <string name="weight_calc">Enable weight calculation?</string>
     <string name="density_pcs">kg/m3</string>
     <string name="weight_pcs_metric">g/m2</string>
-
+    <string name="thick_balloon">The thickness of material specified in %1$s.\nIf you know the thickness in microns, then 1 micron = %2$s %3$s. If you do not know the thickness of your material, then you can calculate it approximately by counting how many layers fit in 1 %4$s. 1 / N-layers</string>
+    <string name="weight_balloon">Weight, indicated in g/m2.\nIt is most often used in the description of paper materials. Required for calculating the mass of the roll if we do not know its density.</string>
+    <string name="density_balloon">Density, specified in kg/m3.\nUsed to calculate the mass of the roll.\nYou can find out the density from the technical specifications provided by the manufacturer or reference books if we are talking about metals etc</string>
+    <string name="one_micron_m" translatable="false">0.001</string>
+    <string name="one_micron_imp" translatable="false">0.000039</string>
 </resources>

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.skydoves.balloon.createBalloon
+import com.skydoves.balloon.showAlignLeft
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -19,8 +20,11 @@ import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentMaterialBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
+import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
+import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
 
@@ -43,16 +47,17 @@ class MaterialFragment : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         rv_materials.layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.VERTICAL }
         rv_materials.adapter = MaterialListAdapter(viewModel)
-        viewModel.materialsList.observe(viewLifecycleOwner, Observer {
+        viewModel.materialsList.observe(viewLifecycleOwner, {
             (rv_materials.adapter as MaterialListAdapter).submitList(it)
         })
 
-        viewModel.actionState.observe(viewLifecycleOwner, Observer {
+        viewModel.actionState.observe(viewLifecycleOwner, {
             when(it){
                 is ClickEvent.EditClick -> openDialog(it.material)
                 is ClickEvent.AddClick -> openDialog()
                 is ClickEvent.SelectClick -> findNavController().navigate(R.id.navigation_home)
                 is ClickEvent.DismissDialog -> Unit
+                is ClickEvent.BalloonClick -> showBalloon(it.view, it.type)
             }
         })
 
@@ -61,7 +66,7 @@ class MaterialFragment : Fragment(), KodeinAware {
         btn_filterByWeight.setOnClickListener { viewModel.sortByWeight() }
         btn_filterByDensity.setOnClickListener { viewModel.sortByDensity() }
 
-        et_searchMaterial.doOnTextChanged { text, start, before, count ->
+        et_searchMaterial.doOnTextChanged { text, _, _, _ ->
             viewModel.filterByText(text.toString())
         }
     }
@@ -69,5 +74,32 @@ class MaterialFragment : Fragment(), KodeinAware {
     private fun openDialog(material: MaterialUi? = null){
         val dialog = EditMaterialDialog.getInstance(material?.id)
         dialog.show(childFragmentManager, "MATERIAL DIALOG")
+    }
+
+    private fun showBalloon(view: View, type: BalloonType){
+        when(type){
+            BalloonType.THICK -> {
+                val (pcs, oneMicron) = if (viewModel.preferences.getSettings().measureSystem == MeasureSystem.IMPERIAL)
+                    Pair(
+                            requireContext().getString(R.string.calc_measure_imperial),
+                            requireContext().getString(R.string.one_micron_imp)
+                    )
+                else
+                    Pair(
+                            requireContext().getString(R.string.calc_measure_metric),
+                            requireContext().getString(R.string.one_micron_m)
+                    )
+                val thickBalloon = createBalloon(requireContext()) { setBalloonSettings(view, viewLifecycleOwner, requireContext().getString(R.string.thick_balloon, pcs, oneMicron, pcs, pcs), false) }
+                view.showAlignLeft(thickBalloon)
+            }
+            BalloonType.WEIGHT -> {
+                val weightBalloon = createBalloon(requireContext()) { setBalloonSettings(view, viewLifecycleOwner, requireContext().getString(R.string.weight_balloon), false) }
+                view.showAlignLeft(weightBalloon)
+            }
+            BalloonType.DENSITY -> {
+                val densityBalloon = createBalloon(requireContext()) { setBalloonSettings(view, viewLifecycleOwner, requireContext().getString(R.string.density_balloon), false) }
+                view.showAlignLeft(densityBalloon)
+            }
+        }
     }
 }
