@@ -28,6 +28,8 @@ import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
+import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialLength
+import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
@@ -149,9 +151,17 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             if (isInitScreen)
                 preferencesViewState.run {
                     isInitScreen = false
-                    et_inner.setText(lastInput.inner)
-                    et_outer.setText(lastInput.outer)
-                    et_width.setText(lastInput.width)
+                    val (inner, outer, width) = when(measureSystem) {
+                        MeasureSystem.METRIC -> Triple(lastInput.inner, lastInput.outer, lastInput.width)
+                        MeasureSystem.IMPERIAL -> Triple(
+                                lastInput.inner?.toBigDecimalOrNull()?.toImperialThickness(),
+                                lastInput.outer?.toBigDecimalOrNull()?.toImperialThickness(),
+                                lastInput.width?.toBigDecimalOrNull()?.toImperialThickness()
+                        )
+                    }
+                    et_inner.setText(inner.toString())
+                    et_outer.setText(outer.toString())
+                    et_width.setText(width.toString())
                 }
 
         }
