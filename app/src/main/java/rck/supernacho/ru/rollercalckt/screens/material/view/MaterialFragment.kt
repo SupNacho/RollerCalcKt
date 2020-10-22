@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.balloon.createBalloon
 import com.skydoves.balloon.showAlignLeft
+import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -53,11 +54,23 @@ class MaterialFragment : Fragment(), KodeinAware {
 
         viewModel.actionState.observe(viewLifecycleOwner, {
             when(it){
-                is ClickEvent.EditClick -> findNavController().navigate(MaterialFragmentDirections.toManageMaterial(it.material.id))
-                is ClickEvent.AddClick -> findNavController().navigate(MaterialFragmentDirections.toManageMaterial())
-                is ClickEvent.SelectClick -> findNavController().navigate(R.id.navigation_home)
+                is ClickEvent.EditClick -> {
+                    YandexMetrica.reportEvent("edit pressed", "{\"Edited material\":\"${it.material}\"")
+                    findNavController().navigate(MaterialFragmentDirections.toManageMaterial(it.material.id))
+                }
+                is ClickEvent.AddClick -> {
+                    YandexMetrica.reportEvent("Start add material","{\"started\"}")
+                    findNavController().navigate(MaterialFragmentDirections.toManageMaterial())
+                }
+                is ClickEvent.SelectClick -> {
+                    YandexMetrica.reportEvent("Select material","{\"selected\"}")
+                    findNavController().navigate(R.id.navigation_home)
+                }
                 is ClickEvent.DismissDialog -> Unit
-                is ClickEvent.BalloonClick -> showBalloon(it.view, it.type)
+                is ClickEvent.BalloonClick -> {
+                    YandexMetrica.reportEvent("Balloon Showed", "{\"${it.type.name}\"")
+                    showBalloon(it.view, it.type)
+                }
             }
         })
 

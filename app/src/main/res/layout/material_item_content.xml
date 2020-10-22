@@ -52,9 +52,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_weight="0.6"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
@@ -65,7 +66,7 @@
                 android:id="@+id/tv_thicknessMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 style="@style/Text.Light.Params"
                 android:text="@{item.thickness}"
                 android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.THICK)}"
@@ -77,36 +78,38 @@
                 android:layout_height="1dp"
                 android:background="@color/colorWhite"
                 android:visibility="@{item.weightVisibility}"
+                tools:visibility="gone"
                 />
 
             <TextView
                 android:id="@+id/tv_weightMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.weight}"
                 android:visibility="@{item.weightVisibility}"
                 android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.WEIGHT)}"
                 tools:text="123g/m2"
+                tools:visibility="gone"
                 app:drawableEndCompat="@drawable/ic_about" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorWhite"
+                tools:visibility="gone"
                 android:visibility="@{item.weightVisibility}"
                 />
             <TextView
                 android:id="@+id/tv_densityMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.density}"
                 android:visibility="@{item.weightVisibility}"
                 android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.DENSITY)}"
                 tools:text="123g/m3"
+                tools:visibility="gone"
                 app:drawableEndCompat="@drawable/ic_about" />
         </LinearLayout>
     </LinearLayout>
