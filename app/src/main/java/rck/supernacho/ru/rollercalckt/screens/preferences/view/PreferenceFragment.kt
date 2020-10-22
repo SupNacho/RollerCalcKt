@@ -10,9 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.android.synthetic.main.fragment_preference.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -27,9 +24,9 @@ import java.math.BigDecimal
 
 class PreferenceFragment : Fragment(), KodeinAware {
 
-    private var firstLaunch = true
     private var saveAction: Runnable? = null
     override val kodein: Kodein by closestKodein()
+    private lateinit var previousSystem: MeasureSystem
     private val viewModel: PrefsViewModel by lazy {
         ViewModelProvider(this, RCViewModelFactory(kodein)).get(PrefsViewModel::class.java)
     }
@@ -43,6 +40,7 @@ class PreferenceFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        previousSystem = viewModel.viewState.measureSystem
         initHints()
         initButtons()
         initSaveAction()
@@ -56,7 +54,6 @@ class PreferenceFragment : Fragment(), KodeinAware {
     private fun initSaveAction() {
         saveAction = Runnable {
             viewModel.saveState()
-            showSavedPopUp()
         }
     }
 
@@ -98,10 +95,16 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun convertData(isMetric: Boolean, data: Pair<BigDecimal?, BigDecimal?>): Pair<BigDecimal?, BigDecimal?> {
-        return if (isMetric) {
-            Pair(data.first?.toMetricThickness(), data.second?.toMetricThickness())
-        } else {
-            Pair(data.first?.toImperialThickness(), data.second?.toImperialThickness())
+        return when {
+            isMetric && previousSystem != MeasureSystem.METRIC -> {
+                previousSystem = MeasureSystem.METRIC
+                Pair(data.first?.toMetricThickness(), data.second?.toMetricThickness())
+            }
+            !isMetric && previousSystem != MeasureSystem.IMPERIAL -> {
+                previousSystem = MeasureSystem.IMPERIAL
+                Pair(data.first?.toImperialThickness(), data.second?.toImperialThickness())
+            }
+            else -> Pair(data.first, data.second)
         }
     }
 
@@ -127,13 +130,5 @@ class PreferenceFragment : Fragment(), KodeinAware {
         super.onPause()
         viewModel.saveState()
         view?.removeCallbacks(saveAction)
-    }
-
-    private fun showSavedPopUp() {
-        if (firstLaunch) {
-            firstLaunch = false
-        } else {
-            status_popup.show()
-        }
     }
 }
