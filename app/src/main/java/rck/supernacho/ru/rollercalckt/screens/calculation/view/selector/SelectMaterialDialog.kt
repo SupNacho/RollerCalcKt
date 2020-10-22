@@ -13,6 +13,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.screens.setOnRightDrawableClick
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
 class SelectMaterialDialog: BottomSheetDialogFragment(), KodeinAware {
@@ -43,8 +44,12 @@ class SelectMaterialDialog: BottomSheetDialogFragment(), KodeinAware {
         btn_filterByWeight.setOnClickListener { viewModel.sortByWeight() }
         btn_filterByDensity.setOnClickListener { viewModel.sortByDensity() }
 
-        et_searchMaterial.doOnTextChanged { text, start, before, count ->
-            viewModel.filterByText(text.toString())
+        et_searchMaterial.run {
+            doOnTextChanged { text, _, _, _ ->
+                viewModel.filterByText(text.toString())
+            }
+
+            setOnRightDrawableClick { et_searchMaterial.text?.clear() }
         }
     }
 

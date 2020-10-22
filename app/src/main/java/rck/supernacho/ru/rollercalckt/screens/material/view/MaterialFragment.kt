@@ -25,6 +25,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
+import rck.supernacho.ru.rollercalckt.screens.setOnRightDrawableClick
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
@@ -79,8 +80,11 @@ class MaterialFragment : Fragment(), KodeinAware {
         btn_filterByWeight.setOnClickListener { viewModel.sortByWeight() }
         btn_filterByDensity.setOnClickListener { viewModel.sortByDensity() }
 
-        et_searchMaterial.doOnTextChanged { text, _, _, _ ->
-            viewModel.filterByText(text.toString())
+        et_searchMaterial.run {
+            doOnTextChanged { text, _, _, _ ->
+                viewModel.filterByText(text.toString())
+            }
+            setOnRightDrawableClick { et_searchMaterial.text?.clear() }
         }
     }
 

@@ -34,6 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Find"
+                    android:drawableEnd="@drawable/ic_clear"
                     tools:text="Avery" />
             </com.google.android.material.textfield.TextInputLayout>
 
