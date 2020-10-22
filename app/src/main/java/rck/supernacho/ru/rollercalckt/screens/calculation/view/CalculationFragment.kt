@@ -28,6 +28,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
+import rck.supernacho.ru.rollercalckt.screens.setOnRightDrawableClick
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 import java.math.BigDecimal
@@ -101,6 +102,9 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     private fun initButtons() {
         btn_oldCalc.setOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
+        et_inner.setOnRightDrawableClick { et_inner.text?.clear() }
+        et_outer.setOnRightDrawableClick { et_outer.text?.clear() }
+        et_width.setOnRightDrawableClick { et_width.text?.clear() }
     }
 
     override fun onSelected(item: MaterialUi) {
