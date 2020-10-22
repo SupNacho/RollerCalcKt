@@ -58,6 +58,7 @@
                         android:id="@+id/et_innerMax"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
                         android:text="@={viewModel.viewState.limits.inner}"
                         tools:text="150" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +80,7 @@
                         android:id="@+id/et_outerMax"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
                         android:text="@={viewModel.viewState.limits.outer}"
                         tools:text="300" />
                 </com.google.android.material.textfield.TextInputLayout>

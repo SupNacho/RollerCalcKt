@@ -2,9 +2,9 @@ package rck.supernacho.ru.rollercalckt.screens.calculation.view
 
 
 import android.content.Intent
-import android.graphics.Point
-import android.graphics.Rect
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +14,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.skydoves.balloon.*
-import com.skydoves.balloon.overlay.BalloonOverlayRect
-import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
 import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_calculation.*
-import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.spinner_material_item.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -29,11 +26,11 @@ import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
-import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialLength
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
+import java.math.BigDecimal
 
 class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMaterialSelected {
 
@@ -120,12 +117,53 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
     }
 
     private fun initInputViews() {
-        et_inner.addTextChangedListener {
-            viewModel.setInput(it.toString(), true)
-        }
-        et_outer.addTextChangedListener {
-            viewModel.setInput(it.toString(), false)
-        }
+        val isLimited = viewModel.viewState.value?.preferencesViewState?.isLimitsEnabled ?: false
+        val innerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.inner?.toBigDecimal()
+                ?: BigDecimal(100)
+        val outerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.outer?.toBigDecimal()
+                ?: BigDecimal(300)
+        et_inner.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val inner = when {
+                    isLimited && (p0?.toString()?.toBigDecimalOrNull()
+                            ?: BigDecimal.ZERO) > innerLimit -> innerLimit.toPlainString()
+                    else -> p0.toString()
+                }
+                viewModel.setInput(inner, true)
+                et_inner.let {
+                    it.removeTextChangedListener(this)
+                    it.setTextKeepState(inner)
+                    it.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+        })
+
+        et_outer.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val outer = when {
+                    isLimited && (p0?.toString()?.toBigDecimalOrNull()
+                            ?: BigDecimal.ZERO) > outerLimit -> outerLimit.toPlainString()
+                    else -> p0.toString()
+                }
+                viewModel.setInput(outer, false)
+                et_outer.let {
+                    it.removeTextChangedListener(this)
+                    it.setTextKeepState(outer)
+                    it.addTextChangedListener(this)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+        })
+
         et_width.addTextChangedListener {
             viewModel.setWidth(it.toString())
         }
@@ -156,7 +194,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             if (isInitScreen)
                 preferencesViewState.run {
                     isInitScreen = false
-                    val (inner, outer, width) = when(measureSystem) {
+                    val (inner, outer, width) = when (measureSystem) {
                         MeasureSystem.METRIC -> Triple(lastInput.inner, lastInput.outer, lastInput.width)
                         MeasureSystem.IMPERIAL -> Triple(
                                 lastInput.inner?.toBigDecimalOrNull()?.toImperialThickness(),
