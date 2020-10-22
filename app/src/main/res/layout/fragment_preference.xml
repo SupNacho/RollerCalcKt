@@ -30,6 +30,17 @@
                 android:orientation="vertical"
                 tools:context=".screens.preferences.view.PreferenceFragment">
 
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swt_limitsEnabled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/limit_calc"
+                    android:checked="@{viewModel.viewState.isLimitsEnabled}"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_innerMax"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -76,21 +87,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
                         android:text="@string/choose_units" />
 
                     <com.google.android.material.chip.ChipGroup
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center"
                         android:layout_margin="4dp"
-                        android:layout_weight="2"
                         android:text="@string/choose_your_system"
                         app:singleSelection="true">
 

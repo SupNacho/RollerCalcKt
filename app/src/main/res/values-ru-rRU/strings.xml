@@ -50,6 +50,7 @@
     <string name="calc_inner_micros">Микроны %s</string>
     <string name="calc_material_width">Ширина, %s</string>
     <string name="weight_calc">Рассчитывать вес?</string>
+    <string name="limit_calc">Ограничить ввод макс. внут./внеш. Ø?</string>
     <string name="density_pcs">кг/м3</string>
     <string name="weight_pcs_metric">г/м2</string>
     <string name="thick_balloon">Толщина материала, указана в %1$s.\nЕсли вам известна толщина в микронах то 1 микрон = %2$s %3$s. Если вы не знаете толщину своего материала, то приблизительно ее можно вычислить посчитав сколько слоев помещается в 1 %4$s. 1 / N-слоев</string>

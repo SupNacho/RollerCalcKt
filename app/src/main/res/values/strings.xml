@@ -59,6 +59,7 @@
     <string name="choose_your_system">Choose your system</string>
     <string name="choose_units">Choose units:</string>
     <string name="weight_calc">Enable weight calculation?</string>
+    <string name="limit_calc">Limit inputs to max inner/outer Ø?</string>
     <string name="density_pcs">kg/m3</string>
     <string name="weight_pcs_metric">g/m2</string>
     <string name="thick_balloon">The thickness of material specified in %1$s.\nIf you know the thickness in microns, then 1 micron = %2$s %3$s. If you do not know the thickness of your material, then you can calculate it approximately by counting how many layers fit in 1 %4$s. 1 / N-layers</string>

@@ -68,8 +68,17 @@ class PreferenceFragment : Fragment(), KodeinAware {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         }
-        et_innerMax.addTextChangedListener(watcher)
-        et_outerMax.addTextChangedListener(watcher)
+
+        val isLimitsEnabled = viewModel.preferences.getSettings().isLimitsEnabled
+
+        et_innerMax.run {
+            addTextChangedListener(watcher)
+            isEnabled = isLimitsEnabled
+        }
+        et_outerMax.run {
+            addTextChangedListener(watcher)
+            isEnabled = isLimitsEnabled
+        }
     }
 
     private fun initButtons() {
@@ -88,6 +97,13 @@ class PreferenceFragment : Fragment(), KodeinAware {
         swt_weightEnabled.setOnClickListener {
             YandexMetrica.reportEvent("Weight switcher", "{\"IsEnabled\":\"${swt_weightEnabled.isChecked}\"")
             viewModel.enableWeightCalculation(swt_weightEnabled.isChecked)
+        }
+
+        swt_limitsEnabled.setOnClickListener {
+            YandexMetrica.reportEvent("Limit switcher", "{\"IsEnabled\":\"${swt_limitsEnabled.isChecked}\"")
+            viewModel.enableLimitCalculation(swt_limitsEnabled.isChecked)
+            et_innerMax.isEnabled = swt_limitsEnabled.isChecked
+            et_outerMax.isEnabled = swt_limitsEnabled.isChecked
         }
     }
 

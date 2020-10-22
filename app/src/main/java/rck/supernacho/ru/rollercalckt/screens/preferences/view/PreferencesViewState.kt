@@ -9,5 +9,6 @@ data class PreferencesViewState(
         var lastInput: UserInput,
         var innerLimitsDescription: String = "",
         var outerLimitsDescription: String = "",
-        var isWeightCalculate: Boolean = false
+        var isWeightCalculate: Boolean = false,
+        var isLimitsEnabled: Boolean = false
 )

@@ -32,7 +32,8 @@ class PreferecesRepository(context: Context) : IPrefRepository {
                             width = getString(RC_PREFS_LAST_WIDTH, "0"),
                             lastSelectedMaterial = getLong(RC_PREFS_LAST_MATERIAL, -1)
                     ),
-                    isWeightCalculate = getBoolean(RC_WEIGHT_ENABLED, false)
+                    isWeightCalculate = getBoolean(RC_WEIGHT_ENABLED, false),
+                    isLimitsEnabled = getBoolean(RC_LIMIT_ENABLED, false)
             )
         }
     }
@@ -48,6 +49,7 @@ class PreferecesRepository(context: Context) : IPrefRepository {
             putLong(RC_PREFS_LAST_MATERIAL, vs.lastInput.lastSelectedMaterial)
             putInt(RC_MEASURE_SYSTEM, vs.measureSystem.ordinal)
             putBoolean(RC_WEIGHT_ENABLED, vs.isWeightCalculate)
+            putBoolean(RC_LIMIT_ENABLED, vs.isLimitsEnabled)
         }
     }
 
@@ -67,5 +69,6 @@ class PreferecesRepository(context: Context) : IPrefRepository {
         private const val RC_PREFS_LAST_MATERIAL = "material_last"
         private const val RC_MEASURE_SYSTEM = "measure_system"
         private const val RC_WEIGHT_ENABLED = "weight_enabled"
+        private const val RC_LIMIT_ENABLED = "limit_enabled"
     }
 }
