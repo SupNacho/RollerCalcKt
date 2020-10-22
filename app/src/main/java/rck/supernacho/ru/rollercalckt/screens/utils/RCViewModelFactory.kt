@@ -11,7 +11,7 @@ import rck.supernacho.ru.rollercalckt.screens.calculation.view.CalculationViewMo
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectorViewModel
 import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInteractor
-import rck.supernacho.ru.rollercalckt.screens.material.view.EditMaterialViewModel
+import rck.supernacho.ru.rollercalckt.screens.material.view.ManageMaterialViewModel
 import rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel
 import rck.supernacho.ru.rollercalckt.screens.preferences.view.PrefsViewModel
 
@@ -26,7 +26,7 @@ class RCViewModelFactory(override val kodein: Kodein): KodeinAware, ViewModelPro
             CalculationViewModel::class.java -> CalculationViewModel(materialsInteractor = crudInteractor, preferences = prefsRepo, calculator = calculator) as T
             PrefsViewModel::class.java -> PrefsViewModel(preferences = prefsRepo) as T
             MaterialsViewModel::class.java -> MaterialsViewModel(interactor = crudInteractor, filterInteractor = filterInteractor, preferences = prefsRepo) as T
-            EditMaterialViewModel::class.java -> EditMaterialViewModel(interactor = crudInteractor, preferenceRepo = prefsRepo) as T
+            ManageMaterialViewModel::class.java -> ManageMaterialViewModel(interactor = crudInteractor, preferenceRepo = prefsRepo) as T
             SelectorViewModel::class.java -> SelectorViewModel(materialInteractor = crudInteractor, filterInteractor = filterInteractor) as T
             else -> throw IllegalStateException("seems you forgot add new viewmodel type to factory...")
         }

@@ -53,8 +53,8 @@ class MaterialFragment : Fragment(), KodeinAware {
 
         viewModel.actionState.observe(viewLifecycleOwner, {
             when(it){
-                is ClickEvent.EditClick -> openDialog(it.material)
-                is ClickEvent.AddClick -> openDialog()
+                is ClickEvent.EditClick -> findNavController().navigate(MaterialFragmentDirections.toManageMaterial(it.material.id))
+                is ClickEvent.AddClick -> findNavController().navigate(MaterialFragmentDirections.toManageMaterial())
                 is ClickEvent.SelectClick -> findNavController().navigate(R.id.navigation_home)
                 is ClickEvent.DismissDialog -> Unit
                 is ClickEvent.BalloonClick -> showBalloon(it.view, it.type)
@@ -69,11 +69,6 @@ class MaterialFragment : Fragment(), KodeinAware {
         et_searchMaterial.doOnTextChanged { text, _, _, _ ->
             viewModel.filterByText(text.toString())
         }
-    }
-
-    private fun openDialog(material: MaterialUi? = null){
-        val dialog = EditMaterialDialog.getInstance(material?.id)
-        dialog.show(childFragmentManager, "MATERIAL DIALOG")
     }
 
     private fun showBalloon(view: View, type: BalloonType){

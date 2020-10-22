@@ -22,5 +22,20 @@
         android:id="@+id/navigation_material"
         android:name="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialFragment"
         android:label="fragment_material"
-        tools:layout="@layout/fragment_material" />
+        tools:layout="@layout/fragment_material" >
+        <action
+            android:id="@+id/to_manageMaterial"
+            app:destination="@id/manageMaterial"
+            app:popUpTo="@id/navigation_material" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageMaterial"
+        android:name="rck.supernacho.ru.rollercalckt.screens.material.view.ManageMaterialFragment"
+        android:label="fragment_manage_material"
+        tools:layout="@layout/edit_material_dialog" >
+        <argument
+            android:name="materialId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>

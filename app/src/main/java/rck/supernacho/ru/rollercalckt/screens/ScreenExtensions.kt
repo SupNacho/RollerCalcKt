@@ -1,7 +1,12 @@
 package rck.supernacho.ru.rollercalckt.screens
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Point
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.skydoves.balloon.ArrowConstraints
 import com.skydoves.balloon.ArrowOrientation
@@ -30,4 +35,22 @@ fun Balloon.Builder.setBalloonSettings(v: View,viewLifecycleOwner: LifecycleOwne
     setBackgroundColorResource(R.color.balloonBg)
     setOverlayColorResource(R.color.balloonOverlayBg)
     setText(text)
+}
+
+fun Fragment.hideKeyboard() {
+    view?.let { activity?.hideKeyboard(it) }
+}
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun View.hideKeyboard() {
+    val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }

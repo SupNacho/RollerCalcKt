@@ -10,7 +10,7 @@ import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferencesViewState
 
-class EditMaterialViewModel(
+class ManageMaterialViewModel(
         private val interactor: ICrudMaterialInteractor,
         private val preferenceRepo:IPrefRepository
 
