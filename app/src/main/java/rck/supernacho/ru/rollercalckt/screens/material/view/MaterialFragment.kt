@@ -63,12 +63,12 @@ class MaterialFragment : Fragment(), KodeinAware {
                     findNavController().navigate(MaterialFragmentDirections.toManageMaterial())
                 }
                 is ClickEvent.SelectClick -> {
-                    YandexMetrica.reportEvent("Select material","{\"selected\"}")
+                    YandexMetrica.reportEvent("Select material","{\"selected\":\"true\"}")
                     findNavController().navigate(R.id.navigation_home)
                 }
                 is ClickEvent.DismissDialog -> Unit
                 is ClickEvent.BalloonClick -> {
-                    YandexMetrica.reportEvent("Balloon Showed", "{\"${it.type.name}\"")
+                    YandexMetrica.reportEvent("Balloon Showed", "{\"Balloon type\":\"${it.type.name}\"")
                     showBalloon(it.view, it.type)
                 }
             }
