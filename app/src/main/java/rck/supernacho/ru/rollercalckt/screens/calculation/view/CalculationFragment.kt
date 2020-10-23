@@ -188,7 +188,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             }
             til_inner.hint = getString(R.string.calc_inner_d_text_view, unitString)
             til_outer.hint = getString(R.string.calc_outer_d_text_view, unitString)
-            tv_output.text = getString(R.string.calc_output, resultLength)
+            cv_result.setData(getString(R.string.calc_output, resultLength, lUnitString), getString(R.string.calc_output_weight, resultWeight, wUnitString), preferencesViewState.isWeightCalculate)
             tv_outputDesc.text = getString(R.string.calc_output_length, lUnitString)
             tv_outputWeight.run {
                 text = getString(R.string.calc_output_weight, resultWeight, wUnitString)

@@ -22,7 +22,13 @@
     <style name="Text" parent="TextAppearance.AppCompat">
     </style>
     <style name="Text.Light" parent="Text">
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+    <style name="Text.Primary" parent="Text">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="Text.Dark" parent="Text">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
     <style name="Text.Light.Name">
         <item name="android:maxLines">3</item>
@@ -40,5 +46,12 @@
         <item name="android:fitsSystemWindows">false</item>
         <item name="android:layout_gravity">bottom</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="Text.Primary.CalculationLength">
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="Text.Dark.CalculationWeight">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

@@ -19,7 +19,7 @@
     <string name="calc_w_measure_imperial">lbs</string>
     <string name="calc_l_measure_metric">m</string>
     <string name="calc_l_measure_imperial">ft</string>
-    <string name="calc_output" translatable="false">%s</string>
+    <string name="calc_output" translatable="false">%1$s%2$s</string>
     <string name="calc_output_weight">Weight %1$s%2$s</string>
     <string name="calc_output_length">Length in %s</string>
     <string name="calc_inner_micros">Microns %s</string>

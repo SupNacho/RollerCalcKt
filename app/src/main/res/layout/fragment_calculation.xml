@@ -49,31 +49,16 @@
                     />
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/tv_output"
+            <rck.supernacho.ru.rollercalckt.screens.custom.CalculationView
+                android:id="@+id/cv_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:lines="1"
-                android:textAlignment="center"
-                android:textSize="64sp"
-                app:layout_constraintTop_toBottomOf="@id/sp_container"
-                tools:text="123123.87" />
-            <TextView
-                android:id="@+id/tv_outputWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_output"
-                app:layout_constraintLeft_toLeftOf="@id/tv_output"
-                app:layout_constraintRight_toRightOf="@id/tv_output"
-                tools:text="@string/calc_output_weight" />
-            <TextView
-                android:id="@+id/tv_outputDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/tv_output"
-                app:layout_constraintLeft_toLeftOf="@id/tv_output"
-                tools:text="@string/calc_output_length" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sp_container"/>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_inner"
@@ -92,7 +77,7 @@
                 app:boxStrokeWidth="2dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/til_outer"
-                app:layout_constraintTop_toBottomOf="@id/tv_outputWeight">
+                app:layout_constraintTop_toBottomOf="@id/cv_result">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_inner"
