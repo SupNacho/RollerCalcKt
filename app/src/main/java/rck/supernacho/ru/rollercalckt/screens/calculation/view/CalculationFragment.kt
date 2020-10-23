@@ -102,9 +102,6 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     private fun initButtons() {
         btn_oldCalc.setOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
-        et_inner.setOnRightDrawableClick { et_inner.text?.clear() }
-        et_outer.setOnRightDrawableClick { et_outer.text?.clear() }
-        et_width.setOnRightDrawableClick { et_width.text?.clear() }
     }
 
     override fun onSelected(item: MaterialUi) {
@@ -126,50 +123,30 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
                 ?: BigDecimal(100)
         val outerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.outer?.toBigDecimal()
                 ?: BigDecimal(300)
-        et_inner.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val inner = when {
-                    isLimited && (p0?.toString()?.toBigDecimalOrNull()
-                            ?: BigDecimal.ZERO) > innerLimit -> innerLimit.toPlainString()
-                    else -> p0.toString()
-                }
-                viewModel.setInput(inner, true)
-                et_inner.let {
-                    it.removeTextChangedListener(this)
-                    it.setTextKeepState(inner)
-                    it.addTextChangedListener(this)
-                }
+        ivet_inner.setOnChangeListener { input ->
+            val inner = when {
+                isLimited && (input.toBigDecimalOrNull()
+                        ?: BigDecimal.ZERO) > innerLimit -> innerLimit.toPlainString()
+                else -> input
             }
+            viewModel.setInput(inner, true)
+            inner
+        }
 
-            override fun afterTextChanged(p0: Editable?) {}
 
-        })
-
-        et_outer.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val outer = when {
-                    isLimited && (p0?.toString()?.toBigDecimalOrNull()
-                            ?: BigDecimal.ZERO) > outerLimit -> outerLimit.toPlainString()
-                    else -> p0.toString()
-                }
-                viewModel.setInput(outer, false)
-                et_outer.let {
-                    it.removeTextChangedListener(this)
-                    it.setTextKeepState(outer)
-                    it.addTextChangedListener(this)
-                }
+        ivet_outer.setOnChangeListener{ input ->
+            val outer = when {
+                isLimited && (input.toBigDecimalOrNull()
+                        ?: BigDecimal.ZERO) > outerLimit -> outerLimit.toPlainString()
+                else -> input
             }
+            viewModel.setInput(outer, false)
+            outer
+        }
 
-            override fun afterTextChanged(p0: Editable?) {}
-
-        })
-
-        et_width.addTextChangedListener {
-            viewModel.setWidth(it.toString())
+        ivet_width.setOnChangeListener { input ->
+            viewModel.setWidth(input)
+            input
         }
     }
 
@@ -182,18 +159,13 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             val unitString = getString(unit)
             val wUnitString = getString(wUnit)
             val lUnitString = getString(lUnit)
-            til_width.run {
+            ivet_width.run {
                 hint = getString(R.string.calc_material_width, unitString)
                 visibility = weightVisibility
             }
-            til_inner.hint = getString(R.string.calc_inner_d_text_view, unitString)
-            til_outer.hint = getString(R.string.calc_outer_d_text_view, unitString)
+            ivet_inner.hint = getString(R.string.calc_inner_d_text_view, unitString)
+            ivet_outer.hint = getString(R.string.calc_outer_d_text_view, unitString)
             cv_result.setData(getString(R.string.calc_output, resultLength, lUnitString), getString(R.string.calc_output_weight, resultWeight, wUnitString), preferencesViewState.isWeightCalculate)
-            tv_outputDesc.text = getString(R.string.calc_output_length, lUnitString)
-            tv_outputWeight.run {
-                text = getString(R.string.calc_output_weight, resultWeight, wUnitString)
-                visibility = weightVisibility
-            }
 
             if (isInitScreen)
                 preferencesViewState.run {
@@ -206,9 +178,9 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
                                 lastInput.width?.toBigDecimalOrNull()?.toImperialThickness()
                         )
                     }
-                    et_inner.setText(inner.toString())
-                    et_outer.setText(outer.toString())
-                    et_width.setText(width.toString())
+                    ivet_inner.text = inner.toString()
+                    ivet_outer.text = outer.toString()
+                    ivet_width.text = width.toString()
                 }
 
         }

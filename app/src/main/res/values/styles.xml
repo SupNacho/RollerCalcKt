@@ -19,8 +19,8 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="Text" parent="TextAppearance.AppCompat">
-    </style>
+    <style name="Text" parent="TextAppearance.AppCompat"/>
+    <style name="Input" parent="Widget.AppCompat.EditText"/>
     <style name="Text.Light" parent="Text">
         <item name="android:textColor">@color/colorPrimaryLight</item>
     </style>
@@ -28,6 +28,15 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
     <style name="Text.Dark" parent="Text">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+    <style name="Input.Primary" parent="Input">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="Input.PrimaryDark" parent="Input">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+    <style name="Input.Dark" parent="Input">
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
     <style name="Text.Light.Name">
@@ -51,7 +60,26 @@
     <style name="Text.Primary.CalculationLength">
         <item name="android:textSize">32sp</item>
     </style>
+
+    <style name="Text.Primary.Hint">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="Text.Dark.Hint">
+        <item name="android:textSize">12sp</item>
+    </style>
     <style name="Text.Dark.CalculationWeight">
         <item name="android:textSize">12sp</item>
+    </style>
+    <style name="Input.Dark.Input">
+        <item name="android:textSize">20sp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+    <style name="Input.Primary.Input">
+        <item name="android:textSize">20sp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+    <style name="Input.PrimaryDark.Input">
+        <item name="android:textSize">20sp</item>
+        <item name="background">@android:color/transparent</item>
     </style>
 </resources>
