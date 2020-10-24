@@ -77,11 +77,11 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         tools:text="asdsasdad"
+        android:importantForAutofill="no"
         app:layout_constraintStart_toStartOf="@id/tv_hint"
         app:layout_constraintEnd_toEndOf="@id/v_iconDelimiter"
         app:layout_constraintTop_toTopOf="@id/v_inputStarter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintBottom_toBottomOf="parent" />
     <View
         android:id="@+id/v_iconDelimiter"
         android:layout_width="1dp"

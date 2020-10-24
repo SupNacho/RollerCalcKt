@@ -19,12 +19,15 @@ class InputView : FrameLayout {
         get() = et_input.text.toString()
 
     var hint: String
-        set(value) { tv_hint.text = value }
+        set(value) {
+            tv_hint.text = value
+        }
         get() = tv_hint.text.toString()
 
     val autoCompleteView: AppCompatAutoCompleteTextView
         get() = et_input
 
+    var isCorrectionEnabled = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -70,6 +73,7 @@ class InputView : FrameLayout {
                 defStylesRes
         ).apply {
             try {
+                this.getBoolean(R.styleable.InputView_inputCorrection, false).let { isCorrectionEnabled = it }
                 this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
                 this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
             } finally {
@@ -112,11 +116,12 @@ class InputView : FrameLayout {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val input = listener(p0.toString())
-                et_input.let {
-                    it.removeTextChangedListener(this)
-                    it.setTextKeepState(input)
-                    it.addTextChangedListener(this)
-                }
+                if (isCorrectionEnabled)
+                    et_input.let {
+                        it.removeTextChangedListener(this)
+                        it.setTextKeepState(input)
+                        it.addTextChangedListener(this)
+                    }
             }
 
             override fun afterTextChanged(p0: Editable?) {}

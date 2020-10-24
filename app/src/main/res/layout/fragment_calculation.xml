@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:inputType="numberDecimal"
+                app:inputCorrection="true"
                 app:layout_constraintTop_toBottomOf="@id/cv_result"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -83,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:inputType="numberDecimal"
+                app:inputCorrection="true"
                 app:layout_constraintTop_toBottomOf="@id/ivet_inner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
