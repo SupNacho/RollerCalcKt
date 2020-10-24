@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/bg_main</item>
     </style>
 
     <style name="SplashScreen" parent="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -15,7 +16,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/new_splash</item>
+        <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
