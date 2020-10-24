@@ -10,76 +10,46 @@
             type="rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectorViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/bg_main"
+        tools:context=".screens.material.view.MaterialFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_searchMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Find"
-                    android:drawableEnd="@drawable/ic_clear"
-                    tools:text="Avery" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                style="?attr/buttonBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_filterByName"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
-
-                <Button
-                    android:id="@+id/btn_filterByThick"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thickness" />
-
-                <Button
-                    android:id="@+id/btn_filterByWeight"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weight" />
-
-                <Button
-                    android:id="@+id/btn_filterByDensity"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/density" />
-            </LinearLayout>
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_materials"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:clipToPadding="false"
+            android:paddingTop="22dp"
+            android:paddingBottom="200dp"
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="150dp" />
+
+        <rck.supernacho.ru.rollercalckt.screens.custom.SortView
+            android:id="@+id/sv_sortMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            app:hint="@string/find_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
