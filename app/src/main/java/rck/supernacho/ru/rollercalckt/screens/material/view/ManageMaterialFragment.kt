@@ -80,12 +80,15 @@ class ManageMaterialFragment : Fragment(), KodeinAware {
 
     private fun initBrandAdapter(it: Context) {
         val adapter = BrandAdapter(it, viewModel.brandsList)
-        actv_brandEditDialog.threshold = 1
-        actv_brandEditDialog.setAdapter(adapter)
-        actv_brandEditDialog.setOnItemClickListener { adapterView, _, i, _ ->
-            val brand = adapterView.getItemAtPosition(i) as BrandUi
-            actv_brandEditDialog.text?.let { et ->
-                et.replace(0, et.length, brand.name)
+
+        ivet_brandEdit.autoCompleteView.run {
+            threshold = 1
+            setAdapter(adapter)
+            setOnItemClickListener { adapterView, _, i, _ ->
+                val brand = adapterView.getItemAtPosition(i) as BrandUi
+                text?.let { et ->
+                    et.replace(0, et.length, brand.name)
+                }
             }
         }
     }
@@ -98,14 +101,49 @@ class ManageMaterialFragment : Fragment(), KodeinAware {
 
         val isWeightEnabled = if (viewModel.preferences.isWeightCalculate) View.VISIBLE else View.GONE
 
-        til_thicknessDialog.hint = it.getString(R.string.thickness, it.getString(thickness))
-        til_weightDialog.run {
+        ivet_materialEdit.run {
+            viewModel.materialUi?.name?.let { this.text = it }
+            setOnChangeListener {
+                viewModel.materialUi?.name = it
+                it
+            }
+        }
+
+        ivet_brandEdit.run {
+            viewModel.materialUi?.brand?.let { this.text = it }
+            setOnChangeListener {
+                viewModel.materialUi?.brand = it
+                it
+            }
+        }
+
+        ivet_thicknessEdit.run {
+            viewModel.materialUi?.thickness?.let { this.text = it }
+            hint = it.getString(R.string.thickness, it.getString(thickness))
+            setOnChangeListener {
+                viewModel.materialUi?.thickness = it
+                it
+            }
+        }
+
+        ivet_weightEdit.run {
+            viewModel.materialUi?.weight?.let { this.text = it }
             hint = it.getString(R.string.weight, it.getString(weight))
             visibility = isWeightEnabled
+            setOnChangeListener {
+                viewModel.materialUi?.weight = it
+                it
+            }
         }
-        til_densityDialog.run {
+
+        ivet_densityEdit.run {
+            viewModel.materialUi?.density?.let { this.text = it }
             hint = it.getString(R.string.density, it.getString(density))
             visibility = isWeightEnabled
+            setOnChangeListener {
+                viewModel.materialUi?.density = it
+                it
+            }
         }
     }
 

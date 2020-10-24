@@ -9,6 +9,7 @@
         <attr name="hint" format="string|reference"/>
     </declare-styleable>
     <declare-styleable name="InputView">
+        <attr name="inputHint" format="string|reference"/>
         <attr name="inputType">
             <!-- There is no content type.  The text is not editable. -->
             <flag name="none" value="0x00000000" />

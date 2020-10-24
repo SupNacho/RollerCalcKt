@@ -27,7 +27,7 @@
     <string name="brand">Производитель</string>
     <string name="cancel">Отмена</string>
     <string name="density">Плотность, %s</string>
-    <string name="edit">Редактировать</string>
+    <string name="edit">Изменить</string>
     <string name="settings_max_outer_d_mm_text_view_imp">Макс.внеш. Ø, дюйм</string>
     <string name="settings_max_inner_d_mm_text_view_imp">Макс.внут. Ø, дюйм</string>
     <string name="thickness">Толщина, %s</string>

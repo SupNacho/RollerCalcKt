@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import kotlinx.android.synthetic.main.input_view.view.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.screens.showKeyboard
@@ -20,6 +21,9 @@ class InputView : FrameLayout {
     var hint: String
         set(value) { tv_hint.text = value }
         get() = tv_hint.text.toString()
+
+    val autoCompleteView: AppCompatAutoCompleteTextView
+        get() = et_input
 
 
     constructor(context: Context) : super(context) {
@@ -66,6 +70,7 @@ class InputView : FrameLayout {
                 defStylesRes
         ).apply {
             try {
+                this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
                 this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
             } finally {
                 recycle()

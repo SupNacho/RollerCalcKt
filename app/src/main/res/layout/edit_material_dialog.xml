@@ -25,7 +25,10 @@
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:elevation="4dp"
-            app:navigationIcon="@drawable/ic_arrow_back" />
+            app:titleTextColor="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            tools:title="Add material"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -35,159 +38,215 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/spacer_light">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_brandEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/brand"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
+                    app:inputType="textAutoComplete"
+                    app:inputHint="@string/brand"/>
 
-                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                        android:id="@+id/actv_brandEditDialog"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:paddingStart="12dp"
-                        android:paddingTop="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="12dp"
-                        android:singleLine="true"
-                        android:text="@={material.brand}"
-                        tools:text="8300 Oracal" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_materialEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/material_name"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
+                    android:layout_marginTop="16dp"
+                    app:inputHint="@string/material_name"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:text="@={material.name}"
-                        tools:text="8300" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_thicknessDialog"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_thicknessEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/thickness"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
+                    android:layout_marginTop="16dp"
+                    app:inputType="numberDecimal"
+                    app:inputHint="@string/thickness"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:maxLength="5"
-                        android:text="@={material.thickness}"
-                        tools:text="0.3" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_weightDialog"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_weightEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/weight"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
+                    android:layout_marginTop="16dp"
+                    app:inputType="numberDecimal"
+                    app:inputHint="@string/weight"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:maxLength="5"
-                        android:text="@={material.weight}"
-                        tools:text="200" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_densityDialog"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_densityEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/density"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:maxLength="5"
-                        android:text="@={material.density}"
-                        tools:text="200" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp"
+                    app:inputType="numberDecimal"
+                    app:inputHint="@string/density"/>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:hint="@string/brand"-->
+<!--                    app:boxCornerRadiusBottomEnd="8dp"-->
+<!--                    app:boxCornerRadiusBottomStart="8dp"-->
+<!--                    app:boxCornerRadiusTopEnd="8dp"-->
+<!--                    app:boxCornerRadiusTopStart="8dp"-->
+<!--                    app:boxStrokeColor="@color/colorPrimaryDark"-->
+<!--                    app:boxStrokeWidth="2dp">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView-->
+<!--                        android:id="@+id/actv_brandEditDialog"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:imeOptions="actionNext"-->
+<!--                        android:inputType="text"-->
+<!--                        android:paddingStart="12dp"-->
+<!--                        android:paddingTop="12dp"-->
+<!--                        android:paddingEnd="12dp"-->
+<!--                        android:paddingBottom="12dp"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:text="@={material.brand}"-->
+<!--                        tools:text="8300 Oracal" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:hint="@string/material_name"-->
+<!--                    app:boxCornerRadiusBottomEnd="8dp"-->
+<!--                    app:boxCornerRadiusBottomStart="8dp"-->
+<!--                    app:boxCornerRadiusTopEnd="8dp"-->
+<!--                    app:boxCornerRadiusTopStart="8dp"-->
+<!--                    app:boxStrokeColor="@color/colorPrimaryDark"-->
+<!--                    app:boxStrokeWidth="2dp">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:imeOptions="actionNext"-->
+<!--                        android:inputType="text"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:text="@={material.name}"-->
+<!--                        tools:text="8300" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/til_thicknessDialog"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:hint="@string/thickness"-->
+<!--                    app:boxCornerRadiusBottomEnd="8dp"-->
+<!--                    app:boxCornerRadiusBottomStart="8dp"-->
+<!--                    app:boxCornerRadiusTopEnd="8dp"-->
+<!--                    app:boxCornerRadiusTopStart="8dp"-->
+<!--                    app:boxStrokeColor="@color/colorPrimaryDark"-->
+<!--                    app:boxStrokeWidth="2dp">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:maxLength="5"-->
+<!--                        android:text="@={material.thickness}"-->
+<!--                        tools:text="0.3" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/til_weightDialog"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:hint="@string/weight"-->
+<!--                    app:boxCornerRadiusBottomEnd="8dp"-->
+<!--                    app:boxCornerRadiusBottomStart="8dp"-->
+<!--                    app:boxCornerRadiusTopEnd="8dp"-->
+<!--                    app:boxCornerRadiusTopStart="8dp"-->
+<!--                    app:boxStrokeColor="@color/colorPrimaryDark"-->
+<!--                    app:boxStrokeWidth="2dp">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:maxLength="5"-->
+<!--                        android:text="@={material.weight}"-->
+<!--                        tools:text="200" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/til_densityDialog"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="8dp"-->
+<!--                    android:hint="@string/density"-->
+<!--                    app:boxCornerRadiusBottomEnd="8dp"-->
+<!--                    app:boxCornerRadiusBottomStart="8dp"-->
+<!--                    app:boxCornerRadiusTopEnd="8dp"-->
+<!--                    app:boxCornerRadiusTopStart="8dp"-->
+<!--                    app:boxStrokeColor="@color/colorPrimaryDark"-->
+<!--                    app:boxStrokeWidth="2dp">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:maxLength="5"-->
+<!--                        android:text="@={material.density}"-->
+<!--                        tools:text="200" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancelEditDialog"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="true"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:weightSum="2">
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClickListener="@{() -> viewModel.negativeAction()}"
+                    android:text="@string/cancel" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_cancelEditDialog"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClickListener="@{() -> viewModel.negativeAction()}"
-                        android:text="@string/cancel" />
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="0dp" />
 
-                    <View
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_positiveActionEditDialog"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClickListener="@{() -> viewModel.positiveAction()}" />
-                </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_positiveActionEditDialog"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClickListener="@{() -> viewModel.positiveAction()}" />
+            </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
