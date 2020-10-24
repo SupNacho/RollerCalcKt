@@ -10,94 +10,61 @@
             type="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1"
+        android:background="@drawable/bg_main"
         tools:context=".screens.material.view.MaterialFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:elevation="4dp"
-            android:background="@color/colorWhite"
-            >
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_searchMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Find"
-                    android:drawableEnd="@drawable/ic_clear"
-                    tools:text="Avery"/>
-            </com.google.android.material.textfield.TextInputLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/btn_filterByName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name"
-                    />
-                <Button
-                    android:id="@+id/btn_filterByThick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thickness"
-                    />
-                <Button
-                    android:id="@+id/btn_filterByWeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weight"
-                    />
-                <Button
-                    android:id="@+id/btn_filterByDensity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/density"
-                    />
-            </LinearLayout>
-        </LinearLayout>
 
         <com.tubb.smrv.SwipeMenuRecyclerView
             android:id="@+id/rv_materials"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingTop="22dp"
+            android:paddingBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
             tools:itemCount="15"
-            tools:listitem="@layout/material_item"/>
+            tools:listitem="@layout/material_item" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
+        <rck.supernacho.ru.rollercalckt.screens.custom.SortView
+            android:id="@+id/sv_sortMaterial"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:background="@color/colorWhite"
-            android:elevation="8dp">
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            app:hint="@string/find_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cornerRadius="20dp"
-            android:text="add material"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            android:onClickListener="@{(view) -> viewModel.onClickAdd()}"
+            android:text="@string/add_material"
             android:textAlignment="center"
-            android:onClickListener="@{(view) -> viewModel.onClickAdd()}"/>
-        </FrameLayout>
+            android:textColor="@color/colorPrimaryDark"
+            app:backgroundTint="@color/colorPrimaryLight"
+            app:cornerRadius="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="150dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,12 +7,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import kotlinx.android.synthetic.main.fragment_calculation.*
 import kotlinx.android.synthetic.main.input_view.view.*
 import rck.supernacho.ru.rollercalckt.R
-import rck.supernacho.ru.rollercalckt.screens.hideKeyboard
 import rck.supernacho.ru.rollercalckt.screens.showKeyboard
-import java.math.BigDecimal
 
 class InputView : FrameLayout {
 

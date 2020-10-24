@@ -67,4 +67,7 @@
     <string name="density_balloon">Density, specified in kg/m3.\nUsed to calculate the mass of the roll.\nYou can find out the density from the technical specifications provided by the manufacturer or reference books if we are talking about metals etc</string>
     <string name="one_micron_m" translatable="false">0.001</string>
     <string name="one_micron_imp" translatable="false">0.000039</string>
+    <string name="sort_by">Sort by</string>
+    <string name="find_hint">Find</string>
+    <string name="add_material">Add material</string>
 </resources>

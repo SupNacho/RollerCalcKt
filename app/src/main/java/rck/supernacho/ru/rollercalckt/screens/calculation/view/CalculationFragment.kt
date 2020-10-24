@@ -3,13 +3,10 @@ package rck.supernacho.ru.rollercalckt.screens.calculation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +25,6 @@ import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
-import rck.supernacho.ru.rollercalckt.screens.setOnRightDrawableClick
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 import java.math.BigDecimal

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@color/colorPrimaryLight"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="8dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+        android:id="@+id/ivet_find"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/v_sortDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/spacer_primary"
+        app:layout_constraintStart_toStartOf="@id/ivet_find"
+        app:layout_constraintTop_toBottomOf="@id/ivet_find"
+        app:layout_constraintBottom_toBottomOf="@id/iv_nameSort"
+        app:layout_constraintEnd_toStartOf="@id/v_buttonDelimiter"/>
+
+    <View
+        android:id="@+id/v_sortDescriptionStarter"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/spacer_dark"
+        app:layout_constraintStart_toStartOf="@id/v_sortDescription"
+        app:layout_constraintTop_toTopOf="@id/tv_sortDescription"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sortDescription"/>
+
+    <TextView
+        android:id="@+id/tv_sortDescription"
+        style="@style/Text.Dark.Hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/v_sortDescriptionStarter"
+        app:layout_constraintTop_toTopOf="@id/v_sortDescription"
+        app:layout_constraintBottom_toBottomOf="@id/v_sortDescription"
+        android:text="@string/sort_by"/>
+
+    <View
+        android:id="@+id/v_sortDescriptionEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:minWidth="24dp"
+        android:layout_marginEnd="4dp"
+        android:visibility="gone"
+        android:background="@drawable/spacer_dark"
+        app:layout_constraintStart_toEndOf="@id/tv_sortDescription"
+        app:layout_constraintTop_toTopOf="@id/tv_sortDescription"
+        app:layout_constraintEnd_toEndOf="@id/v_sortDescription"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sortDescription"
+        />
+
+    <View
+        android:id="@+id/v_buttonDelimiter"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@drawable/spacer_dark"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toTopOf="@id/iv_nameSort"
+        app:layout_constraintBottom_toBottomOf="@id/iv_nameSort"
+        app:layout_constraintEnd_toStartOf="@id/iv_nameSort"/>
+
+<androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/iv_nameSort"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    app:srcCompat="@drawable/ic_name_sort"
+    app:layout_constraintTop_toTopOf="@id/v_sortDescription"
+    app:layout_constraintEnd_toStartOf="@id/iv_thickSort"
+    />
+<androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/iv_thickSort"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    app:srcCompat="@drawable/ic_thick_sort"
+    app:layout_constraintTop_toTopOf="@id/v_sortDescription"
+    app:layout_constraintEnd_toStartOf="@id/iv_weightSort"
+    />
+<androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/iv_weightSort"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    app:srcCompat="@drawable/ic_weight_sort"
+    app:layout_constraintTop_toTopOf="@id/v_sortDescription"
+    app:layout_constraintEnd_toStartOf="@id/iv_densitySort"
+    />
+<androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/iv_densitySort"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    app:srcCompat="@drawable/ic_density_sort"
+    app:layout_constraintTop_toTopOf="@id/v_sortDescription"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -2,8 +2,12 @@
 <resources>
     <attr name="calculationViewStyle"/>
     <attr name="inputViewStyle"/>
+    <attr name="sortViewStyle"/>
 
     <declare-styleable name="CalculationView"/>
+    <declare-styleable name="SortView">
+        <attr name="hint" format="string|reference"/>
+    </declare-styleable>
     <declare-styleable name="InputView">
         <attr name="inputType">
             <!-- There is no content type.  The text is not editable. -->
