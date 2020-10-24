@@ -30,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/spacer_primary"
+        android:background="@drawable/spacer_dark_small"
         app:layout_constraintStart_toStartOf="@id/ivet_find"
         app:layout_constraintTop_toBottomOf="@id/ivet_find"
         app:layout_constraintBottom_toBottomOf="@id/iv_nameSort"
@@ -41,14 +41,14 @@
         android:layout_width="16dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:background="@drawable/spacer_dark"
+        android:background="@drawable/spacer_active"
         app:layout_constraintStart_toStartOf="@id/v_sortDescription"
         app:layout_constraintTop_toTopOf="@id/tv_sortDescription"
         app:layout_constraintBottom_toBottomOf="@id/tv_sortDescription"/>
 
     <TextView
         android:id="@+id/tv_sortDescription"
-        style="@style/Text.Dark.Hint"
+        style="@style/Text.Accent.Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -59,4 +59,9 @@
     <string name="sort_by">Сортировка</string>
     <string name="find_hint">Поиск</string>
     <string name="add_material">Добавить</string>
+
+    <string name="sort_by_name">по имени</string>
+    <string name="sort_by_thick">по толщине</string>
+    <string name="sort_by_weight">по весу</string>
+    <string name="sort_by_density">плотность</string>
 </resources>

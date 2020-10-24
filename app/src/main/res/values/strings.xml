@@ -70,4 +70,8 @@
     <string name="sort_by">Sort by</string>
     <string name="find_hint">Find</string>
     <string name="add_material">Add material</string>
+    <string name="sort_by_name">by name</string>
+    <string name="sort_by_thick">by thickness</string>
+    <string name="sort_by_weight">by weight</string>
+    <string name="sort_by_density">by density</string>
 </resources>
