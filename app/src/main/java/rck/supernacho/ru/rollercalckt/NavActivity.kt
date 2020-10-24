@@ -16,14 +16,12 @@ class NavActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav)
         setupWithNavController(bnv_Navigation, navHostFragment.findNavController())
-        navHostFragment.findNavController().addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener{
-            override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-                when(destination.id) {
-                    R.id.manageMaterial -> bnv_Navigation.visibility = View.GONE
-                    else -> bnv_Navigation.visibility = View.VISIBLE
+        navHostFragment.findNavController().addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.manageMaterial -> bnv_Navigation.visibility = View.GONE
+                else -> bnv_Navigation.visibility = View.VISIBLE
 
-                }
             }
-        })
+        }
     }
 }
