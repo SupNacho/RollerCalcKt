@@ -21,6 +21,9 @@ import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentMaterialBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
+import rck.supernacho.ru.rollercalckt.screens.custom.convertDpToPixel
+import rck.supernacho.ru.rollercalckt.screens.custom.isVisible
+import rck.supernacho.ru.rollercalckt.screens.custom.setVisibility
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
@@ -52,23 +55,37 @@ class MaterialFragment : Fragment(), KodeinAware {
         })
 
         viewModel.actionState.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is ClickEvent.EditClick -> {
                     YandexMetrica.reportEvent("edit pressed", "{\"Edited material\":\"${it.material}\"")
                     findNavController().navigate(MaterialFragmentDirections.toManageMaterial(it.material.id))
                 }
                 is ClickEvent.AddClick -> {
-                    YandexMetrica.reportEvent("Start add material","{\"started\"}")
+                    YandexMetrica.reportEvent("Start add material", "{\"started\"}")
                     findNavController().navigate(MaterialFragmentDirections.toManageMaterial())
                 }
                 is ClickEvent.SelectClick -> {
-                    YandexMetrica.reportEvent("Select material","{\"selected\":\"true\"}")
+                    YandexMetrica.reportEvent("Select material", "{\"selected\":\"true\"}")
                     findNavController().navigate(R.id.navigation_home)
                 }
                 is ClickEvent.DismissDialog -> Unit
                 is ClickEvent.BalloonClick -> {
                     YandexMetrica.reportEvent("Balloon Showed", "{\"Balloon type\":\"${it.type.name}\"")
                     showBalloon(it.view, it.type)
+                }
+                ClickEvent.ShowSortClick -> {
+                    val isVisible = sv_sortMaterial.isVisible()
+                    sv_sortMaterial.setVisibility(isVisible = !isVisible)
+
+                    val (background, guidelineMargin) = if (!isVisible)
+                        R.drawable.spacer_active to requireContext().convertDpToPixel(150f)
+                    else
+                        R.drawable.spacer_light to 0
+
+                    guideline.setGuidelineBegin(guidelineMargin)
+                    btn_showSort.run {
+                        setBackgroundResource(background)
+                    }
                 }
             }
         })
@@ -84,8 +101,8 @@ class MaterialFragment : Fragment(), KodeinAware {
 
     }
 
-    private fun showBalloon(view: View, type: BalloonType){
-        when(type){
+    private fun showBalloon(view: View, type: BalloonType) {
+        when (type) {
             BalloonType.THICK -> {
                 val (pcs, oneMicron) = if (viewModel.preferences.getSettings().measureSystem == MeasureSystem.IMPERIAL)
                     Pair(

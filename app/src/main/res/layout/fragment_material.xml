@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingTop="22dp"
+            android:paddingTop="8dp"
             android:paddingBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,14 +35,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             app:hint="@string/find_hint"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_addMaterial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -55,15 +58,30 @@
             app:backgroundTint="@color/colorPrimaryLight"
             app:cornerRadius="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_showSort"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_showSort"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:onClickListener="@{(view) -> viewModel.onClickShowSort()}"
+            android:text="@string/add_material"
+            android:src="@drawable/ic_search"
+            android:background="@drawable/spacer_light"
+            app:cornerRadius="6dp"
+            app:layout_constraintTop_toTopOf="@id/btn_addMaterial"
+            app:layout_constraintBottom_toBottomOf="@id/btn_addMaterial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_addMaterial" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="150dp" />
+            app:layout_constraintGuide_begin="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

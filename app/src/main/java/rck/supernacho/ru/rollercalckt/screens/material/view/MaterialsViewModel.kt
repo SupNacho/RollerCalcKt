@@ -48,6 +48,10 @@ class MaterialsViewModel(
         clickState.value = ClickEvent.AddClick
     }
 
+    fun onClickShowSort() {
+        clickState.value = ClickEvent.ShowSortClick
+    }
+
     fun onClickSelect(material: MaterialUi) {
         val prefViewState = preferences.getSettings()
         preferences.saveSettings(prefViewState.copy(lastInput = prefViewState.lastInput.copy(lastSelectedMaterial = material.id)))

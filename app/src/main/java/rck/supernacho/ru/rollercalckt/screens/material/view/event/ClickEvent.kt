@@ -9,5 +9,6 @@ sealed class ClickEvent {
     data class SelectClick(val material: MaterialUi): ClickEvent()
     data class BalloonClick(val view: View, val type: BalloonType): ClickEvent()
     object AddClick: ClickEvent()
+    object ShowSortClick: ClickEvent()
     object DismissDialog: ClickEvent()
 }
