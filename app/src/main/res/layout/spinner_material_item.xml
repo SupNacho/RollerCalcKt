@@ -20,7 +20,7 @@
             android:layout_width="16dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/spacer_active"
+            android:background="@drawable/spacer_active_small"
             app:layout_constraintBottom_toBottomOf="@id/tv_spinnerBrand"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_spinnerBrand" />
@@ -44,7 +44,7 @@
             android:layout_width="16dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/spacer_light"
+            android:background="@drawable/spacer_light_small"
             app:layout_constraintBottom_toBottomOf="@id/tv_spinnerName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_spinnerName" />

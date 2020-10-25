@@ -43,7 +43,7 @@
         android:layout_width="16dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:background="@drawable/spacer_active"
+        android:background="@drawable/spacer_active_small"
         app:layout_constraintStart_toStartOf="@id/v_sortDescription"
         app:layout_constraintTop_toTopOf="@id/tv_sortDescription"
         app:layout_constraintBottom_toBottomOf="@id/tv_sortDescription"/>
