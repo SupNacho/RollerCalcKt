@@ -21,7 +21,9 @@
     </style>
 
     <style name="Text" parent="TextAppearance.AppCompat"/>
-    <style name="Input" parent="Widget.AppCompat.EditText"/>
+    <style name="Input" parent="Widget.AppCompat.EditText">
+        <item name="fontFamily">@font/oswald_bold</item>
+    </style>
     <style name="Text.Light" parent="Text">
         <item name="android:textColor">@color/colorPrimaryLight</item>
     </style>
@@ -47,9 +49,11 @@
         <item name="android:textSize">24sp</item>
         <item name="android:maxLines">3</item>
         <item name="android:ellipsize">end</item>
+        <item name="fontFamily">@font/oswald_bold</item>
     </style>
     <style name="Text.Light.Title">
         <item name="android:textSize">40sp</item>
+        <item name="fontFamily">@font/oswald_bold</item>
     </style>
     <style name="Text.Accent.Title">
         <item name="android:textSize">20sp</item>
@@ -77,6 +81,7 @@
 
     <style name="Text.Primary.CalculationLength">
         <item name="android:textSize">32sp</item>
+        <item name="fontFamily">@font/oswald_bold</item>
     </style>
 
     <style name="Text.Primary.Hint">
