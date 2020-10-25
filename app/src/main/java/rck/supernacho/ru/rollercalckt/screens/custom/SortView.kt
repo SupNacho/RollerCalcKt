@@ -5,11 +5,19 @@ import android.content.Context
 import android.text.style.LineHeightSpan
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.input_view.view.*
 import kotlinx.android.synthetic.main.sort_view.view.*
 import rck.supernacho.ru.rollercalckt.R
 
 class SortView : FrameLayout {
+
+    var isWeightEnabled: Boolean = false
+        set(value) {
+            field = value
+            iv_densitySort.setVisibility(isVisible = value)
+            iv_weightSort.setVisibility(isVisible = value)
+        }
 
     constructor(context: Context) : super(context) {
         init()

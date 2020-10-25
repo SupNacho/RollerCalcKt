@@ -74,6 +74,7 @@ class MaterialFragment : Fragment(), KodeinAware {
         })
 
         sv_sortMaterial.run {
+            isWeightEnabled = viewModel.preferences.cache?.isWeightCalculate ?: false
             setOnChangeListener { viewModel.filterByText(it) }
             setNameSortAction { viewModel.sortByName() }
             setThickSortAction { viewModel.sortByThick() }

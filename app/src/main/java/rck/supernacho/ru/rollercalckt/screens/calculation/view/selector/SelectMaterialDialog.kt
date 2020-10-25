@@ -41,6 +41,7 @@ class SelectMaterialDialog : BottomSheetDialogFragment(), KodeinAware {
         }
 
         sv_sortMaterial.run {
+            isWeightEnabled = arguments?.getBoolean(IS_WEIGHT) ?: false
             setOnChangeListener { viewModel.filterByText(it) }
             setNameSortAction { viewModel.sortByName() }
             setThickSortAction { viewModel.sortByThick() }
