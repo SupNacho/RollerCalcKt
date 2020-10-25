@@ -82,6 +82,7 @@ class InputView : FrameLayout {
                 this.getBoolean(R.styleable.InputView_inputCorrection, false).let { isCorrectionEnabled = it }
                 this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
                 this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
+                this.getInt(R.styleable.InputView_inputIme)?.let { et_input.imeOptions = it }
             } finally {
                 recycle()
             }

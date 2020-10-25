@@ -81,6 +81,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         tools:text="asdsasdad"
+        android:imeOptions="actionNext"
         android:importantForAutofill="no"
         app:layout_constraintStart_toStartOf="@id/tv_hint"
         app:layout_constraintEnd_toEndOf="@id/v_iconDelimiter"
