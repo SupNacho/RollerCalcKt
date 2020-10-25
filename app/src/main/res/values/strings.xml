@@ -36,8 +36,6 @@
     <string name="settings_300_hint_imp">Max outer Ø, inch</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">
-        "Calculator for roll materials\n\n"
-
         "In this calculator, you can calculate the length of material in roll."
         "For this you have to specify the thickness of the material, outside diameter and inside diameter."
         "For the accuracy of the calculation should be performed at the maximum diameter measured winding dense, will also affect the accuracy of determining the thickness of the material in the measured roll.
@@ -74,4 +72,6 @@
     <string name="sort_by_thick">by thickness</string>
     <string name="sort_by_weight">by weight</string>
     <string name="sort_by_density">by density</string>
+    <string name="app_header">Roll</string>
+    <string name="app_desc">Calculator</string>
 </resources>
