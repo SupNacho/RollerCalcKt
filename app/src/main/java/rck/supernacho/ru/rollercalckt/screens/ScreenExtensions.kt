@@ -3,6 +3,7 @@ package rck.supernacho.ru.rollercalckt.screens
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -16,6 +17,7 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
 import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.screens.custom.getColor
 import rck.supernacho.ru.rollercalckt.screens.utils.DrawableClickListener
 
 fun Balloon.Builder.setBalloonSettings(v: View,viewLifecycleOwner: LifecycleOwner, text: String, withOverlay: Boolean = true) {
@@ -35,9 +37,11 @@ fun Balloon.Builder.setBalloonSettings(v: View,viewLifecycleOwner: LifecycleOwne
     setCornerRadius(4f)
     setLifecycleOwner(viewLifecycleOwner)
     setBalloonAnimation(BalloonAnimation.FADE)
-    setBackgroundColorResource(R.color.balloonBg)
+    setBackgroundColorResource(R.color.colorAccent)
     setOverlayColorResource(R.color.balloonOverlayBg)
     setText(text)
+    setTextGravity(Gravity.START)
+    setTextColor(v.getColor(R.color.colorPrimaryDark))
 }
 
 fun Fragment.hideKeyboard() {
