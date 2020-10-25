@@ -44,15 +44,14 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
     <style name="Text.Light.Name">
+        <item name="android:textSize">24sp</item>
         <item name="android:maxLines">3</item>
         <item name="android:ellipsize">end</item>
     </style>
     <style name="Text.Light.Params">
-        <item name="android:layout_marginStart">2dp</item>
-        <item name="android:layout_marginEnd">2dp</item>
-        <item name="android:lines">1</item>
-        <item name="android:maxLength">6</item>
-        <item name="android:layout_gravity">start</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="drawablePadding">6dp</item>
     </style>
     <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -73,6 +72,10 @@
     </style>
     <style name="Text.Accent.Hint">
         <item name="android:textSize">12sp</item>
+    </style>
+    <style name="Text.Accent.Brand">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
     <style name="Text.Dark.CalculationWeight">
         <item name="android:textSize">12sp</item>

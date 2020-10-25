@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.model.repository.sharedprefs.IPrefRepository
 import rck.supernacho.ru.rollercalckt.screens.material.domain.CrudMaterialInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.FilterInteractor
 import rck.supernacho.ru.rollercalckt.screens.material.domain.ICrudMaterialInteractor

@@ -15,16 +15,18 @@ import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
 
-class SelectMaterialDialog: BottomSheetDialogFragment(), KodeinAware {
+class SelectMaterialDialog : BottomSheetDialogFragment(), KodeinAware {
 
     override val kodein: Kodein by closestKodein()
     private val viewModel: SelectorViewModel by lazy {
         ViewModelProvider(this, RCViewModelFactory(kodein)).get(SelectorViewModel::class.java)
     }
 
-    private val adapter = SelectorRVAdapter { materialUi ->
-        (parentFragment as? OnMaterialSelected)?.onSelected(materialUi)
-        dismissAllowingStateLoss()
+    private val adapter: SelectorRVAdapter by lazy {
+        SelectorRVAdapter(arguments?.getBoolean(IS_WEIGHT) ?: false) { materialUi ->
+            (parentFragment as? OnMaterialSelected)?.onSelected(materialUi)
+            dismissAllowingStateLoss()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -47,7 +49,18 @@ class SelectMaterialDialog: BottomSheetDialogFragment(), KodeinAware {
         }
     }
 
-    interface OnMaterialSelected{
+    companion object {
+        private const val IS_WEIGHT = "is_weight"
+        fun getInstance(isWeightEnabled: Boolean): BottomSheetDialogFragment {
+            return SelectMaterialDialog().apply {
+                arguments = Bundle().apply {
+                    putBoolean(IS_WEIGHT, isWeightEnabled)
+                }
+            }
+        }
+    }
+
+    interface OnMaterialSelected {
         fun onSelected(item: MaterialUi)
     }
 }

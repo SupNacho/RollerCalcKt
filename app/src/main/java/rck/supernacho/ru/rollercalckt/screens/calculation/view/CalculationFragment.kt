@@ -23,6 +23,7 @@ import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
+import rck.supernacho.ru.rollercalckt.screens.custom.setVisibility
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
@@ -92,7 +93,12 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     private fun initSelector() {
         fl_materialItemRoot.setOnClickListener {
-            SelectMaterialDialog().show(childFragmentManager, SelectMaterialDialog::class.java.name)
+            SelectMaterialDialog.getInstance(viewModel.viewState.value?.preferencesViewState?.isWeightCalculate ?: false).show(childFragmentManager, SelectMaterialDialog::class.java.name)
+        }
+
+        viewModel.viewState.value?.preferencesViewState?.isWeightCalculate?.let {
+            tv_spinnerDensity.setVisibility(isVisible = it)
+            tv_spinnerWeight.setVisibility(isVisible = it)
         }
     }
 

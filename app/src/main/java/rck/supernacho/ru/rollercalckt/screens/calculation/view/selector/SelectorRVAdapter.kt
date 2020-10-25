@@ -9,8 +9,9 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.spinner_material_item.view.*
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
+import rck.supernacho.ru.rollercalckt.screens.custom.setVisibility
 
-class SelectorRVAdapter(private val onClick: (MaterialUi) ->  Unit): RecyclerView.Adapter<SelectorRVAdapter.SelectorMaterialViewHolder>() {
+class SelectorRVAdapter(private val isWeight:Boolean, private val onClick: (MaterialUi) ->  Unit): RecyclerView.Adapter<SelectorRVAdapter.SelectorMaterialViewHolder>() {
     var materials: List<MaterialUi> = emptyList()
     set(value) {
         val diffUtil = DiffUtil.calculateDiff(SelectorDiffUtilCallback(field, value))
@@ -36,8 +37,14 @@ class SelectorRVAdapter(private val onClick: (MaterialUi) ->  Unit): RecyclerVie
                 tv_spinnerBrand.text = item.brand
                 tv_spinnerName.text = item.name
                 tv_spinnerThick.text = item.thickness
-                tv_spinnerWeight.text = item.weight
-                tv_spinnerDensity.text = item.density
+                tv_spinnerWeight.run {
+                    setVisibility(isVisible = isWeight)
+                    text = item.weight
+                }
+                tv_spinnerDensity.run {
+                    setVisibility(isVisible = isWeight)
+                    text = item.density
+                }
             }
         }
     }

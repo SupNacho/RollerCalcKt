@@ -1,88 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fl_materialItemRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:background="@drawable/material_bg"
-    android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardCornerRadius="6dp">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <View
+            android:id="@+id/v_brandSpacer"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/spacer_active"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spinnerBrand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_spinnerBrand" />
 
         <TextView
             android:id="@+id/tv_spinnerBrand"
-            style="@style/Text.Light"
-            android:layout_width="match_parent"
+            style="@style/Text.Accent.Brand"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:maxLines="1"
+            android:text="@{item.brand}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v_brandSpacer"
+            app:layout_constraintTop_toBottomOf="@id/v_accentDelimiter"
             tools:text="Oracal" />
+
+        <View
+            android:id="@+id/v_spacerName"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/spacer_light"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spinnerName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_spinnerName" />
 
         <TextView
             android:id="@+id/tv_spinnerName"
-            style="@style/Text.Light"
-            android:layout_width="match_parent"
+            style="@style/Text.Light.Name"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:maxLines="3"
+            android:text="@{item.name}"
+            app:layout_constraintEnd_toEndOf="@id/v_accentDelimiter"
+            app:layout_constraintStart_toEndOf="@id/v_spacerName"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="835 Carbone asadasdasda asdasdads asdasdasdad asd asd asd asda ssd a asda da dsasd ad2s asd a2ds  dasda s ad2ad ad asdd ad a" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.6"
-        android:background="@drawable/material_param_bg"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp">
+        <View
+            android:id="@+id/v_accentDelimiter"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintEnd_toStartOf="@id/v_dataDelimiter"
+            app:layout_constraintStart_toStartOf="@id/v_spacerName"
+            app:layout_constraintTop_toBottomOf="@id/v_spacerName" />
+
+        <View
+            android:id="@+id/v_dataDelimiter"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/colorPrimaryLight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_spinnerThick"
+            app:layout_constraintStart_toEndOf="@id/tv_spinnerName"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_spinnerThick"
             style="@style/Text.Light.Params"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/params_width"
             android:layout_height="wrap_content"
-            app:drawableEndCompat="@drawable/ic_about"
+            android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="6dp"
+            android:maxLength="7"
+            app:drawableStartCompat="@drawable/ic_thick_light"
+            app:layout_constraintBottom_toTopOf="@id/tv_spinnerWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v_dataDelimiter"
+            app:layout_constraintTop_toTopOf="@id/v_dataDelimiter"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="0.121 mm" />
 
-        <View
-            android:id="@+id/v_delimiterOne"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorWhite" />
 
         <TextView
             android:id="@+id/tv_spinnerWeight"
             style="@style/Text.Light.Params"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/params_width"
             android:layout_height="wrap_content"
-            app:drawableEndCompat="@drawable/ic_about"
+            android:layout_marginTop="6dp"
+            android:drawablePadding="6dp"
+            app:drawableStartCompat="@drawable/ic_weight_light"
+            app:layout_constraintBottom_toTopOf="@id/tv_spinnerDensity"
+            app:layout_constraintEnd_toEndOf="@id/tv_spinnerThick"
+            app:layout_constraintStart_toStartOf="@id/tv_spinnerThick"
+            app:layout_constraintTop_toBottomOf="@id/tv_spinnerThick"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="123g/m2" />
-
-        <View
-            android:id="@+id/v_delimiterTwo"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorWhite" />
 
         <TextView
             android:id="@+id/tv_spinnerDensity"
             style="@style/Text.Light.Params"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/params_width"
             android:layout_height="wrap_content"
-            app:drawableEndCompat="@drawable/ic_about"
+            android:layout_marginTop="6dp"
+            android:drawablePadding="6dp"
+            app:drawableStartCompat="@drawable/ic_density_light"
+            app:layout_constraintEnd_toEndOf="@id/tv_spinnerThick"
+            app:layout_constraintStart_toStartOf="@id/tv_spinnerThick"
+            app:layout_constraintTop_toBottomOf="@id/tv_spinnerWeight"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="123g/m3" />
-    </LinearLayout>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
