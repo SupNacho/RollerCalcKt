@@ -6,10 +6,13 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import kotlinx.android.synthetic.main.input_view.view.*
 import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.screens.hideKeyboard
 import rck.supernacho.ru.rollercalckt.screens.showKeyboard
 
 class InputView : FrameLayout {
@@ -28,6 +31,8 @@ class InputView : FrameLayout {
         get() = et_input
 
     var isCorrectionEnabled = false
+
+    private var nextFocus: View? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -73,6 +78,7 @@ class InputView : FrameLayout {
                 defStylesRes
         ).apply {
             try {
+                this.getResourceId(R.styleable.InputView_inputNextFocus)?.let { nextFocus = findViewById(it) }
                 this.getBoolean(R.styleable.InputView_inputCorrection, false).let { isCorrectionEnabled = it }
                 this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
                 this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
@@ -92,6 +98,13 @@ class InputView : FrameLayout {
     }
 
     private fun initFocusActions() {
+        cl_root.setOnFocusChangeListener { view, b ->
+            if (b)
+                et_input.run {
+                    requestFocus()
+                    setSelection(text?.length ?: 0)
+                }
+        }
         et_input.setOnFocusChangeListener { _, isFocused ->
             if (isFocused) {
                 v_backGround.background = getDrawable(R.drawable.bg_input_dark)
@@ -106,6 +119,19 @@ class InputView : FrameLayout {
                 v_inputStarter.background = getDrawable(R.drawable.spacer_dark)
                 tv_hint.setAppearance(R.style.Text_Primary_Hint)
                 et_input.setAppearance(R.style.Input_PrimaryDark_Input)
+            }
+        }
+
+        et_input.setOnEditorActionListener { textView, actionId, keyEvent ->
+           return@setOnEditorActionListener when(actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    textView.hideKeyboard()
+                    true
+                }
+               EditorInfo.IME_ACTION_NEXT -> {
+                   nextFocus?.requestFocus() ?: false
+               }
+               else ->  false
             }
         }
     }
