@@ -51,21 +51,21 @@
                 android:background="@drawable/spacer_light">
 
                 <rck.supernacho.ru.rollercalckt.screens.custom.InputView
-                    android:id="@+id/ivet_brandEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:inputType="textAutoComplete"
-                    app:inputNextFocus="@id/ivet_materialEdit"
-                    app:inputHint="@string/brand"/>
-
-                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
                     android:id="@+id/ivet_materialEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     app:inputType="text"
-                    app:inputNextFocus="@id/ivet_thicknessEdit"
+                    app:inputNextFocus="@id/ivet_brandEdit"
                     app:inputHint="@string/material_name"/>
+
+                <rck.supernacho.ru.rollercalckt.screens.custom.InputView
+                    android:id="@+id/ivet_brandEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:inputType="textAutoComplete"
+                    app:inputNextFocus="@id/ivet_thicknessEdit"
+                    app:inputHint="@string/brand"/>
 
                 <rck.supernacho.ru.rollercalckt.screens.custom.InputView
                     android:id="@+id/ivet_thicknessEdit"
