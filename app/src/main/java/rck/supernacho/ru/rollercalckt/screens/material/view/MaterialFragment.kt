@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.balloon.createBalloon
 import com.skydoves.balloon.showAlignLeft
+import com.skydoves.balloon.showBalloon
 import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.kodein.di.Kodein
