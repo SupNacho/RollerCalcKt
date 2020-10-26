@@ -1,23 +1,21 @@
 package rck.supernacho.ru.rollercalckt.screens.calculation.view
 
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.skydoves.balloon.*
+import com.skydoves.balloon.createBalloon
+import com.skydoves.balloon.showAlignLeft
 import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_calculation.*
 import kotlinx.android.synthetic.main.spinner_material_item.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
-import rck.supernacho.ru.rollercalckt.MainActivity
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
 import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
@@ -49,15 +47,14 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.materialsList.observe(
-                viewLifecycleOwner, Observer {
+                viewLifecycleOwner, {
             it.find { it.id == viewModel.viewState.value?.selectedMaterial }
                     ?.let { onSelected(it) }
                     ?: it.firstOrNull()?.let { onSelected(it) }
         }
         )
-        viewModel.viewState.observe(viewLifecycleOwner, Observer { renderUi(it) })
+        viewModel.viewState.observe(viewLifecycleOwner, { renderUi(it) })
         initSelector()
-        initButtons()
         initInputViews()
         initBalloonHints()
     }
@@ -101,10 +98,6 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             tv_spinnerDensity.setVisibility(isVisible = it)
             tv_spinnerWeight.setVisibility(isVisible = it)
         }
-    }
-
-    private fun initButtons() {
-        btn_oldCalc.setOnClickListener { startActivity(Intent(context, MainActivity::class.java)) }
     }
 
     override fun onSelected(item: MaterialUi) {

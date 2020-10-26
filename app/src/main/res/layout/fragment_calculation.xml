@@ -21,23 +21,12 @@
             android:paddingBottom="32dp"
             tools:context=".screens.calculation.view.CalculationFragment">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_oldCalc"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="OLD CALC"
-                app:cornerRadius="20dp"
-                app:strokeColor="@color/colorPrimaryDark"
-                app:strokeWidth="1dp" />
-
             <FrameLayout
                 android:id="@+id/sp_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp">
+                android:layout_marginTop="8dp">
                 <include layout="@layout/spinner_material_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
