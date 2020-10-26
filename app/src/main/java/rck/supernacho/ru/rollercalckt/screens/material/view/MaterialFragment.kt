@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.balloon.createBalloon
 import com.skydoves.balloon.showAlignLeft
-import com.skydoves.balloon.showBalloon
 import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.kodein.di.Kodein
@@ -24,6 +23,7 @@ import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.custom.convertDpToPixel
 import rck.supernacho.ru.rollercalckt.screens.custom.isVisible
 import rck.supernacho.ru.rollercalckt.screens.custom.setVisibility
+import rck.supernacho.ru.rollercalckt.screens.hideKeyboard
 import rck.supernacho.ru.rollercalckt.screens.material.view.adapter.MaterialListAdapter
 import rck.supernacho.ru.rollercalckt.screens.material.view.event.ClickEvent
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
@@ -81,6 +81,9 @@ class MaterialFragment : Fragment(), KodeinAware {
                         R.drawable.spacer_active to requireContext().convertDpToPixel(150f)
                     else
                         R.drawable.spacer_light to 0
+
+                    if (!isVisible)
+                        hideKeyboard()
 
                     guideline.setGuidelineBegin(guidelineMargin)
                     btn_showSort.run {

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.skydoves.balloon.ArrowConstraints
@@ -72,3 +71,10 @@ fun TextView.setOnRightDrawableClick(f: () -> Unit) {
 }
 
 fun EditText.showKeyboard() = (this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, 0)
+
+fun View.setKeyboardShownListener(listener: (Boolean) -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener{
+        val heightDiff = rootView.height - height
+        listener(heightDiff > 250)
+    }
+}
