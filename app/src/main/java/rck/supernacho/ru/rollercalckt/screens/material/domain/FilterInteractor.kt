@@ -1,13 +1,16 @@
 package rck.supernacho.ru.rollercalckt.screens.material.domain
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 
-class FilterInteractor(private val filterableItems: MutableLiveData<List<MaterialUi>>) : IFilterMaterialInteractor {
+class FilterInteractor(private val materialInteractor: ICrudMaterialInteractor) : IFilterMaterialInteractor {
     private var sortThickness: QueryConst? = null
     private var sortWeight: QueryConst? = null
     private var sortDensity: QueryConst? = null
     override var tempCollection: List<MaterialUi> = emptyList()
+    private val filterableItems: MutableLiveData<List<MaterialUi>> = MutableLiveData(materialInteractor.getMaterials())
+    override val filteredItems: LiveData<List<MaterialUi>> = filterableItems
 
 
     override fun filterBy(input: CharSequence?) {

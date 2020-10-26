@@ -1,0 +1,181 @@
+package rck.supernacho.ru.rollercalckt.screens.custom
+
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.AttributeSet
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import kotlinx.android.synthetic.main.input_view.view.*
+import rck.supernacho.ru.rollercalckt.R
+import rck.supernacho.ru.rollercalckt.screens.hideKeyboard
+import rck.supernacho.ru.rollercalckt.screens.showKeyboard
+
+class InputView : FrameLayout {
+
+    var inputText: String? = et_input?.text?.toString()
+    set(value) {
+        et_input?.setTextKeepState(value)
+        field = value
+    }
+    get() = et_input?.text?.toString()
+
+    var text: String
+        set(value) = et_input.setText(value)
+        get() = et_input.text.toString()
+
+    var hint: String
+        set(value) {
+            tv_hint.text = value
+        }
+        get() = tv_hint.text.toString()
+
+    val autoCompleteView: AppCompatAutoCompleteTextView
+        get() = et_input
+
+    var isCorrectionEnabled = false
+
+    private var nextFocus: View? = null
+
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        init(attrs)
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init(attrs, defStyleAttr)
+    }
+
+
+    private fun init(attrs: AttributeSet? = null,
+                     defStyleAttr: Int = R.attr.inputViewStyle,
+                     defStyleRes: Int = R.style.InputViewStyle) {
+
+        initLayoutParams()
+
+        val style = getThemeAttribute(attrs) ?: getAttr(defStyleAttr) ?: defStyleRes
+        inflate(contextWithAppliedStyle(style), R.layout.input_view, this)
+
+        readAttrs(attrs, defStyleAttr, defStyleRes)
+
+        initButtons()
+        initFocusActions()
+    }
+
+    private fun initLayoutParams() {
+        layoutParams = LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT
+        )
+    }
+
+    @SuppressLint("Recycle")
+    private fun readAttrs(attrs: AttributeSet?, defStyleAttr: Int, defStylesRes: Int) {
+        context.obtainStyledAttributes(
+                attrs,
+                R.styleable.InputView,
+                defStyleAttr,
+                defStylesRes
+        ).apply {
+            try {
+                this.getResourceId(R.styleable.InputView_inputNextFocus)?.let { nextFocus = findViewById(it) }
+                this.getBoolean(R.styleable.InputView_inputCorrection, false).let { isCorrectionEnabled = it }
+                this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
+                this.getString(R.styleable.InputView_inputText)?.let { et_input.setTextKeepState(it) }
+                this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
+                this.getInt(R.styleable.InputView_inputIme)?.let { et_input.imeOptions = it }
+            } finally {
+                recycle()
+            }
+        }
+    }
+
+    private fun initButtons() {
+        btn_clear.setOnClickListener {
+            et_input.run {
+                text?.clear()
+                requestFocus()
+            }
+        }
+    }
+
+    private fun initFocusActions() {
+        cl_root.setOnFocusChangeListener { view, b ->
+            if (b)
+                et_input.run {
+                    requestFocus()
+                    setSelection(text?.length ?: 0)
+                }
+        }
+        et_input.setOnFocusChangeListener { _, isFocused ->
+            if (isFocused) {
+                v_backGround.background = getDrawable(R.drawable.bg_input_dark)
+                v_hintStarter.background = getDrawable(R.drawable.spacer_dark)
+                v_inputStarter.background = getDrawable(R.drawable.spacer_primary)
+                tv_hint.setAppearance(R.style.Text_Dark_Hint)
+                et_input.setAppearance(R.style.Input_Primary_Input)
+                et_input.showKeyboard()
+            } else {
+                v_backGround.background = getDrawable(R.drawable.bg_input_primary)
+                v_hintStarter.background = getDrawable(R.drawable.spacer_primary)
+                v_inputStarter.background = getDrawable(R.drawable.spacer_dark)
+                tv_hint.setAppearance(R.style.Text_Primary_Hint)
+                et_input.setAppearance(R.style.Input_PrimaryDark_Input)
+            }
+        }
+
+        et_input.setOnEditorActionListener { textView, actionId, keyEvent ->
+           return@setOnEditorActionListener when(actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    textView.hideKeyboard()
+                    true
+                }
+               EditorInfo.IME_ACTION_NEXT -> {
+                   nextFocus?.requestFocus() ?: false
+               }
+               else ->  false
+            }
+        }
+    }
+
+    fun setOnChangeListener(listener: (String) -> String) {
+        et_input.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val input = listener(p0.toString())
+                if (isCorrectionEnabled)
+                    et_input.let {
+                        it.removeTextChangedListener(this)
+                        it.setTextKeepState(input)
+                        it.addTextChangedListener(this)
+                    }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+        })
+    }
+
+    override fun isEnabled(): Boolean {
+        return et_input.isEnabled
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        val alpha = if (enabled)
+            1f
+        else
+            0.5f
+
+        et_input.isEnabled = enabled
+        btn_clear.isEnabled = enabled
+        this.alpha = alpha
+    }
+}

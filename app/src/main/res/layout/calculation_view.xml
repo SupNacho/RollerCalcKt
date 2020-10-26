@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/_v_lengthStarter"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:background="@drawable/spacer_primary_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_lengthCalculation"/>
+    <TextView
+        android:id="@+id/tv_lengthCalculation"
+        style="@style/Text.Primary.CalculationLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/_v_lengthStarter"
+        app:layout_constraintTop_toTopOf="@id/_v_lengthStarter"
+        tools:text="1064.999m"
+        />
+
+    <View
+        android:id="@+id/_v_lengthEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/spacer_primary_small"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_lengthCalculation"
+        app:layout_constraintBottom_toBottomOf="@id/tv_lengthCalculation"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/_v_delimiter"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="@id/_v_lengthStarter"
+        app:layout_constraintEnd_toEndOf="@id/_v_lengthEnd"
+        app:layout_constraintTop_toBottomOf="@id/_v_lengthStarter"/>
+    <View
+        android:id="@+id/_v_weightStarter"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spacer_dark_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/_v_delimiter"
+        app:layout_constraintBottom_toBottomOf="@id/tv_weightCalculation"/>
+
+    <TextView
+        android:id="@+id/tv_weightCalculation"
+        style="@style/Text.Dark.CalculationWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/_v_weightStarter"
+        app:layout_constraintTop_toTopOf="@id/_v_weightStarter"
+        tools:text="WEIGHT 89.4kg"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/spacer_dark_small"
+        app:layout_constraintStart_toEndOf="@id/tv_weightCalculation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_weightCalculation"
+        app:layout_constraintBottom_toBottomOf="@id/tv_weightCalculation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

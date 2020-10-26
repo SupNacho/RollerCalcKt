@@ -10,8 +10,19 @@
     <string name="edit_material_add_new_material_button">Add new material</string>
     <string name="edit_material_update_material_button">Update material</string>
     <string name="edit_material_delete_material_button">Delete material</string>
-    <string name="calc_outer_d_text_view">Outer Ø, mm</string>
-    <string name="calc_inner_d_text_view">Inner Ø, mm</string>
+    <string name="calc_material_width">Width, %s</string>
+    <string name="calc_outer_d_text_view">Outer Ø, %s</string>
+    <string name="calc_inner_d_text_view">Inner Ø, %s</string>
+    <string name="calc_measure_metric">mm</string>
+    <string name="calc_measure_imperial">inch</string>
+    <string name="calc_w_measure_metric">kg</string>
+    <string name="calc_w_measure_imperial">lbs</string>
+    <string name="calc_l_measure_metric">m</string>
+    <string name="calc_l_measure_imperial">ft</string>
+    <string name="calc_output" translatable="false">%1$s%2$s</string>
+    <string name="calc_output_weight">Weight %1$s%2$s</string>
+    <string name="calc_output_length">Length in %s</string>
+    <string name="calc_inner_micros">Microns %s</string>
     <string name="calc_edit_button">Edit</string>
     <string name="calc_select_material_text_view">Select material:</string>
     <string name="calc_out_unit_text_view"> m</string>
@@ -20,12 +31,11 @@
     <string name="settings_150_hint_imp">Max inner Ø, inch</string>
     <string name="settings_max_outer_d_mm_text_view">Max outer Ø, mm</string>
     <string name="settings_max_outer_d_mm_text_view_imp">Max outer Ø, inch</string>
+    <string name="settings_max_inner_d_mm_text_view_imp">Max inner Ø, inch</string>
     <string name="settings_300_hint">Max outer Ø, mm</string>
     <string name="settings_300_hint_imp">Max outer Ø, inch</string>
     <string name="list_thickness"> thickness: </string>
     <string name="about_text">
-        "Calculator for roll materials\n\n"
-
         "In this calculator, you can calculate the length of material in roll."
         "For this you have to specify the thickness of the material, outside diameter and inside diameter."
         "For the accuracy of the calculation should be performed at the maximum diameter measured winding dense, will also affect the accuracy of determining the thickness of the material in the measured roll.
@@ -36,9 +46,9 @@
     <string name="privacy_policy_url" translatable="false">https://supnacho.github.io/rollercalc/privacy_policy.html</string>
     <string name="brand">Brand</string>
     <string name="material_name">Material name</string>
-    <string name="thickness">Thickness</string>
-    <string name="weight">Weight</string>
-    <string name="density">Density</string>
+    <string name="thickness">Thickness, %s</string>
+    <string name="weight">Weight, %s</string>
+    <string name="density">Density, %s</string>
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -46,5 +56,22 @@
     <string name="mm_m_kg">mm, m, kg</string>
     <string name="choose_your_system">Choose your system</string>
     <string name="choose_units">Choose units:</string>
-
+    <string name="weight_calc">Enable weight calculation?</string>
+    <string name="limit_calc">Limit inputs to max inner/outer Ø?</string>
+    <string name="density_pcs">kg/m3</string>
+    <string name="weight_pcs_metric">g/m2</string>
+    <string name="thick_balloon">The thickness of material specified in %1$s.\nIf you know the thickness in microns, then 1 micron = %2$s %3$s. If you do not know the thickness of your material, then you can calculate it approximately by counting how many layers fit in 1 %4$s. 1 / N-layers</string>
+    <string name="weight_balloon">Weight, indicated in g/m2.\nIt is most often used in the description of paper materials. Required for calculating the mass of the roll if we do not know its density.</string>
+    <string name="density_balloon">Density, specified in kg/m3.\nUsed to calculate the mass of the roll.\nYou can find out the density from the technical specifications provided by the manufacturer or reference books if we are talking about metals etc</string>
+    <string name="one_micron_m" translatable="false">0.001</string>
+    <string name="one_micron_imp" translatable="false">0.000039</string>
+    <string name="sort_by">Sort by</string>
+    <string name="find_hint">Find</string>
+    <string name="add_material">Add material</string>
+    <string name="sort_by_name">by name</string>
+    <string name="sort_by_thick">by thickness</string>
+    <string name="sort_by_weight">by weight</string>
+    <string name="sort_by_density">by density</string>
+    <string name="app_header">Roll</string>
+    <string name="app_desc">Calculator</string>
 </resources>

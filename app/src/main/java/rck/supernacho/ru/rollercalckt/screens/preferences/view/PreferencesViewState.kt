@@ -8,5 +8,7 @@ data class PreferencesViewState(
         var measureSystem: MeasureSystem,
         var lastInput: UserInput,
         var innerLimitsDescription: String = "",
-        var outerLimitsDescription: String = ""
+        var outerLimitsDescription: String = "",
+        var isWeightCalculate: Boolean = false,
+        var isLimitsEnabled: Boolean = false
 )

@@ -11,8 +11,8 @@
     <string name="edit_material_add_new_material_button">Добавить материал</string>
     <string name="edit_material_update_material_button">Обновить материал</string>
     <string name="edit_material_delete_material_button">Удалить материал</string>
-    <string name="calc_outer_d_text_view">Внешний Ø, мм</string>
-    <string name="calc_inner_d_text_view">Внутренний Ø, мм</string>
+    <string name="calc_outer_d_text_view">Внешний Ø, %s</string>
+    <string name="calc_inner_d_text_view">Внутренний Ø, %s</string>
     <string name="calc_edit_button">Изменить</string>
     <string name="calc_select_material_text_view">Выбор материала:</string>
     <string name="calc_out_unit_text_view"> м</string>
@@ -21,16 +21,17 @@
     <string name="settings_max_outer_d_mm_text_view">Макс.внеш. Ø, mm</string>
     <string name="settings_300_hint">Макс.внеш. Ø, mm</string>
     <string name="list_thickness"> thickness: </string>
-    <string name="about_text">\"Калькулятор для рулонных материалов." \n\nВ данном калькуляторе вы можете рассчитать длину материала в рулоне. Для этого вам надо будет указать толщину материала, внешний диаметр и внутренний диаметр. Для точности расчета надо произвести замер диаметров при максимально плотной намотке, так же будет влиять точность определения толщины материала в измеряемом рулоне. \n\n"</string>
+    <string name="about_text">Данный калькулятор предназначен для расчета длины различных материалов в рулоне. Для расчета необходимо указать толщину материала, внешний и внутренний диаметры. \n\nДля точности расчета нужно производить замер диаметров при максимально плотной намотке. Также на расчет будет влиять и точность определения толщины материала в измеряемом рулоне.\n"</string>
     <string name="add_material_button">Add Material button</string>
     <string name="add">Добавить</string>
     <string name="brand">Производитель</string>
     <string name="cancel">Отмена</string>
-    <string name="density">Плотность</string>
-    <string name="edit">Редактировать</string>
+    <string name="density">Плотность, %s</string>
+    <string name="edit">Изменить</string>
     <string name="settings_max_outer_d_mm_text_view_imp">Макс.внеш. Ø, дюйм</string>
-    <string name="thickness">Макс.внут. Ø, дюйм</string>
-    <string name="weight">Вес</string>
+    <string name="settings_max_inner_d_mm_text_view_imp">Макс.внут. Ø, дюйм</string>
+    <string name="thickness">Толщина, %s</string>
+    <string name="weight">Вес, %s</string>
     <string name="settings_150_hint_imp">Макс.внут. Ø, дюйм</string>
     <string name="settings_300_hint_imp">Макс.внеш. Ø, дюйм</string>
     <string name="material_name">Материал</string>
@@ -38,4 +39,32 @@
     <string name="inch_ft_lb">дюймы, футы,  фунты</string>
     <string name="choose_your_system">Выберите систему</string>
     <string name="choose_units">Выберите ед. измерения:</string>
+    <string name="calc_measure_imperial">дюйм</string>
+    <string name="calc_measure_metric">мм</string>
+    <string name="calc_output_weight">Вес %1$s%2$s</string>
+    <string name="calc_w_measure_imperial">фунт</string>
+    <string name="calc_w_measure_metric">кг</string>
+    <string name="calc_l_measure_imperial">фт</string>
+    <string name="calc_l_measure_metric">м</string>
+    <string name="calc_output_length">Длина в %s</string>
+    <string name="calc_inner_micros">Микроны %s</string>
+    <string name="calc_material_width">Ширина, %s</string>
+    <string name="weight_calc">Рассчитывать вес?</string>
+    <string name="limit_calc">Ограничить ввод макс. внут./внеш. Ø?</string>
+    <string name="density_pcs">кг/м3</string>
+    <string name="weight_pcs_metric">г/м2</string>
+    <string name="thick_balloon">Толщина материала, указана в %1$s.\nЕсли вам известна толщина в микронах то 1 микрон = %2$s %3$s. Если вы не знаете толщину своего материала, то приблизительно ее можно вычислить посчитав сколько слоев помещается в 1 %4$s. 1 / N-слоев</string>
+    <string name="weight_balloon">Вес, указывается в г/м2.\nНаиболее часто используется в описании бумажных материалов. Необходим для расчета массы рулона если нам неизвестна его плотность.</string>
+    <string name="density_balloon">Плотность, указывается в кг/м3.\nИспользуется для расчета массы рулона.\nПлотность можно узнать из технических характеристик предоставленных производителем или справочников если речь идет о металлах и т.п.</string>
+    <string name="sort_by">Сортировка</string>
+    <string name="find_hint">Поиск</string>
+    <string name="add_material">Добавить</string>
+
+    <string name="sort_by_name">по имени</string>
+    <string name="sort_by_thick">по толщине</string>
+    <string name="sort_by_weight">по весу</string>
+    <string name="sort_by_density">плотность</string>
+
+    <string name="app_header">Roll</string>
+    <string name="app_desc">Calculator</string>
 </resources>

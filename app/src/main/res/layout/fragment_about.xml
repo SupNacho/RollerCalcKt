@@ -1,48 +1,144 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="16dp"
     tools:context="rck.supernacho.ru.rollercalckt.fragments.AboutFragment">
 
-    <ImageView
-        android:id="@+id/image_view_about"
+    <View
+        android:id="@+id/v_headerDelimiterAbout"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="@id/v_headerSpacer"
+        app:layout_constraintTop_toBottomOf="@id/v_headerSpacer"
+        app:layout_constraintEnd_toStartOf="@id/iv_aboutLogo"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_aboutLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        app:srcCompat="@mipmap/splash_center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_headerAbout"/>
+    <View
+        android:id="@+id/v_headerSpacer"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:background="@drawable/spacer_light_small"
+        app:layout_constraintBottom_toBottomOf="@id/tv_headerAbout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_headerAbout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_headerAbout"
+        style="@style/Text.Light.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/image_description_rollercalc_icon"
-        android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_view_about"/>
-    <TextView
-        android:id="@+id/text_view_about"
-        android:layout_width="match_parent"
+        android:layout_marginStart="16dp"
+        android:text="@string/app_header"
+        app:layout_constraintStart_toEndOf="@id/v_headerSpacer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <View
+        android:id="@+id/v_descSpacerAbout"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spacer_active_small"
+        app:layout_constraintBottom_toBottomOf="@id/tv_descAbout"
+        app:layout_constraintStart_toStartOf="@id/v_headerSpacer"
+        app:layout_constraintTop_toBottomOf="@id/v_headerDelimiterAbout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_descAbout"
+        style="@style/Text.Accent.Title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="16sp"
-        android:text="@string/about_text"/>
-    <TextView
-        android:id="@+id/tv_about_policy"
-        android:layout_width="match_parent"
+        android:text="@string/app_desc"
+        app:layout_constraintStart_toStartOf="@id/tv_headerAbout"
+        app:layout_constraintTop_toTopOf="@id/v_descSpacerAbout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/v_aboutBackground"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/text_view_about"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/spacer_light"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/privacy_policy"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/v_aboutHeaderStarter"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spacer_primary_small"
+            app:layout_constraintBottom_toBottomOf="@id/tv_aboutHeader"
+            app:layout_constraintStart_toStartOf="@id/v_aboutBackground"
+            app:layout_constraintTop_toTopOf="@id/v_aboutBackground" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_aboutHeader"
+            style="@style/Text.Dark.AboutTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/app_name"
+            app:layout_constraintEnd_toEndOf="@id/v_aboutBackground"
+            app:layout_constraintStart_toEndOf="@id/v_aboutHeaderStarter"
+            app:layout_constraintTop_toTopOf="@id/v_aboutHeaderStarter" />
+
+        <View
+            android:id="@+id/v_aboutDelimiter"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@id/tv_aboutHeader"
+            app:layout_constraintStart_toStartOf="@id/v_aboutHeaderStarter"
+            app:layout_constraintTop_toBottomOf="@id/v_aboutHeaderStarter" />
+
+        <View
+            android:id="@+id/v_aboutDescStarter"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spacer_active_small"
+            app:layout_constraintBottom_toBottomOf="@id/tv_about_policy"
+            app:layout_constraintStart_toStartOf="@id/v_aboutHeaderStarter"
+            app:layout_constraintTop_toBottomOf="@id/v_aboutDelimiter" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_aboutDesc"
+            style="@style/Text.Dark.AboutText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/about_text"
+            app:layout_constraintEnd_toEndOf="@id/v_aboutBackground"
+            app:layout_constraintStart_toStartOf="@id/tv_aboutHeader"
+            app:layout_constraintTop_toTopOf="@id/v_aboutDescStarter" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_about_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@id/v_aboutBackground"
+            app:layout_constraintTop_toBottomOf="@id/tv_aboutDesc" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

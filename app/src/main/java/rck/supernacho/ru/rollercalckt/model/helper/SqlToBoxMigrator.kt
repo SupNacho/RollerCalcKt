@@ -42,7 +42,7 @@ object SqlToBoxMigrator : CoroutineScope by CoroutineScope(SupervisorJob()) {
 
     private fun removeOldDB(context: Context, result: ArrayList<rck.supernacho.ru.rollercalckt.model.OldMaterial>) {
         context.deleteDatabase(DataBaseFields.DATABASE_NAME.field)
-        YandexMetrica.reportEvent("old db migrated", "{\"items\":\"${result.size}\"}")
+        YandexMetrica.reportEvent("old db migrated", "{\"items Count\":\"${result.size}\",\"items Data\":\"${result.joinToString("; "){ "${it.brand} - ${it.thickness}" }}\"}")
     }
 
 

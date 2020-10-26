@@ -3,7 +3,7 @@ package rck.supernacho.ru.rollercalckt
 import org.junit.Test
 
 import org.junit.Assert.*
-import rck.supernacho.ru.rollercalckt.model.calc.Calculator
+import rck.supernacho.ru.rollercalckt.screens.calculation.domain.calculation.Calculator
 import rck.supernacho.ru.rollercalckt.model.calc.Thickness
 
 /**

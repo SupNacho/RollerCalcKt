@@ -9,13 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import com.yandex.metrica.YandexMetrica
 import kotlinx.android.synthetic.main.fragment_preference.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentPreferenceBinding
+import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toMetricThickness
@@ -24,11 +26,13 @@ import java.math.BigDecimal
 
 class PreferenceFragment : Fragment(), KodeinAware {
 
-    private var firstLaunch = true
     private var saveAction: Runnable? = null
+    private var isOuterConversion = false
+    private var isInnerConversion = false
     override val kodein: Kodein by closestKodein()
+    private lateinit var previousSystem: MeasureSystem
     private val viewModel: PrefsViewModel by lazy {
-        ViewModelProviders.of(this, RCViewModelFactory(kodein)).get(PrefsViewModel::class.java)
+        ViewModelProvider(this, RCViewModelFactory(kodein)).get(PrefsViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,55 +44,121 @@ class PreferenceFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        previousSystem = viewModel.viewState.measureSystem
+        initHints()
+        initButtons()
+        initSaveAction()
+        initTextViews(view)
+    }
 
+    private fun initHints() {
         setHints(isMetric = viewModel.viewState.measureSystem == MeasureSystem.METRIC)
+    }
 
+    private fun initSaveAction() {
+        saveAction = Runnable {
+            viewModel.saveState()
+        }
+    }
+
+    private fun initTextViews(view: View) {
+        val vsInnerUpdater = object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (!isInnerConversion) {
+                    viewModel.viewState.limits.inner = p0.toString()
+                    startSaveToPreferences(view)
+                    isInnerConversion = false
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        }
+        val vsOuterUpdater = object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (!isOuterConversion) {
+                    viewModel.viewState.limits.outer = p0.toString()
+                    startSaveToPreferences(view)
+                    isOuterConversion = false
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        }
+
+        val isLimitsEnabled = viewModel.preferences.getSettings().isLimitsEnabled
+
+        et_innerMax.run {
+            autoCompleteView.addTextChangedListener(vsInnerUpdater)
+            isEnabled = isLimitsEnabled
+            inputText = viewModel.preferences.cache?.limits?.inner
+        }
+        et_outerMax.run {
+            autoCompleteView.addTextChangedListener(vsOuterUpdater)
+            isEnabled = isLimitsEnabled
+            inputText = viewModel.preferences.cache?.limits?.outer
+        }
+    }
+
+    private fun startSaveToPreferences(view: View) {
+        view.removeCallbacks(saveAction)
+        view.postDelayed(saveAction, 1250)
+    }
+
+    private fun initButtons() {
         chip_Imperial.setOnClickListener {
             setHints(isMetric = false)
             viewModel.chooseMeasureSystem(MeasureSystem.IMPERIAL)
             setFieldsData(isMetric = false)
+            chip_Metric.isChecked = false
         }
 
         chip_Metric.setOnClickListener {
             setHints(isMetric = true)
             viewModel.chooseMeasureSystem(MeasureSystem.METRIC)
             setFieldsData(isMetric = true)
+            chip_Imperial.isChecked = false
         }
 
-        saveAction = Runnable {
-            viewModel.saveState()
-            showSavedPopUp()
+        swt_weightEnabled.setOnClickListener {
+            YandexMetrica.reportEvent("Weight switcher", "{\"IsEnabled\":\"${swt_weightEnabled.isChecked}\"")
+            viewModel.enableWeightCalculation(swt_weightEnabled.isChecked)
         }
 
-        val watcher = object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                view.removeCallbacks(saveAction)
-                view.postDelayed(saveAction, 1250)
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        swt_limitsEnabled.setOnClickListener {
+            YandexMetrica.reportEvent("Limit switcher", "{\"IsEnabled\":\"${swt_limitsEnabled.isChecked}\"")
+            viewModel.enableLimitCalculation(swt_limitsEnabled.isChecked)
+            et_innerMax.isEnabled = swt_limitsEnabled.isChecked
+            et_outerMax.isEnabled = swt_limitsEnabled.isChecked
         }
-        et_innerMax.addTextChangedListener(watcher)
-        et_outerMax.addTextChangedListener(watcher)
     }
 
     private fun setFieldsData(isMetric: Boolean) {
-        val data = Pair(et_innerMax.text?.toString()?.toBigDecimal(), et_outerMax.text?.toString()?.toBigDecimal())
+        val data = Pair(et_innerMax.text.toBigDecimalOrDef(), et_outerMax.text.toBigDecimalOrDef())
         setConvertedData(convertData(isMetric, data))
     }
 
     private fun convertData(isMetric: Boolean, data: Pair<BigDecimal?, BigDecimal?>): Pair<BigDecimal?, BigDecimal?> {
-        return if (isMetric) {
-            Pair(data.first?.toMetricThickness(), data.second?.toMetricThickness())
-        } else {
-            Pair(data.first?.toImperialThickness(), data.second?.toImperialThickness())
+        YandexMetrica.reportEvent("Measure System", "{\"System\":\"${previousSystem.name}\"")
+        return when {
+            isMetric && previousSystem != MeasureSystem.METRIC -> {
+                previousSystem = MeasureSystem.METRIC
+                Pair(data.first?.toMetricThickness(), data.second?.toMetricThickness())
+            }
+            !isMetric && previousSystem != MeasureSystem.IMPERIAL -> {
+                previousSystem = MeasureSystem.IMPERIAL
+                Pair(data.first?.toImperialThickness(), data.second?.toImperialThickness())
+            }
+            else -> Pair(data.first, data.second)
         }
     }
 
     private fun setConvertedData(convertedData: Pair<BigDecimal?, BigDecimal?>) {
-        et_innerMax.setText(convertedData.first.toString())
-        et_outerMax.setText(convertedData.second.toString())
+        isInnerConversion = true
+        et_innerMax.inputText = convertedData.first.toString()
+        isOuterConversion = true
+        et_outerMax.inputText = convertedData.second.toString()
     }
 
     private fun setHints(isMetric: Boolean) {
@@ -100,21 +170,13 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun bindHints(hints: Pair<Int, Int>) {
-        til_innerMax.hint = getString(hints.first)
-        til_outerMax.hint = getString(hints.second)
+        et_innerMax.hint = getString(hints.first)
+        et_outerMax.hint = getString(hints.second)
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.saveState()
         view?.removeCallbacks(saveAction)
-    }
-
-    private fun showSavedPopUp() {
-        if (firstLaunch) {
-            firstLaunch = false
-        } else {
-            status_popup.show()
-        }
     }
 }

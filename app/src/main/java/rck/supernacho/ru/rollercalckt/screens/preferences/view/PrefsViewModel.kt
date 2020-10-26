@@ -17,4 +17,14 @@ class PrefsViewModel(val preferences: IPrefRepository): ViewModel() {
         }
         saveState()
     }
+
+    fun enableWeightCalculation(isEnabled: Boolean){
+        viewState.isWeightCalculate = isEnabled
+        saveState()
+    }
+
+    fun enableLimitCalculation(isEnabled: Boolean){
+        viewState.isLimitsEnabled = isEnabled
+        saveState()
+    }
 }

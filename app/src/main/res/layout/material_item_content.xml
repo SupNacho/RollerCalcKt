@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -7,89 +8,152 @@
         <variable
             name="item"
             type="rck.supernacho.ru.rollercalckt.model.entity.MaterialUi" />
+
+        <variable
+            name="viewModel"
+            type="rck.supernacho.ru.rollercalckt.screens.material.view.MaterialsViewModel" />
+
+        <variable
+            name="type"
+            type="rck.supernacho.ru.rollercalckt.screens.utils.BalloonType" />
     </data>
-    <LinearLayout
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:baselineAligned="false"
-        android:background="@drawable/material_bg">
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="6dp"
+        android:onClickListener="@{(view) -> viewModel.onClickSelect(item)}">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <View
+                android:id="@+id/v_brandSpacer"
+                android:layout_width="16dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="@id/tv_brand"
+                app:layout_constraintBottom_toBottomOf="@id/tv_brand"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/spacer_active_small" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tv_brand"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Text.Light"
+                style="@style/Text.Accent.Brand"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@id/v_accentDelimiter"
+                app:layout_constraintStart_toEndOf="@id/v_brandSpacer"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@{item.brand}"
                 tools:text="Oracal" />
 
+            <View
+                android:id="@+id/v_spacerName"
+                android:layout_width="16dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/spacer_light_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_name"
+                app:layout_constraintBottom_toBottomOf="@id/tv_name" />
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                style="@style/Text.Light"
+                style="@style/Text.Light.Name"
                 android:text="@{item.name}"
                 android:maxLines="3"
                 android:ellipsize="end"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toEndOf="@id/v_spacerName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/v_accentDelimiter"
                 tools:text="835 Carbone asadasdasda asdasdads asdasdasdad asd asd asd asda ssd a asda da dsasd ad2s asd a2ds  dasda s ad2ad ad asdd ad a" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@drawable/material_param_bg">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/Text.Light.Params"
-                android:text="@{item.thickness}"
-                android:drawableTop="@drawable/ic_about"
-                tools:text="0.121 mm" />
 
             <View
+                android:id="@+id/v_accentDelimiter"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toBottomOf="@id/v_spacerName"
+                app:layout_constraintStart_toStartOf="@id/v_spacerName"
+                app:layout_constraintEnd_toStartOf="@id/v_dataDelimiter" />
+
+            <View
+                android:id="@+id/v_dataDelimiter"
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                />
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_thicknessMaterial"
+                android:background="@color/colorPrimaryLight" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/tv_thicknessMaterial"
+                android:layout_width="@dimen/params_width"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
+                style="@style/Text.Light.Params"
+                android:maxLength="7"
+                android:text="@{item.thickness}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.THICK)}"
+                tools:text="0.121 mm"
+                app:drawableStartCompat="@drawable/ic_thick_light"
+                android:drawablePadding="6dp"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/v_dataDelimiter"
+                app:layout_constraintBottom_toTopOf="@id/tv_weightMaterial" />
+
+
+            <TextView
+                android:id="@+id/tv_weightMaterial"
+                android:layout_width="@dimen/params_width"
+                android:layout_height="wrap_content"
                 style="@style/Text.Light.Params"
                 android:text="@{item.weight}"
-                android:drawableTop="@drawable/ic_about"
-                tools:text="123g/m2" />
+                android:visibility="@{item.weightVisibility}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.WEIGHT)}"
+                tools:text="123g/m2"
+                android:layout_marginTop="6dp"
+                android:drawablePadding="6dp"
+                app:drawableStartCompat="@drawable/ic_weight_light"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/tv_thicknessMaterial"
+                app:layout_constraintEnd_toEndOf="@id/tv_thicknessMaterial"
+                app:layout_constraintTop_toBottomOf="@id/tv_thicknessMaterial"
+                app:layout_constraintBottom_toTopOf="@id/tv_densityMaterial" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                />
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/tv_densityMaterial"
+                android:layout_width="@dimen/params_width"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/Text.Light.Params"
                 android:text="@{item.density}"
-                android:drawableTop="@drawable/ic_about"
-                tools:text="123g/m3" />
-        </LinearLayout>
-    </LinearLayout>
+                android:visibility="@{item.weightVisibility}"
+                android:onClickListener="@{(view) -> viewModel.onClickBalloon(view, type.DENSITY)}"
+                tools:text="123g/m3"
+                android:layout_marginTop="6dp"
+                app:drawableStartCompat="@drawable/ic_density_light"
+                android:drawablePadding="6dp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@id/tv_thicknessMaterial"
+                app:layout_constraintEnd_toEndOf="@id/tv_thicknessMaterial"
+                app:layout_constraintTop_toBottomOf="@id/tv_weightMaterial" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

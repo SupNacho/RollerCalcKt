@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CalculationViewStyle"/>
+    <style name="SwitchViewStyle"/>
+    <style name="InputViewStyle"/>
+    <style name="CheckerViewStyle"/>
+    <style name="SortViewStyle"/>
+</resources>
