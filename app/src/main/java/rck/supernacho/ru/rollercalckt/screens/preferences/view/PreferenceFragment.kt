@@ -27,6 +27,8 @@ import java.math.BigDecimal
 class PreferenceFragment : Fragment(), KodeinAware {
 
     private var saveAction: Runnable? = null
+    private var isOuterConversion = false
+    private var isInnerConversion = false
     override val kodein: Kodein by closestKodein()
     private lateinit var previousSystem: MeasureSystem
     private val viewModel: PrefsViewModel by lazy {
@@ -62,8 +64,11 @@ class PreferenceFragment : Fragment(), KodeinAware {
     private fun initTextViews(view: View) {
         val vsInnerUpdater = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.viewState.limits.inner = p0.toString()
-                startSaveToPreferences(view)
+                if (!isInnerConversion) {
+                    viewModel.viewState.limits.inner = p0.toString()
+                    startSaveToPreferences(view)
+                    isInnerConversion = false
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -71,8 +76,11 @@ class PreferenceFragment : Fragment(), KodeinAware {
         }
         val vsOuterUpdater = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.viewState.limits.outer = p0.toString()
-                startSaveToPreferences(view)
+                if (!isOuterConversion) {
+                    viewModel.viewState.limits.outer = p0.toString()
+                    startSaveToPreferences(view)
+                    isOuterConversion = false
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -84,10 +92,12 @@ class PreferenceFragment : Fragment(), KodeinAware {
         et_innerMax.run {
             autoCompleteView.addTextChangedListener(vsInnerUpdater)
             isEnabled = isLimitsEnabled
+            inputText = viewModel.preferences.cache?.limits?.inner
         }
         et_outerMax.run {
             autoCompleteView.addTextChangedListener(vsOuterUpdater)
             isEnabled = isLimitsEnabled
+            inputText = viewModel.preferences.cache?.limits?.outer
         }
     }
 
@@ -101,12 +111,14 @@ class PreferenceFragment : Fragment(), KodeinAware {
             setHints(isMetric = false)
             viewModel.chooseMeasureSystem(MeasureSystem.IMPERIAL)
             setFieldsData(isMetric = false)
+            chip_Metric.isChecked = false
         }
 
         chip_Metric.setOnClickListener {
             setHints(isMetric = true)
             viewModel.chooseMeasureSystem(MeasureSystem.METRIC)
             setFieldsData(isMetric = true)
+            chip_Imperial.isChecked = false
         }
 
         swt_weightEnabled.setOnClickListener {
@@ -143,7 +155,9 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun setConvertedData(convertedData: Pair<BigDecimal?, BigDecimal?>) {
+        isInnerConversion = true
         et_innerMax.inputText = convertedData.first.toString()
+        isOuterConversion = true
         et_outerMax.inputText = convertedData.second.toString()
     }
 
@@ -156,8 +170,8 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun bindHints(hints: Pair<Int, Int>) {
-        til_innerMax.hint = getString(hints.first)
-        til_outerMax.hint = getString(hints.second)
+        et_innerMax.hint = getString(hints.first)
+        et_outerMax.hint = getString(hints.second)
     }
 
     override fun onPause() {

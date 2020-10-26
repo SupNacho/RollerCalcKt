@@ -3,5 +3,6 @@
     <style name="CalculationViewStyle"/>
     <style name="SwitchViewStyle"/>
     <style name="InputViewStyle"/>
+    <style name="CheckerViewStyle"/>
     <style name="SortViewStyle"/>
 </resources>

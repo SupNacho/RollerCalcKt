@@ -3,6 +3,7 @@
     <attr name="calculationViewStyle"/>
     <attr name="switchViewStyle"/>
     <attr name="inputViewStyle"/>
+    <attr name="checkerViewStyle"/>
     <attr name="sortViewStyle"/>
 
     <declare-styleable name="CalculationView"/>
@@ -12,6 +13,10 @@
     </declare-styleable>
     <declare-styleable name="SortView">
         <attr name="hint" format="string|reference"/>
+    </declare-styleable>
+    <declare-styleable name="CheckerView">
+        <attr name="checkerCheck" format="boolean"/>
+        <attr name="checkerText" format="string"/>
     </declare-styleable>
     <declare-styleable name="InputView">
         <attr name="inputText" format="string|reference"/>

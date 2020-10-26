@@ -57,7 +57,6 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="8dp"
-                        app:inputText="@{viewModel.viewState.limits.inner}"
                         />
                     <rck.supernacho.ru.rollercalckt.screens.custom.InputView
                         android:id="@+id/et_outerMax"
@@ -67,109 +66,101 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        app:inputText="@{viewModel.viewState.limits.outer}"
                         />
                 </LinearLayout>
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/limit_calc"
-                    android:checked="@{viewModel.viewState.isLimitsEnabled}"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_innerMax"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-                        android:layout_width="match_parent"
+                    android:background="@drawable/spacer_light">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/fl_unitHeader"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text="@={viewModel.viewState.limits.inner}"
-                        tools:text="150" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_outerMax"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="2dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text="@={viewModel.viewState.limits.outer}"
-                        tools:text="300" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/choose_units" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:layout_margin="4dp"
-                        android:text="@string/choose_your_system"
-                        app:singleSelection="true">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_Metric"
-                            style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:background="@drawable/spacer_primary"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <View
+                            android:id="@+id/v_unitHeaderStarter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/spacer_dark_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/tv_unitsHeader"
+                            app:layout_constraintTop_toTopOf="@id/tv_unitsHeader"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_unitsHeader"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_unitsHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="@{viewModel.viewState.measureSystem == measureSystem.METRIC}"
-                            android:text="@string/mm_m_kg"
-                            android:textAlignment="center" />
+                            style="@style/Text.Dark.Hint"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:textAllCaps="true"
+                            android:text="@string/choose_units"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                        <View
+                            android:id="@+id/v_unitsHeaderEnd"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/spacer_dark_small"
+                            app:layout_constraintTop_toTopOf="@id/tv_unitsHeader"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_unitsHeader"
+                            app:layout_constraintStart_toEndOf="@id/tv_unitsHeader"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_Imperial"
-                            style="@style/Widget.MaterialComponents.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="@{viewModel.viewState.measureSystem == measureSystem.IMPERIAL}"
-                            android:text="@string/inch_ft_lb"
-                            android:textAlignment="center" />
-                    </com.google.android.material.chip.ChipGroup>
-                </LinearLayout>
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/swt_weightEnabled"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:text="@string/weight_calc"
-                    android:checked="@{viewModel.viewState.isWeightCalculate}"/>
+                    <rck.supernacho.ru.rollercalckt.screens.custom.CheckerView
+                        android:id="@+id/chip_Metric"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:checkerCheck="@{viewModel.viewState.measureSystem == measureSystem.METRIC}"
+                        app:checkerText="@string/mm_m_kg"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fl_unitHeader"
+                        app:layout_constraintEnd_toStartOf="@id/chip_Imperial"
+                        app:layout_constraintBottom_toTopOf="@id/swt_weightEnabled"/>
+
+                    <rck.supernacho.ru.rollercalckt.screens.custom.CheckerView
+                        android:id="@+id/chip_Imperial"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        app:checkerCheck="@{viewModel.viewState.measureSystem == measureSystem.IMPERIAL}"
+                        app:checkerText="@string/inch_ft_lb"
+                        app:layout_constraintStart_toEndOf="@id/chip_Metric"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/chip_Metric"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_Metric"/>
+
+                    <rck.supernacho.ru.rollercalckt.screens.custom.SwitchView
+                        android:id="@+id/swt_weightEnabled"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/fl_unitHeader"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:switchText="@string/weight_calc"
+                        app:switchChecked="@{viewModel.viewState.isWeightCalculate}"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </ScrollView>
 
