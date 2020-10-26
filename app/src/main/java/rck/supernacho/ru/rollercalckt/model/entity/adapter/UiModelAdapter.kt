@@ -1,10 +1,10 @@
 package rck.supernacho.ru.rollercalckt.model.entity.adapter
 
+import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
 import rck.supernacho.ru.rollercalckt.model.entity.Brand
 import rck.supernacho.ru.rollercalckt.model.entity.BrandUi
 import rck.supernacho.ru.rollercalckt.model.entity.Material
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
-import java.math.BigDecimal
 
 fun Material.toUiModel(isWeightEnabled: Boolean): MaterialUi =
         MaterialUi(
@@ -22,9 +22,9 @@ fun MaterialUi.toMaterial(): Material =
         Material(
                 id = this.id,
                 name = this.name,
-                thickness = this.thickness?.toBigDecimal() ?: BigDecimal.ZERO,
-                weight = this.weight?.toBigDecimal() ?: BigDecimal.ZERO,
-                density = this.density?.toBigDecimal() ?: BigDecimal.ZERO
+                thickness = this.thickness.toBigDecimalOrDef(),
+                weight = this.weight.toBigDecimalOrDef(),
+                density = this.density.toBigDecimalOrDef()
         ).apply {
             this@toMaterial.brandId?.let { brand.targetId = it }
                     ?: let { brand.target = Brand(name = this@toMaterial.brand) }

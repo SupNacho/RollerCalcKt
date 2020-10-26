@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.schedulers.Schedulers
+import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.model.entity.UserInput
@@ -15,7 +16,6 @@ import rck.supernacho.ru.rollercalckt.screens.material.domain.IFilterMaterialInt
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialLength
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialWeight
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toMetricThickness
-import rck.supernacho.ru.rollercalckt.screens.preferences.view.PreferencesViewState
 import timber.log.Timber
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -37,8 +37,8 @@ class CalculationViewModel(
         val prefs = preferences.getSettings()
         liveData.value = CalcViewState(
                 measureSystem = prefs.measureSystem,
-                innerInput = prefs.lastInput.inner?.toBigDecimal() ?: BigDecimal.ZERO,
-                outerInput = prefs.lastInput.outer?.toBigDecimal() ?: BigDecimal.ZERO,
+                innerInput = prefs.lastInput.inner.toBigDecimalOrDef(),
+                outerInput = prefs.lastInput.outer.toBigDecimalOrDef(),
                 innerInputMicrons = BigDecimal.ZERO,
                 outerInputMicrons = BigDecimal.ZERO,
                 thickness = BigDecimal.ZERO,
@@ -113,16 +113,15 @@ class CalculationViewModel(
         (viewState as MutableLiveData).value =
                 viewState.value?.copy(
                         selectedMaterial = material.id,
-                        thickness = material.thickness?.toBigDecimal() ?: BigDecimal.ZERO,
-                        weight = material.weight?.toBigDecimal() ?: BigDecimal.ZERO,
-                        density = material.density?.toBigDecimal() ?: BigDecimal.ZERO
+                        thickness = material.thickness.toBigDecimalOrDef(),
+                        weight = material.weight.toBigDecimalOrDef(),
+                        density = material.density.toBigDecimalOrDef()
                 )
 
         calculate()
     }
 
     fun setWidth(input: String) {
-        //TODO fix check for empty field
         if (input.isNotEmpty()) {
             (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimal())
             calculate()

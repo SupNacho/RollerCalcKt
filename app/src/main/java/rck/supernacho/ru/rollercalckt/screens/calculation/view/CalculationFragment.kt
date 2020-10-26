@@ -20,6 +20,7 @@ import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.MainActivity
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentCalculationBinding
+import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
 import rck.supernacho.ru.rollercalckt.model.entity.MaterialUi
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.calculation.view.selector.SelectMaterialDialog
@@ -121,10 +122,8 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
     private fun initInputViews() {
         val isLimited = viewModel.viewState.value?.preferencesViewState?.isLimitsEnabled ?: false
-        val innerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.inner?.toBigDecimal()
-                ?: BigDecimal(100)
-        val outerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.outer?.toBigDecimal()
-                ?: BigDecimal(300)
+        val innerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.inner.toBigDecimalOrDef(100.0)
+        val outerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.outer.toBigDecimalOrDef(300.0)
         ivet_inner.setOnChangeListener { input ->
             val inner = when {
                 isLimited && (input.toBigDecimalOrNull()
