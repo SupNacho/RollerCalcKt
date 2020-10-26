@@ -42,6 +42,9 @@
     <style name="Input.PrimaryDark" parent="Input">
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
+    <style name="Input.Disabled" parent="Input">
+        <item name="android:textColor">@color/balloonBg</item>
+    </style>
     <style name="Input.Dark" parent="Input">
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
@@ -109,6 +112,10 @@
         <item name="background">@android:color/transparent</item>
     </style>
     <style name="Input.PrimaryDark.Input">
+        <item name="android:textSize">20sp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+    <style name="Input.Disabled.Input">
         <item name="android:textSize">20sp</item>
         <item name="background">@android:color/transparent</item>
     </style>

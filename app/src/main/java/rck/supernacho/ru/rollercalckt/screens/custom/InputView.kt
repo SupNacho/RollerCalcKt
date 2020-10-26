@@ -17,6 +17,13 @@ import rck.supernacho.ru.rollercalckt.screens.showKeyboard
 
 class InputView : FrameLayout {
 
+    var inputText: String? = et_input?.text?.toString()
+    set(value) {
+        et_input?.setTextKeepState(value)
+        field = value
+    }
+    get() = et_input?.text?.toString()
+
     var text: String
         set(value) = et_input.setText(value)
         get() = et_input.text.toString()
@@ -81,6 +88,7 @@ class InputView : FrameLayout {
                 this.getResourceId(R.styleable.InputView_inputNextFocus)?.let { nextFocus = findViewById(it) }
                 this.getBoolean(R.styleable.InputView_inputCorrection, false).let { isCorrectionEnabled = it }
                 this.getString(R.styleable.InputView_inputHint)?.let { tv_hint.text = it }
+                this.getString(R.styleable.InputView_inputText)?.let { et_input.setTextKeepState(it) }
                 this.getInt(R.styleable.InputView_inputType)?.let { et_input.inputType = it }
                 this.getInt(R.styleable.InputView_inputIme)?.let { et_input.imeOptions = it }
             } finally {
@@ -154,5 +162,20 @@ class InputView : FrameLayout {
             override fun afterTextChanged(p0: Editable?) {}
 
         })
+    }
+
+    override fun isEnabled(): Boolean {
+        return et_input.isEnabled
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        val alpha = if (enabled)
+            1f
+        else
+            0.5f
+
+        et_input.isEnabled = enabled
+        btn_clear.isEnabled = enabled
+        this.alpha = alpha
     }
 }

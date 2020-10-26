@@ -17,6 +17,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import rck.supernacho.ru.rollercalckt.R
 import rck.supernacho.ru.rollercalckt.databinding.FragmentPreferenceBinding
+import rck.supernacho.ru.rollercalckt.domain.toBigDecimalOrDef
 import rck.supernacho.ru.rollercalckt.model.entity.MeasureSystem
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThickness
 import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toMetricThickness
@@ -59,10 +60,19 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun initTextViews(view: View) {
-        val watcher = object : TextWatcher {
+        val vsInnerUpdater = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                view.removeCallbacks(saveAction)
-                view.postDelayed(saveAction, 1250)
+                viewModel.viewState.limits.inner = p0.toString()
+                startSaveToPreferences(view)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        }
+        val vsOuterUpdater = object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.viewState.limits.outer = p0.toString()
+                startSaveToPreferences(view)
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -72,13 +82,18 @@ class PreferenceFragment : Fragment(), KodeinAware {
         val isLimitsEnabled = viewModel.preferences.getSettings().isLimitsEnabled
 
         et_innerMax.run {
-            addTextChangedListener(watcher)
+            autoCompleteView.addTextChangedListener(vsInnerUpdater)
             isEnabled = isLimitsEnabled
         }
         et_outerMax.run {
-            addTextChangedListener(watcher)
+            autoCompleteView.addTextChangedListener(vsOuterUpdater)
             isEnabled = isLimitsEnabled
         }
+    }
+
+    private fun startSaveToPreferences(view: View) {
+        view.removeCallbacks(saveAction)
+        view.postDelayed(saveAction, 1250)
     }
 
     private fun initButtons() {
@@ -108,7 +123,7 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun setFieldsData(isMetric: Boolean) {
-        val data = Pair(et_innerMax.text?.toString()?.toBigDecimal(), et_outerMax.text?.toString()?.toBigDecimal())
+        val data = Pair(et_innerMax.text.toBigDecimalOrDef(), et_outerMax.text.toBigDecimalOrDef())
         setConvertedData(convertData(isMetric, data))
     }
 
@@ -128,8 +143,8 @@ class PreferenceFragment : Fragment(), KodeinAware {
     }
 
     private fun setConvertedData(convertedData: Pair<BigDecimal?, BigDecimal?>) {
-        et_innerMax.setText(convertedData.first.toString())
-        et_outerMax.setText(convertedData.second.toString())
+        et_innerMax.inputText = convertedData.first.toString()
+        et_outerMax.inputText = convertedData.second.toString()
     }
 
     private fun setHints(isMetric: Boolean) {

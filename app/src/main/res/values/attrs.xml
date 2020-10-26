@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="calculationViewStyle"/>
+    <attr name="switchViewStyle"/>
     <attr name="inputViewStyle"/>
     <attr name="sortViewStyle"/>
 
     <declare-styleable name="CalculationView"/>
+    <declare-styleable name="SwitchView">
+        <attr name="switchChecked" format="boolean" />
+        <attr name="switchText" format="string|reference"/>
+    </declare-styleable>
     <declare-styleable name="SortView">
         <attr name="hint" format="string|reference"/>
     </declare-styleable>
     <declare-styleable name="InputView">
+        <attr name="inputText" format="string|reference"/>
         <attr name="inputIme">
             <!-- There are no special semantics associated with this editor. -->
             <flag name="normal" value="0x00000000" />
