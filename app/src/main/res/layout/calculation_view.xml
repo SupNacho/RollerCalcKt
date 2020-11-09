@@ -45,13 +45,44 @@
         app:layout_constraintEnd_toEndOf="@id/_v_lengthEnd"
         app:layout_constraintTop_toBottomOf="@id/_v_lengthStarter"/>
     <View
-        android:id="@+id/_v_weightStarter"
+        android:id="@+id/_v_yardStarter"
         android:layout_width="16dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/spacer_dark_small"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/_v_delimiter"
+        app:layout_constraintBottom_toBottomOf="@id/tv_yardCalculation"
+        tools:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_yardCalculation"
+        style="@style/Text.Dark.CalculationWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/_v_yardStarter"
+        app:layout_constraintTop_toTopOf="@id/_v_yardStarter"
+        tools:text="WEIGHT 89.4kg"
+        tools:visibility="gone"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/spacer_dark_small"
+        app:layout_constraintStart_toEndOf="@id/tv_yardCalculation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_yardCalculation"
+        app:layout_constraintBottom_toBottomOf="@id/tv_yardCalculation"/>
+    <View
+        android:id="@+id/_v_weightStarter"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spacer_dark_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/_v_yardStarter"
         app:layout_constraintBottom_toBottomOf="@id/tv_weightCalculation"/>
 
     <TextView

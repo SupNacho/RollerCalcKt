@@ -46,6 +46,7 @@ class CalculationViewModel(
                 resultWeight = BigDecimal.ZERO,
                 weight = BigDecimal.ZERO,
                 width = BigDecimal.ZERO,
+                yard = BigDecimal.ZERO,
                 density = BigDecimal.ZERO,
                 preferencesViewState = prefs,
                 selectedMaterial = prefs.lastInput.lastSelectedMaterial
@@ -90,21 +91,27 @@ class CalculationViewModel(
         val length = calculator.getLength(outer, inner, thickness)
         val weight = calculator.getWeight(length, width, thickness, vs.weight, vs.density)
         val preparedResult = if (vs.measureSystem == MeasureSystem.IMPERIAL) {
-            Pair(
-                    length.toImperialLength().setScale(5, RoundingMode.HALF_UP),
-                    weight.toImperialWeight().setScale(2, RoundingMode.HALF_UP)
+            val impLength = length.toImperialLength().setScale(5, RoundingMode.HALF_UP)
+            Triple(
+                    impLength,
+                    weight.toImperialWeight().setScale(2, RoundingMode.HALF_UP),
+                    impLength.multiply(BigDecimal(0.333346939)).setScale(5, RoundingMode.HALF_UP)
             )
         } else
-            Pair(length, weight)
+            Triple(
+                    length,
+                    weight,
+                    length.multiply(BigDecimal(1.09363265)).setScale(5, RoundingMode.HALF_UP)
+            )
 
         updatedPrefs?.let {
             preferences.saveSettings(it)
             (viewState as MutableLiveData).value =
                     vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second,
-                            preferencesViewState = it)
+                            yard = preparedResult.third, preferencesViewState = it)
         } ?: let {
             (viewState as MutableLiveData).value =
-                    vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second)
+                    vs.copy(resultLength = preparedResult.first, resultWeight = preparedResult.second, yard = preparedResult.third)
         }
 
     }
@@ -123,7 +130,7 @@ class CalculationViewModel(
 
     fun setWidth(input: String) {
         if (input.isNotEmpty()) {
-            (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimal())
+            (viewState as MutableLiveData).value = viewState.value?.copy(width = input.toBigDecimalOrDef())
             calculate()
         }
     }
@@ -132,9 +139,9 @@ class CalculationViewModel(
         if (input.isNotEmpty()) {
             (viewState as MutableLiveData).value =
                     if (isInner)
-                        viewState.value?.copy(innerInput = input.toBigDecimal())
+                        viewState.value?.copy(innerInput = input.toBigDecimalOrDef())
                     else
-                        viewState.value?.copy(outerInput = input.toBigDecimal())
+                        viewState.value?.copy(outerInput = input.toBigDecimalOrDef())
             calculate()
         }
     }

@@ -56,10 +56,13 @@ class CalculationView : FrameLayout {
         }
     }
 
-    fun setData(length: String, weight: String, isWeightEnabled: Boolean) {
+    fun setData(length: String, weight: String, yard: String, isYardEnabled: Boolean, isWeightEnabled: Boolean) {
         tv_lengthCalculation.text = length
         tv_weightCalculation.text = weight
+        tv_yardCalculation.text = yard
+        tv_yardCalculation.setVisibility(isYardEnabled)
+        _v_yardStarter.setVisibility(isYardEnabled)
         tv_weightCalculation.setVisibility(isWeightEnabled)
-        _v_delimiter.setVisibility(isWeightEnabled)
+        _v_delimiter.setVisibility(isWeightEnabled || isYardEnabled)
     }
 }

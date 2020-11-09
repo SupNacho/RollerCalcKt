@@ -159,7 +159,13 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
             }
             ivet_inner.hint = getString(R.string.calc_inner_d_text_view, unitString)
             ivet_outer.hint = getString(R.string.calc_outer_d_text_view, unitString)
-            cv_result.setData(getString(R.string.calc_output, resultLength, lUnitString), getString(R.string.calc_output_weight, resultWeight, wUnitString), preferencesViewState.isWeightCalculate)
+            cv_result.setData(
+                    length = getString(R.string.calc_output, resultLength, lUnitString),
+                    weight = getString(R.string.calc_output_weight, resultWeight, wUnitString),
+                    yard = getString(R.string.calc_output_yard, yard),
+                    isYardEnabled = true,
+                    isWeightEnabled = preferencesViewState.isWeightCalculate
+            )
 
             if (isInitScreen)
                 preferencesViewState.run {

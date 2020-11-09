@@ -13,6 +13,7 @@ data class CalcViewState (
         val thickness: BigDecimal,
         val weight: BigDecimal,
         val width: BigDecimal,
+        val yard: BigDecimal,
         val density: BigDecimal,
         val resultLength: BigDecimal,
         val resultWeight: BigDecimal,

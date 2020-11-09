@@ -42,6 +42,7 @@
     <string name="calc_measure_imperial">дюйм</string>
     <string name="calc_measure_metric">мм</string>
     <string name="calc_output_weight">Вес %1$s%2$s</string>
+    <string name="calc_output_yard">В ярдах %s</string>
     <string name="calc_w_measure_imperial">фунт</string>
     <string name="calc_w_measure_metric">кг</string>
     <string name="calc_l_measure_imperial">фт</string>
