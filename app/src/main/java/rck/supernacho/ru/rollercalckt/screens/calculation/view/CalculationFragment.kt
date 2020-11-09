@@ -27,7 +27,6 @@ import rck.supernacho.ru.rollercalckt.screens.preferences.domain.toImperialThick
 import rck.supernacho.ru.rollercalckt.screens.setBalloonSettings
 import rck.supernacho.ru.rollercalckt.screens.utils.BalloonType
 import rck.supernacho.ru.rollercalckt.screens.utils.RCViewModelFactory
-import java.math.BigDecimal
 
 class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMaterialSelected {
 
@@ -119,9 +118,8 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
         val outerLimit = viewModel.viewState.value?.preferencesViewState?.limits?.outer.toBigDecimalOrDef(300.0)
         ivet_inner.setOnChangeListener { input ->
             val inner = when {
-                isLimited && (input.toBigDecimalOrNull()
-                        ?: BigDecimal.ZERO) > innerLimit -> innerLimit.toPlainString()
-                else -> input
+                isLimited && (input.toBigDecimalOrDef()) > innerLimit -> innerLimit.toPlainString()
+                else -> input.toBigDecimalOrDef().toPlainString()
             }
             viewModel.setInput(inner, true)
             inner
@@ -130,9 +128,8 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
 
         ivet_outer.setOnChangeListener{ input ->
             val outer = when {
-                isLimited && (input.toBigDecimalOrNull()
-                        ?: BigDecimal.ZERO) > outerLimit -> outerLimit.toPlainString()
-                else -> input
+                isLimited && (input.toBigDecimalOrDef()) > outerLimit -> outerLimit.toPlainString()
+                else -> input.toBigDecimalOrDef().toPlainString()
             }
             viewModel.setInput(outer, false)
             outer
