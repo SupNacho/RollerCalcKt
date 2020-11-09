@@ -119,7 +119,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
         ivet_inner.setOnChangeListener { input ->
             val inner = when {
                 isLimited && (input.toBigDecimalOrDef()) > innerLimit -> innerLimit.toPlainString()
-                else -> input.toBigDecimalOrDef().toPlainString()
+                else -> input
             }
             viewModel.setInput(inner, true)
             inner
@@ -129,7 +129,7 @@ class CalculationFragment : Fragment(), KodeinAware, SelectMaterialDialog.OnMate
         ivet_outer.setOnChangeListener{ input ->
             val outer = when {
                 isLimited && (input.toBigDecimalOrDef()) > outerLimit -> outerLimit.toPlainString()
-                else -> input.toBigDecimalOrDef().toPlainString()
+                else -> input
             }
             viewModel.setInput(outer, false)
             outer

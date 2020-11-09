@@ -7,10 +7,11 @@ fun BigDecimal.isZero() =
 
 fun String?.toBigDecimalOrDef(default: Double = 0.0): BigDecimal {
     val digitString = this?.onlyDigit()
-    return if (digitString.isNullOrEmpty())
-        BigDecimal(default)
-    else
-        digitString.toBigDecimal()
+    return when{
+        digitString.isNullOrEmpty() -> BigDecimal(default)
+        digitString == "." -> BigDecimal("0.")
+        else -> digitString.toBigDecimal()
+    }
 }
 
 fun String.onlyDigit() = this.replace("""[^\d\\.]""".toRegex(), "")
